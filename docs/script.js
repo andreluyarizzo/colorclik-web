@@ -15,7 +15,7 @@ document.querySelector('#brief-form').addEventListener('submit',event=>{event.pr
 
 
 // Shared hover treatment: expanding dot, sliding label, and incoming arrow.
-document.querySelectorAll('.pill').forEach(control=>{
+document.querySelectorAll('.pill:not(#quote)').forEach(control=>{
  const label=control.textContent.replace(/[→↗↓]/g,'').trim();
  control.classList.add('interactive-hover');control.setAttribute('aria-label',label);
  const dot=document.createElement('span');dot.className='hover-dot';dot.setAttribute('aria-hidden','true');

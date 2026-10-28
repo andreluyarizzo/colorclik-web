@@ -538,3 +538,24 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 .reviews .review-play:before{width:8px;height:10px;border-width:2px}
 @media(max-width:700px){.reviews .review-card{padding:26px 24px}.reviews .review-card h3{font-size:29px}.reviews .review-story{font-size:17px}.reviews .reviews-controls{margin-top:8px}}
 @media(prefers-reduced-motion:reduce){.projects .project>span.project-visit{transition:none}}
+
+/* A visible call to action and an original character spanning both sections. */
+.contact.section{display:grid;grid-template-columns:1.08fr 1fr;align-items:center;min-height:440px;padding:76px 7%;overflow:visible;isolation:isolate;z-index:2;background:#111518}
+.contact.section>div{grid-column:1;position:relative;z-index:2;width:100%;max-width:620px}
+.contact.section h2{max-width:620px}
+.contact.section>div>p:not(.eyebrow){color:#d2d7dc;line-height:1.5}
+.contact.section>#contact-character{position:absolute;inset:auto 1.5% 0 auto;display:block;width:min(53%,800px);height:auto;max-height:none;object-fit:contain;object-position:center bottom;mask-image:none;transform:none;z-index:1;pointer-events:none;filter:drop-shadow(0 16px 18px #00000020)}
+.contact #quote{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:54px;max-width:100%;padding:17px 25px;border:1px solid #aa88ff;border-radius:999px;background:#7642ee;color:#fff;font-size:13px;font-weight:700;line-height:1.35;white-space:normal;opacity:1;box-shadow:0 8px 28px #7542ee50;transition:background .2s,box-shadow .2s,translate .2s}
+.contact #quote>span{font-size:inherit;line-height:inherit}
+.contact #quote>svg{display:block;width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.contact #quote:hover{background:#8855fc;box-shadow:0 12px 34px #7542ee70;translate:0 -2px}
+.contact #quote:focus-visible{outline:3px solid #d5c2ff;outline-offset:5px}
+@media(min-width:701px) and (max-width:1100px){.contact.section{min-height:380px;padding:60px 5%;grid-template-columns:1.1fr 1fr}.contact.section h2{font-size:clamp(38px,4.6vw,50px)}.contact.section>#contact-character{width:53%;right:0}}
+@media(max-width:700px){.contact.section{display:flex;flex-direction:column;align-items:stretch;min-height:0;padding:200px 24px 48px}.contact.section>div{max-width:none}.contact.section>#contact-character{width:min(90%,430px);height:auto;right:50%;bottom:auto;top:-65px;transform:translateX(50%)}.contact.section h2{font-size:clamp(36px,9vw,44px);max-width:100%}.contact #quote{width:100%;margin-top:8px;padding:17px 20px}}
+@media(prefers-reduced-motion:reduce){.contact #quote{transition:none}}
+.contact.section>#contact-character{inset:-65px 0 auto auto;width:min(65%,1040px);height:auto}
+.contact.section>div{max-width:500px}
+@media(min-width:701px) and (max-width:900px){.contact.section{display:flex;flex-direction:column;align-items:stretch;padding:260px 40px 55px;min-height:0}.contact.section>div{max-width:620px}.contact.section>#contact-character{width:min(88%,600px);right:50%;top:-65px;transform:translateX(50%)}.contact.section h2{max-width:100%;font-size:48px}}
+@media(max-width:700px){.contact.section>#contact-character{width:min(90%,430px);right:50%;top:-65px;transform:translateX(50%)}.contact.section>div{max-width:none}}
+@media(max-width:900px){.reviews.section{padding-bottom:65px}}
+@media(max-width:700px){.contact.section{padding-top:clamp(150px,43vw,185px)}}
