@@ -490,3 +490,27 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 .reviews .review-play:before{content:'';display:block;width:10px;height:12px;margin:auto;border-left:3px solid currentColor;border-right:3px solid currentColor}
 .reviews .review-play.is-paused:before{width:0;height:0;border:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid currentColor}
 @media(max-width:700px){.reviews-carousel{max-width:none;align-self:stretch}}
+
+/* One original scene, one decoder: no layered faces, rotations, or cover crop. */
+.hero-film#hero-gaze{background:radial-gradient(ellipse at 50% 65%,#ffb40a 0%,#f6a000 58%,#e48e00 100%);transform:none}
+.hero-film#hero-gaze .gaze-stage{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;height:100%;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%);mask-composite:intersect;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%);-webkit-mask-composite:source-in}
+.hero-film#hero-gaze .gaze-stage>img,.hero-film#hero-gaze .gaze-stage>video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center;visibility:visible;transition:none;transform:none}
+.hero-film#hero-gaze .gaze-stage>.gaze-poster{opacity:1}
+.hero-film#hero-gaze .gaze-stage>.gaze-source{opacity:0}
+.hero-film#hero-gaze .gaze-stage.has-frame>.gaze-source{opacity:1}
+.hero-film#hero-gaze .gaze-stage.has-frame>.gaze-poster{opacity:0}
+/* Compact split layout, with the full presenter prominent on portrait tablets. */
+.reviews.section{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);padding:0 4% 0 0;align-items:center;min-height:0}
+.reviews .reviews-carousel{padding:26px 0;max-width:580px}
+.reviews .reviews-film{align-self:end}
+.reviews-media-controls{gap:8px;bottom:16px;left:20px}
+.reviews-media-controls button{display:grid;place-items:center;width:46px;height:46px;min-height:46px;padding:0;border:1px solid #ffffff8a;background:#ffffffd9;color:#21411b;box-shadow:0 4px 18px #17340d24;backdrop-filter:blur(18px);transition:background .2s,transform .2s}
+.reviews-media-controls button:hover{background:white;transform:translateY(-2px)}
+.reviews-media-controls button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media(min-width:701px) and (max-width:1100px) and (orientation:portrait){.reviews.section{grid-template-columns:1fr;padding:0;gap:0}.reviews .reviews-carousel{width:min(620px,calc(100% - 64px));max-width:none;justify-self:center;padding:30px 0 8px;order:0}.reviews .reviews-film{width:100%;max-width:1000px;justify-self:center;order:1}.reviews-video{mask-image:linear-gradient(180deg,transparent,#000 10%);-webkit-mask-image:linear-gradient(180deg,transparent,#000 10%)}.reviews-media-controls{left:28px;bottom:24px}}
+@media(max-width:700px){.reviews.section{padding:0}.reviews .reviews-carousel{padding:24px 22px 10px;max-width:none}.reviews-media-controls{left:16px;bottom:12px}}
+@media(prefers-reduced-motion:reduce){.reviews-media-controls button{transition:none}}
+@media(max-width:700px){.hero-film#hero-gaze .gaze-stage{bottom:130px;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 90%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%,#000 90%,transparent)}}
+.hero-film#hero-gaze{container-type:size}
+.hero-film#hero-gaze>img{position:absolute;inset:auto;left:50%;bottom:0;width:min(177.777778cqh,calc((100cqw - 24px)*1.969231));height:auto;transform:translateX(-50%);object-fit:contain;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+@media(max-width:700px){.hero-film#hero-gaze>img{bottom:130px;mask-image:linear-gradient(180deg,transparent,#000 9%,#000 90%,transparent)}}
