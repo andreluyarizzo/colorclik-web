@@ -15,6 +15,8 @@ Abre los archivos en GitHub y usa el lápiz para editar y guardar los cambios.
 - `docs/ui.js`: scroll, fondos de los servicios y audio.
 - `docs/experience.js`: precarga, proyectos y reseñas.
 - `src/gaze.jsx`: interacción del personaje del hero.
+- `src/quote.tsx`: formulario de cotización con componentes shadcn/ui.
+- `src/styles/ui.css`: colores y estilos de esos componentes.
 
 La página puede verse y estos archivos pueden editarse sin encender el computador original.
 Para pedir cambios a un agente con el PC apagado, usa un entorno de trabajo en la nube conectado a este repositorio; el chat local original sigue necesitando su computador.
@@ -29,7 +31,9 @@ npm run build
 npm start
 ```
 
-`npm run build` reconstruye `docs/gaze.js` después de editar `src/gaze.jsx`.
-Publica también ese archivo generado. Los demás archivos de `docs/` se editan directamente.
+`npm run build` compila `src/main.tsx` (personaje y formulario React) a `docs/app.js` y genera `docs/ui-components.css` desde Tailwind.
+Publica ambos archivos generados cuando cambies `src/`. Los demás archivos de `docs/` se editan directamente.
+
+La base shadcn/ui y sus instrucciones de uso están documentadas en [UI.md](UI.md).
 
 Los testimonios son ejemplos ilustrativos, no reseñas reales. El formulario guarda un resumen local y no envía mensajes.

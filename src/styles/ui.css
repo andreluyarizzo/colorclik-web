@@ -1,0 +1,49 @@
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+@import "tw-animate-css";
+@source "../components";
+@source "../quote.tsx";
+@source not "../../docs";
+
+@theme inline {
+  --color-background: #fff;
+  --color-foreground: #17171b;
+  --color-primary: #6946ff;
+  --color-primary-foreground: #fff;
+  --color-secondary: #f1edff;
+  --color-secondary-foreground: #37256b;
+  --color-muted: #f5f4f8;
+  --color-muted-foreground: #62616f;
+  --color-accent: #f1edff;
+  --color-accent-foreground: #37256b;
+  --color-popover: #fff;
+  --color-popover-foreground: #17171b;
+  --color-border: #e4e2eb;
+  --color-input: #d9d6e4;
+  --color-ring: #6946ff;
+  --color-destructive: #bc2541;
+  --radius-sm: .5rem;
+  --radius-md: .75rem;
+  --radius-lg: 1rem;
+}
+
+/* Component styles take precedence over the legacy page's element rules. */
+.quote-ui { font-family: inherit; color: #17171b; background: #fff; line-height: 1.5; }
+.quote-ui [data-slot="dialog-title"] { font-size: clamp(25px, 6vw, 32px); line-height: 1.15; letter-spacing: -1px; margin: 0; padding-right: 15px; }
+.quote-ui .quote-eyebrow { margin: 0 0 4px; color: #6946ff; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; }
+.quote-ui [data-slot="dialog-description"] { font-size: 14px; color: #62616f; line-height: 1.6; }
+.quote-ui label { display: block; font-size: 14px; font-weight: 600; margin: 0; }
+.quote-ui [data-slot="select-trigger"] { width: 100%; min-height: 48px; border: 1px solid #d9d6e4; background: #fff; font-size: 16px; text-align: left; }
+.quote-ui [data-slot="button"] { border: 0; font-size: 14px; font-weight: 700; }
+.quote-ui textarea { margin: 0; font-size: 16px; min-height: 144px; padding: 12px; resize: vertical; }
+.quote-ui .quote-help { font-size: 12px; color: #62616f; line-height: 1.5; }
+.quote-ui .quote-error { font-size: 12px; color: #bc2541; }
+.quote-ui .quote-status { min-height: 18px; margin-top: -6px; font-size: 12px; color: #25744c; text-align: center; }
+.quote-ui [data-slot="dialog-close"] { display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; }
+.quote-ui [data-slot="dialog-close"]:hover { background: #f1edff; }
+.quote-select { font-family: inherit; background: #fff; color: #17171b; }
+.quote-select [data-slot="select-item"] { min-height: 44px; font-size: 14px; }
+@media (prefers-reduced-motion: reduce) {
+  [data-slot="dialog-overlay"], .quote-ui, .quote-select { animation: none !important; transition: none !important; }
+}
