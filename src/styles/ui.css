@@ -59,3 +59,22 @@
 .quote-ui .quote-advice{margin-top:10px}
 @media(min-width:851px){.quote-ui .quote-character{height:88%;width:106%;right:-22%}.quote-art-copy{width:65%}}
 @media(max-width:620px){.quote-art-copy h2 br::after{content:' '}.quote-art-copy h2{max-width:200px}}
+/* The custom mascot has a landscape source: give it its own natural framing. */
+.quote-ui .quote-art-custom .quote-character{width:175%;height:auto;max-width:none;right:-45%;bottom:0;object-fit:contain}
+.quote-art-custom .quote-art-copy{width:58%}
+.quote-art-custom .quote-art-copy h2{font-size:34px}
+.quote-service-picker{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 16px}
+.quote-ui .quote-service-tile{position:relative;display:grid;grid-template-columns:70px 1fr 18px;align-items:center;gap:12px;min-width:0;min-height:112px;padding:12px;border:1px solid #dfe2e7;border-radius:18px;background:#fafbfc;color:#17191e;text-align:left;transition:background .2s,border-color .2s,transform .2s}
+.quote-service-tile:last-child{grid-column:1/-1}.quote-service-tile strong{font-size:13px;line-height:1.3}.quote-service-portrait{display:block;position:relative;width:70px;height:84px;border-radius:12px;overflow:hidden;background:var(--tile-accent)}.quote-service-portrait img{width:100%;height:100%;object-fit:contain;object-position:center bottom}.quote-service-tile:last-child .quote-service-portrait img{width:150%;max-width:none;margin-left:-25%;object-fit:cover}
+.quote-ui .quote-service-tile:is(:hover,.is-selected){background:color-mix(in srgb,var(--tile-accent) 12%,white);border-color:var(--tile-accent)}.quote-ui .quote-service-tile:hover{transform:translateY(-2px)}.quote-progress[hidden]{display:none}
+@media(min-width:621px) and (max-width:850px){.quote-ui .quote-art-custom .quote-character{width:225%;right:-70%}.quote-art-custom .quote-art-copy{width:100%}.quote-art-custom .quote-art-copy h2{font-size:29px}.quote-service-picker{grid-template-columns:1fr}.quote-ui .quote-service-tile{min-height:92px}.quote-service-portrait{height:65px}}
+@media(max-width:620px){.quote-ui .quote-art-custom .quote-character{width:70%;height:155px;right:-12%;object-fit:contain}.quote-art-custom .quote-art-copy{width:53%}.quote-art-custom .quote-art-copy h2{font-size:23px}.quote-service-picker{gap:8px}.quote-ui .quote-service-tile{display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:12px;min-height:156px}.quote-service-tile>svg{position:absolute;right:12px;top:12px}.quote-service-tile:last-child{display:grid;grid-template-columns:70px 1fr;min-height:100px}.quote-service-tile strong{font-size:12px}.quote-service-portrait{height:75px}}
+@media(prefers-reduced-motion:reduce){.quote-ui .quote-service-tile{transition:none}.quote-ui .quote-service-tile:hover{transform:none}}
+.quote-ui .quote-art-custom{color:#fff}
+/* Constrain the grid track itself so long forms scroll inside the viewport. */
+.quote-ui.quote-wizard{height:min(880px,calc(100dvh - 32px));max-height:calc(100dvh - 32px);grid-template-rows:minmax(0,1fr)}
+.quote-ui .quote-art{min-height:0}
+.quote-ui .quote-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#a3a7b0 #f2f3f5;-webkit-overflow-scrolling:touch;scroll-padding-block:20px}
+.quote-ui .quote-body::-webkit-scrollbar{width:7px}.quote-ui .quote-body::-webkit-scrollbar-thumb{background:#a3a7b0;border-radius:8px}.quote-ui .quote-body::-webkit-scrollbar-track{background:#f2f3f5}
+@media(max-width:620px){.quote-ui.quote-wizard{height:calc(100dvh - 16px);max-height:calc(100dvh - 16px);overflow:hidden}.quote-ui .quote-art{min-height:155px;height:155px;flex:0 0 155px}.quote-ui .quote-body{flex:1 1 0;min-height:0;overflow-y:auto}}
+@media(max-height:550px) and (max-width:620px){.quote-ui .quote-art{min-height:100px;height:100px;flex-basis:100px}.quote-ui .quote-character,.quote-ui .quote-art-custom .quote-character{height:100px}.quote-art-copy{margin-top:6px}.quote-art-copy h2,.quote-art-custom .quote-art-copy h2{font-size:20px}.quote-logo{font-size:19px}}
