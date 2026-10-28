@@ -73,3 +73,16 @@
 })();
 
 
+
+// The dock follows native swiping, scrolling, and keyboard navigation.
+(()=>{
+ const gallery=document.querySelector('.project-grid'),projects=[...gallery.querySelectorAll('.project')],buttons=[...document.querySelectorAll('[data-project-index]')];
+ const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+ let frame;
+ function select(index){gallery.scrollTo({left:projects[index].offsetLeft-projects[0].offsetLeft,behavior:reduced.matches?'instant':'smooth'})}
+ function reflect(){frame=null;let index=0,distance=Infinity;projects.forEach((project,i)=>{const delta=Math.abs(project.getBoundingClientRect().left-gallery.getBoundingClientRect().left);if(delta<distance){index=i;distance=delta}});buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)))}
+ buttons.forEach((button,index)=>button.addEventListener('click',()=>select(index)));
+ gallery.addEventListener('scroll',()=>{if(!frame)frame=requestAnimationFrame(reflect)},{passive:true});
+ gallery.addEventListener('keydown',event=>{if(event.target!==gallery||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const current=Math.max(0,buttons.findIndex(button=>button.getAttribute('aria-pressed')==='true'));select(event.key==='Home'?0:event.key==='End'?projects.length-1:Math.max(0,Math.min(projects.length-1,current+(event.key==='ArrowRight'?1:-1))))});
+ reflect();
+})();
