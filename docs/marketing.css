@@ -99,9 +99,9 @@
 .marketing-page .contact #quote{background:#ffd000;color:#171a15;border-color:#ffe16a;box-shadow:0 8px 25px #ffbc0026}
 .marketing-page .contact #quote:hover{background:#ffe052;box-shadow:0 12px 30px #ffbc0033}
 .marketing-page .contact #quote:focus-visible{outline-color:#ffe16a}
-.marketing-footer{display:flex;gap:25px;align-items:center;flex-wrap:wrap;background:#0c1013;color:#a7acb4;padding:25px 5%;border-top:1px solid #ffffff14;font-size:11px;position:relative;z-index:3}
-.marketing-footer>a img{width:100px;height:auto;display:block}
-.marketing-footer>p{margin-right:auto}.marketing-footer nav{display:flex;gap:25px;flex-wrap:wrap}.marketing-footer a:hover{color:#fff}
+
+
+
 .marketing-page [data-reveal]{scroll-margin-top:24px}
 @media(min-width:701px) and (max-width:1100px){
  .marketing-page .hero-title h1{font-size:5.4vw;letter-spacing:-2px}.marketing-page .hero-title>p.marketing-hero-description{font-size:12px;max-width:240px}.marketing-page .hero-intro{width:30%}.marketing-page .hero-intro h2{font-size:3.5vw}.marketing-page .hero-intro>p{font-size:12px}.marketing-page .hero-intro .pill{min-width:150px}
@@ -121,7 +121,7 @@
  .marketing-plans{grid-template-columns:1fr;gap:20px}.marketing-plan{padding:29px 25px 25px}.plan-price{font-size:48px}.plan-heading h3{font-size:25px}.plan-heading{margin-top:14px}.marketing-plan li{font-size:14px}.marketing-page .plan-select{font-size:13px;min-height:50px}.marketing-price-note{font-size:11px;padding:0}
  .marketing-process{padding:31px 24px}.marketing-process ol{grid-template-columns:1fr;gap:29px}.marketing-process li{gap:20px}.process-number{font-size:60px;min-width:75px}.marketing-process h3{font-size:21px}.marketing-process li p{font-size:13px;max-width:none}.process-arrow{display:none}
  .marketing-page .marketing-faq{display:block;padding-bottom:90px}.marketing-faq h2{font-size:43px;margin-bottom:28px}.marketing-faq h2 br{display:none}.marketing-faq h2 .marketing-underline{margin-left:8px}.marketing-faq summary{font-size:13px;padding:18px}.marketing-faq details>p{font-size:13px;padding:0 18px 20px}
- .marketing-footer{padding:26px 24px;gap:15px}.marketing-footer>p{font-size:10px}.marketing-footer nav{width:100%;gap:22px;font-size:11px}
+
 }
 @media(prefers-reduced-motion:reduce){.marketing-marquee-track{animation:none}.marketing-underline:after{scale:1 1;transition:none}.marketing-offer,.marketing-plan{transition:none}}
 

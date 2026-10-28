@@ -567,3 +567,9 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 .service .service-page-link{position:absolute;left:20px;bottom:18px;z-index:3;display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:11px 17px;border:1px solid #ffffff66;border-radius:999px;background:#111518;color:#fff;font-size:12px;font-weight:600}
 .service .service-page-link:hover{background:#35312c}
 .service .service-page-link svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* One footer shared by the homepage and every service page. */
+.site-footer{display:flex;gap:25px;align-items:center;flex-wrap:wrap;background:#0c1013;color:#a7acb4;padding:25px 5%;border-top:1px solid #ffffff14;font-size:11px;position:relative;z-index:3}
+.site-footer>a img{width:100px;height:auto;display:block}
+.site-footer>p{margin-right:auto}.site-footer nav{display:flex;gap:25px;flex-wrap:wrap}.site-footer a:hover{color:#fff}
+@media(max-width:700px){.site-footer{padding:26px 24px;gap:15px}.site-footer>p{font-size:10px}.site-footer nav{width:100%;gap:22px;font-size:11px}}

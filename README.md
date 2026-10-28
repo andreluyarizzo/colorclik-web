@@ -59,3 +59,9 @@ Marketing Digital es mensual; Desarrollo Web es pago único. El resumen descarga
 incluye esa selección y las exclusiones correspondientes. No hay cobros ni envío
 de mensajes. Los botones también funcionan con el formulario nativo si falla React.
 No se instalan dependencias adicionales.
+
+### Footer compartido
+
+El footer de las tres paginas se edita en `src/templates/footer.html`.
+`npm run build` lo incorpora en los HTML estaticos; el estilo comun esta en
+`docs/styles.css` (`.site-footer`). No depende de JavaScript en el navegador.
