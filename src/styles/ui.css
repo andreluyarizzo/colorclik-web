@@ -28,75 +28,34 @@
   --radius-lg: 1rem;
 }
 
-/* Component styles take precedence over the legacy page's element rules. */
-.quote-ui { font-family: inherit; color: #17171b; background: #fff; line-height: 1.5; }
-.quote-ui [data-slot="dialog-title"] { font-size: clamp(25px, 6vw, 32px); line-height: 1.15; letter-spacing: -1px; margin: 0; padding-right: 15px; }
-.quote-ui .quote-eyebrow { margin: 0 0 4px; color: #6946ff; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; }
-.quote-ui [data-slot="dialog-description"] { font-size: 14px; color: #62616f; line-height: 1.6; }
-.quote-ui label { display: block; font-size: 14px; font-weight: 600; margin: 0; }
-.quote-ui [data-slot="select-trigger"] { width: 100%; min-height: 48px; border: 1px solid #d9d6e4; background: #fff; font-size: 16px; text-align: left; }
-.quote-ui [data-slot="button"] { border: 0; font-size: 14px; font-weight: 700; }
-.quote-ui textarea { margin: 0; font-size: 16px; min-height: 144px; padding: 12px; resize: vertical; }
-.quote-ui .quote-help { font-size: 12px; color: #62616f; line-height: 1.5; }
-.quote-ui .quote-error { font-size: 12px; color: #bc2541; }
-.quote-ui .quote-status { min-height: 18px; margin-top: -6px; font-size: 12px; color: #25744c; text-align: center; }
-.quote-ui [data-slot="dialog-close"] { display: grid; place-items: center; width: 44px; height: 44px; border: 0; background: transparent; }
-.quote-ui [data-slot="dialog-close"]:hover { background: #f1edff; }
-.quote-select { font-family: inherit; background: #fff; color: #17171b; }
-.quote-select [data-slot="select-item"] { min-height: 44px; font-size: 14px; }
-@media (prefers-reduced-motion: reduce) {
-  [data-slot="dialog-overlay"], .quote-ui, .quote-select { animation: none !important; transition: none !important; }
-}
-
-.quote-ui .quote-plan{padding:12px 14px;border:1px solid #e7dcff;border-radius:12px;background:#f5f0ff;font-size:13px;line-height:1.5;color:#5736a4}
-
-
-/* ColorClik interactive quote wizard */
-.quote-wizard { --quote-accent:#ff9e24; }
-.quote-wizard .quote-eyebrow { color:var(--quote-accent); font-weight:800; letter-spacing:.12em; }
-.quote-progress { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin:5px 0 10px; }
-.quote-progress span { height:6px; border-radius:99px; background:#e8e8e8; transition:background .25s ease; }
-.quote-progress .active { background:var(--quote-accent); }
-.quote-field { display:block; width:100%; min-height:46px; padding:12px 14px; border:1px solid #dedede; border-radius:14px; background:#fff; color:#181818; font:inherit; }
-.quote-field:focus-visible,.quote-option:focus-visible { outline:3px solid var(--quote-accent); outline-offset:2px; }
-.quote-textarea { min-height:110px; resize:vertical; }
-.quote-prompt { font-size:1.05rem; font-weight:750; }
-.quote-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
-.quote-budgets { display:grid; gap:8px; }
-.quote-option { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:60px; padding:14px; border:2px solid #ededed; border-radius:16px; background:#fafafa; color:#222; text-align:left; font-weight:650; transition:transform .2s ease,border-color .2s ease,background .2s ease; }
-.quote-option:hover { transform:translateY(-2px); border-color:var(--quote-accent); }
-.quote-option.selected { border-color:var(--quote-accent); background:color-mix(in srgb,var(--quote-accent) 15%,white); }
-.quote-selected-plan { padding:12px 15px; border-radius:15px; background:color-mix(in srgb,var(--quote-accent) 15%,white); font-weight:750; }
-.quote-selected-plan small { display:block; font-weight:400; margin-top:4px; }
-.quote-navigation { display:flex; justify-content:space-between; gap:10px; }
-.quote-next { margin-left:auto; background:var(--quote-accent); color:#171717; border-radius:99px; }
-.quote-send { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.quote-send button { min-height:52px; border-radius:14px; white-space:normal; font-size:.83rem; }
-.quote-send-email { background:var(--quote-accent); color:#151515; }
-.quote-send-whatsapp { background:#1eaf66; color:white; }
-.quote-help { color:#666; font-size:.79rem; }
-.quote-notice { padding:10px; border-radius:10px; background:#f4f4f4; font-size:.85rem; }
-@media(max-width:440px){.quote-options,.quote-send {grid-template-columns:1fr;} .quote-option{min-height:50px;}}
-@media(prefers-reduced-motion:reduce){.quote-option,.quote-progress span{transition:none;} .quote-option:hover{transform:none;}}
-
-
-/* Personajes originales y color de cada servicio en el cotizador */
-.quote-wizard { overflow-x:hidden; }
-.quote-hero { position:relative; min-height:170px; margin:-24px -24px 16px; padding:26px 24px; overflow:hidden; isolation:isolate; border-radius:22px 22px 24px 24px; animation:quote-hero-in .35s ease both; }
-.quote-hero::after { content:""; position:absolute; inset:auto -10% -70% 25%; height:130%; background:radial-gradient(ellipse,rgba(255,255,255,.45),transparent 68%); z-index:-1; }
-.quote-hero-copy { position:relative; z-index:2; display:flex; flex-direction:column; align-items:flex-start; gap:8px; width:58%; color:#161616; }
-.quote-hero-kicker { font-size:10px; font-weight:850; letter-spacing:.08em; }
-.quote-hero-copy strong { font-size:clamp(21px,4.5vw,31px); line-height:1.08; letter-spacing:-.04em; }
-.quote-hero-copy>span:last-child { font-size:12px; line-height:1.4; font-weight:600; }
-.quote-character { position:absolute; right:-7px; bottom:-16%; width:48%; height:135%; object-fit:contain; object-position:center bottom; mix-blend-mode:normal; filter:drop-shadow(0 12px 16px rgba(0,0,0,.12)); animation:quote-character-in .5s cubic-bezier(.2,.8,.2,1) both; }
-.quote-service-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
-.quote-service-card { display:flex; flex-direction:column; align-items:center; gap:7px; min-width:0; min-height:122px; padding:8px 5px; border:2px solid #ececec; border-radius:15px; background:#fafafa; color:#181818; font:inherit; font-size:11px; font-weight:750; line-height:1.2; text-align:center; cursor:pointer; transition:transform .2s ease,border-color .2s ease,background .2s ease; }
-.quote-service-card img { width:100%; max-width:86px; height:70px; object-fit:contain; border-radius:10px; }
-.quote-service-card.selected { border-color:var(--card-accent); background:color-mix(in srgb,var(--card-accent) 16%,white); }
-.quote-service-card:hover { transform:translateY(-3px); border-color:var(--card-accent); }
-.quote-service-card:focus-visible { outline:3px solid var(--card-accent); outline-offset:2px; }
-@keyframes quote-hero-in { from {opacity:.6;transform:translateY(5px)} to {opacity:1;transform:translateY(0)} }
-@keyframes quote-character-in { from {opacity:.4;transform:translateY(18px) scale(.95)} to {opacity:1;transform:translateY(0) scale(1)} }
-@media(min-width:640px){.quote-hero{margin:-32px -32px 18px; padding:30px 32px; min-height:185px;}.quote-character{width:43%;}}
-@media(max-width:430px){.quote-service-grid{grid-template-columns:repeat(2,minmax(0,1fr));}.quote-hero{min-height:150px;}.quote-hero-copy{width:62%;}.quote-character{width:47%;}}
-@media(prefers-reduced-motion:reduce){.quote-hero,.quote-character{animation:none}.quote-service-card{transition:none}.quote-service-card:hover{transform:none}}
+/* Quote wizard: original service artwork and accessible three-step form. */
+.quote-ui.quote-wizard{--quote-accent:#ffbd12;display:grid;grid-template-columns:40% 60%;gap:0;width:min(1120px,calc(100vw - 40px));max-width:1120px;max-height:calc(100dvh - 40px);padding:0;border:0;border-radius:28px;overflow:hidden;background:#fff;color:#18191d;font-family:inherit;line-height:1.45;box-shadow:0 30px 100px #0004}
+.quote-ui *{box-sizing:border-box}
+.quote-ui button,.quote-ui input,.quote-ui select,.quote-ui textarea{font:inherit}
+.quote-ui button{cursor:pointer}
+.quote-ui button svg{flex-shrink:0}
+.quote-ui .quote-art{position:relative;isolation:isolate;overflow:hidden;background:var(--quote-accent);min-height:650px;padding:32px;color:#101114}
+.quote-logo{position:relative;z-index:2;font-size:27px;letter-spacing:-1.3px}.quote-logo span{font-size:19px;vertical-align:top}
+.quote-art-copy{position:relative;z-index:2;pointer-events:none;margin-top:58px;width:57%}.quote-art-copy h2{font-size:clamp(29px,3vw,42px);letter-spacing:-1.8px;line-height:1.03;margin:0 0 22px}.quote-art-copy p{font-size:14px;line-height:1.6;max-width:145px}
+.quote-ui .quote-character{position:absolute;z-index:1;right:-9%;bottom:0;width:95%;height:80%;object-fit:contain;object-position:bottom right;pointer-events:none}
+.quote-body{padding:38px 34px 24px;overflow-y:auto;overscroll-behavior:contain;min-width:0;scrollbar-width:thin}
+.quote-progress{display:flex;gap:18px;list-style:none;padding:0;margin:0 28px 24px 0;font-size:11px;color:#777d86}.quote-progress li{display:flex;align-items:center;gap:7px;white-space:nowrap}.quote-progress li>span{display:grid;place-items:center;background:#f0f1f3;width:27px;height:27px;border-radius:50%;font-weight:700}.quote-progress .active{color:#17181c}.quote-progress .active>span{background:var(--quote-accent)}
+.quote-ui [data-slot=dialog-title]{font-size:clamp(25px,2.8vw,33px);line-height:1.07;letter-spacing:-1.1px;margin:0 24px 8px 0;font-weight:800;outline:none}.quote-ui [data-slot=dialog-description]{font-size:13px;color:#646973;margin:0 0 22px;line-height:1.5}
+.quote-form{display:flex;flex-direction:column;gap:9px}.quote-ui label,.quote-ui legend{font-size:12px;font-weight:650}.quote-ui fieldset{border:0;margin:7px 0 0;padding:0;min-width:0}.quote-ui legend{margin-bottom:8px;padding:0}.quote-ui .quote-field{display:block;width:100%;min-height:44px;border:1px solid #d9dce1;border-radius:12px;background:#fff;color:#202229;padding:10px 12px;font-size:16px;box-shadow:none}.quote-ui textarea.quote-field{min-height:80px;resize:vertical;margin:0}.quote-label{margin-top:4px}
+.quote-ui :is(button,input,select,textarea):focus-visible{outline:3px solid var(--quote-accent);outline-offset:3px}
+.quote-options{display:flex;flex-wrap:wrap;gap:7px}.quote-choice,.quote-plan-choice{position:relative;display:flex;align-items:center;cursor:pointer;border:1px solid #d9dce1;border-radius:12px;background:#fff;transition:background .18s,border-color .18s}.quote-choice{padding:10px 12px;gap:7px;flex:1;min-width:110px;font-size:11px!important}.quote-choice input,.quote-plan-choice input{accent-color:#161719;width:14px;height:14px;margin:0;flex-shrink:0}.quote-ui .selected{background:color-mix(in srgb,var(--quote-accent) 22%,white);border-color:var(--quote-accent)}
+.quote-plans{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.quote-plan-choice{padding:12px 9px;align-items:flex-start;flex-direction:column;gap:6px;font-size:11px!important}.quote-plan-choice strong{font-size:21px;letter-spacing:-.8px}.quote-plan-choice>svg{position:absolute;right:7px;top:10px}.quote-advice{display:flex;align-items:center;gap:7px;font-weight:400!important;margin-top:10px}.quote-advice input{accent-color:#191a1e}
+.quote-ui .quote-help{font-size:11px;color:#656a73;line-height:1.5;margin:6px 0}.quote-count{text-align:right;color:#6b7078;font-size:10px}.quote-contact-fields{display:grid;gap:18px;margin-top:10px}.quote-contact-fields .quote-field{margin-top:6px}
+.quote-navigation{display:flex;gap:12px;align-items:center;margin-top:7px}.quote-ui .quote-next,.quote-ui .quote-back,.quote-send button{display:flex;align-items:center;justify-content:center;gap:10px;min-height:46px;padding:12px 22px;border:0;border-radius:99px;font-size:13px;font-weight:650}.quote-ui .quote-next{margin-left:auto;background:#141519;color:white;transition:transform .18s}.quote-next:hover{transform:translateY(-2px)}.quote-ui .quote-back{background:#f2f3f5;color:#22242a}
+.quote-ui .quote-summary{padding:20px;border:1px solid #e1e3e8;border-radius:18px;background:color-mix(in srgb,var(--quote-accent) 7%,white)}.quote-summary>div,.quote-contact-summary{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}.quote-summary>div>span{font-size:12px}.quote-summary h3{font-size:21px;margin:18px 0 3px}.quote-summary>strong{font-size:34px;letter-spacing:-1px}.quote-summary p{font-size:12px;margin:3px 0}.quote-summary dl{font-size:13px;margin:18px 0 0}.quote-summary dt{font-size:10px;text-transform:uppercase;letter-spacing:.7px;color:#606771;margin-top:12px}.quote-summary dd{margin:3px 0 0;overflow-wrap:anywhere;white-space:pre-wrap}.quote-summary-brief{max-height:125px;overflow:auto}.quote-summary button,.quote-contact-summary button{display:inline-flex;align-items:center;gap:5px;border:0;background:transparent;padding:5px;min-height:36px;font-size:11px;color:#252832;text-decoration:underline;text-underline-offset:3px;flex-shrink:0}.quote-contact-summary{padding:15px 4px;overflow-wrap:anywhere;font-size:13px}.quote-contact-summary>div{min-width:0}.quote-contact-summary p{margin:3px 0;color:#606671}
+.quote-send{display:grid;gap:8px;margin-top:5px}.quote-send .quote-whatsapp{background:#008f47;color:#fff}.quote-send .quote-email{background:#f3f4f6;color:#17191e;border:1px solid #dce0e6}.quote-send button:hover{filter:brightness(.94)}.quote-notice{font-size:12px;color:#3e5562;margin:0;line-height:1.5}.quote-notice:not(:empty){padding:12px;border-radius:12px;background:#f1f5f6}
+.quote-ui [data-slot=dialog-close]{display:grid;place-items:center;position:absolute;right:9px;top:9px;width:44px;height:44px;border:0;border-radius:50%;background:#fff9;color:#17191d;opacity:1}.quote-ui [data-slot=dialog-close]:hover{background:#eceef2}
+@media(max-width:850px){.quote-ui.quote-wizard{grid-template-columns:34% 66%}.quote-ui .quote-art{padding:23px}.quote-art-copy{width:90%}.quote-art-copy h2{font-size:30px}.quote-ui .quote-character{width:118%;height:61%;right:-15%}.quote-body{padding:38px 23px 22px}.quote-progress{gap:10px;font-size:10px}.quote-progress li{gap:4px}.quote-plan-choice strong{font-size:18px}}
+@media(max-width:620px){.quote-ui.quote-wizard{display:flex;flex-direction:column;width:calc(100vw - 16px);max-height:calc(100dvh - 16px);border-radius:22px;overflow-y:auto}.quote-ui .quote-art{min-height:155px;flex-shrink:0;padding:18px 20px}.quote-logo{font-size:22px}.quote-art-copy{margin-top:12px;width:60%}.quote-art-copy h2{font-size:24px;letter-spacing:-.8px;max-width:220px;margin:0}.quote-art-copy h2 br{display:none}.quote-art-copy p{display:none}.quote-ui .quote-character{width:45%;height:145px;right:1%;bottom:0;object-position:bottom center}.quote-body{overflow:visible;padding:23px 18px 18px}.quote-progress{margin:0 0 19px;gap:13px;font-size:10px}.quote-progress li>span{width:23px;height:23px}.quote-ui [data-slot=dialog-title]{font-size:27px;margin-right:0}.quote-plans{gap:5px}.quote-plan-choice{padding:10px 7px;font-size:10px!important;min-height:115px}.quote-plan-choice strong{font-size:18px}.quote-ui .quote-choice{min-width:100px;font-size:11px!important}.quote-ui [data-slot=dialog-close]{top:5px;right:5px}.quote-summary>div{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.quote-ui,.quote-ui *{animation:none!important;transition:none!important}.quote-next:hover{transform:none}}
+/* Reset the legacy native-form label margins inside the portal. */
+.quote-ui form label{margin:0}
+.quote-ui .quote-label{margin-top:4px}
+.quote-ui .quote-advice{margin-top:10px}
+@media(min-width:851px){.quote-ui .quote-character{height:88%;width:106%;right:-22%}.quote-art-copy{width:65%}}
+@media(max-width:620px){.quote-art-copy h2 br::after{content:' '}.quote-art-copy h2{max-width:200px}}

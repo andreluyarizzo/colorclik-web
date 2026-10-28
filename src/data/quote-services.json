@@ -1,0 +1,188 @@
+[
+  {
+    "name": "Marketing Digital",
+    "key": "marketing",
+    "color": "#ffbd12",
+    "title": "Hagamos crecer tu marca.",
+    "goals": [
+      "Más clientes",
+      "Más ventas",
+      "Dar a conocer mi marca"
+    ],
+    "question": "¿Dónde quieres anunciarte?",
+    "answers": [
+      "Meta Ads",
+      "Google Ads",
+      "Ambos",
+      "Necesito orientación"
+    ],
+    "plans": [
+      {
+        "name": "Impulso",
+        "price": "$149.990",
+        "billing": "CLP / mes + IVA",
+        "note": "Inversión publicitaria no incluida."
+      },
+      {
+        "name": "Crecimiento",
+        "price": "$249.990",
+        "billing": "CLP / mes + IVA",
+        "note": "Inversión publicitaria no incluida."
+      },
+      {
+        "name": "Escala",
+        "price": "$399.990",
+        "billing": "CLP / mes + IVA",
+        "note": "Inversión publicitaria no incluida."
+      }
+    ]
+  },
+  {
+    "name": "Desarrollo Web",
+    "key": "web",
+    "color": "#1685fa",
+    "title": "Tu próxima web empieza aquí.",
+    "goals": [
+      "Captar contactos",
+      "Vender online",
+      "Presentar mi empresa"
+    ],
+    "question": "¿Tienes una web actualmente?",
+    "answers": [
+      "Sí, quiero renovarla",
+      "No, empezaré de cero"
+    ],
+    "plans": [
+      {
+        "name": "Landing",
+        "price": "$249.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Hosting, dominio y licencias se cotizan aparte."
+      },
+      {
+        "name": "Web Corporativa",
+        "price": "$449.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Hosting, dominio y licencias se cotizan aparte."
+      },
+      {
+        "name": "Tienda Online",
+        "price": "$699.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Hosting, dominio y licencias se cotizan aparte."
+      }
+    ]
+  },
+  {
+    "name": "Branding y Diseño",
+    "key": "branding",
+    "color": "#ef2026",
+    "title": "Démosle identidad a tu marca.",
+    "goals": [
+      "Crear mi marca",
+      "Renovar mi identidad",
+      "Diseñar piezas gráficas"
+    ],
+    "question": "¿En qué etapa está tu marca?",
+    "answers": [
+      "Es una marca nueva",
+      "Ya existe y quiero renovarla"
+    ],
+    "plans": [
+      {
+        "name": "Esencia",
+        "price": "$149.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Impresión, naming y registro de marca se cotizan aparte. Aplicaciones y formatos se definen al iniciar el proyecto."
+      },
+      {
+        "name": "Identidad",
+        "price": "$299.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Impresión, naming y registro de marca se cotizan aparte. Aplicaciones y formatos se definen al iniciar el proyecto."
+      },
+      {
+        "name": "Universo",
+        "price": "$499.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Impresión, naming y registro de marca se cotizan aparte. Aplicaciones y formatos se definen al iniciar el proyecto."
+      }
+    ]
+  },
+  {
+    "name": "Redes y Contenido",
+    "key": "social",
+    "color": "#00a6ad",
+    "title": "Contenido que hace conectar.",
+    "goals": [
+      "Gestionar mis redes",
+      "Crear contenido",
+      "Crecer mi comunidad"
+    ],
+    "question": "¿Qué canales quieres trabajar?",
+    "answers": [
+      "Instagram",
+      "Facebook",
+      "TikTok",
+      "Necesito orientación"
+    ],
+    "plans": [
+      {
+        "name": "Presencia",
+        "price": "$149.990",
+        "billing": "CLP / mes + IVA",
+        "note": "No incluye pauta publicitaria, grabación ni atención de ventas. Piezas adaptadas entre redes, no duplicadas por canal. Reels con material del cliente."
+      },
+      {
+        "name": "Conexión",
+        "price": "$249.990",
+        "billing": "CLP / mes + IVA",
+        "note": "No incluye pauta publicitaria, grabación ni atención de ventas. Piezas adaptadas entre redes, no duplicadas por canal. Reels con material del cliente."
+      },
+      {
+        "name": "Comunidad",
+        "price": "$399.990",
+        "billing": "CLP / mes + IVA",
+        "note": "No incluye pauta publicitaria, grabación ni atención de ventas. Piezas adaptadas entre redes, no duplicadas por canal. Reels con material del cliente."
+      }
+    ]
+  },
+  {
+    "name": "Soluciones a Medida",
+    "key": "custom",
+    "color": "#7939ed",
+    "title": "Tu idea merece su propia solución.",
+    "goals": [
+      "Automatizar procesos",
+      "Integrar herramientas",
+      "Crear una solución"
+    ],
+    "question": "¿Qué proceso necesitas mejorar?",
+    "answers": [
+      "Ventas y atención",
+      "Operaciones internas",
+      "Datos e informes",
+      "Otro proceso"
+    ],
+    "plans": [
+      {
+        "name": "Solución puntual",
+        "price": "$299.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Precios referenciales. Cada proyecto se cotiza según sus requerimientos. No incluye costos de licencias o servicios externos. Te asesoramos en todo el proceso."
+      },
+      {
+        "name": "Proyecto personalizado",
+        "price": "$499.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Precios referenciales. Cada proyecto se cotiza según sus requerimientos. No incluye costos de licencias o servicios externos. Te asesoramos en todo el proceso."
+      },
+      {
+        "name": "Desarrollo integral",
+        "price": "$699.990",
+        "billing": "CLP + IVA · Pago único",
+        "note": "Precios referenciales. Cada proyecto se cotiza según sus requerimientos. No incluye costos de licencias o servicios externos. Te asesoramos en todo el proceso."
+      }
+    ]
+  }
+]
