@@ -57,11 +57,12 @@
  webVideo.addEventListener('loadeddata',paint);paint();
 })();
 
-// Play once on arrival, pause outside the section, and respect explicit controls.
+// Loop on arrival, pause outside the section, and respect explicit controls.
 (()=>{
  const section=document.querySelector('#resenas'),video=section.querySelector('video'),sound=section.querySelector('.reviews-sound'),play=section.querySelector('.reviews-video-play');
  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
  let visible=false,userPaused=false,userMuted=false,request=0;
+ video.loop=true;
  function reflect(){sound.textContent=video.muted?'Activar sonido':'Silenciar';sound.setAttribute('aria-pressed',String(!video.muted));play.textContent=video.ended?'Volver a ver':video.paused?'Reproducir':'Pausar';play.setAttribute('aria-label',video.ended?'Volver a ver el video':video.paused?'Reproducir video':'Pausar video')}
  async function start(audible=true){
   const token=++request;video.muted=!audible||userMuted;video.volume=.65;
@@ -69,12 +70,12 @@
   if(token!==request){video.pause();video.muted=true}reflect();
  }
  function stop(){request++;video.pause();video.muted=true;reflect()}
- function sync(){if(visible&&!document.hidden&&!userPaused&&!video.ended&&!reduced.matches)start();else stop()}
+ function sync(){if(visible&&!document.hidden&&!userPaused&&!reduced.matches)start();else stop()}
  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync()},{threshold:.4}).observe(video);
  sound.addEventListener('click',()=>{userMuted=!video.muted;if(!userMuted){userPaused=false;if(video.ended)video.currentTime=0;start(true)}else{video.muted=true;reflect()}});
  play.addEventListener('click',()=>{if(video.paused){userPaused=false;if(video.ended)video.currentTime=0;start(!userMuted)}else{userPaused=true;stop()}});
  // A preceding interaction allows an audible start in browsers that require it.
- document.addEventListener('pointerdown',event=>{if(visible&&!section.contains(event.target)&&!userMuted&&!userPaused&&!video.ended&&!reduced.matches)start()});
+ document.addEventListener('pointerdown',event=>{if(visible&&!section.contains(event.target)&&!userMuted&&!userPaused&&!reduced.matches)start()});
  for(const event of ['play','pause','volumechange','ended'])video.addEventListener(event,reflect);
  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);reflect();
 })();
