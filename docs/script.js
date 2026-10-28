@@ -38,8 +38,6 @@ const studioContext=studioBackdrop.getContext('2d',{alpha:false});
 function paintStudioBackdrop(){
  if(aboutVideo.readyState<2||!aboutVideo.videoWidth)return;
  studioContext.drawImage(aboutVideo,aboutVideo.videoWidth*.035,0,aboutVideo.videoWidth*.16,aboutVideo.videoHeight,0,0,96,160);
- const r=studioSection.getBoundingClientRect();const filmWidth=Math.min(r.width,r.height*aboutVideo.videoWidth/aboutVideo.videoHeight);const edge=(r.width-filmWidth)/r.width*100;
- studioSection.style.setProperty('--film-start',`${edge}%`);studioSection.style.setProperty('--film-blend-end',`${Math.min(edge+11,70)}%`);
 }
 aboutVideo.addEventListener('loadeddata',paintStudioBackdrop);aboutVideo.addEventListener('seeked',paintStudioBackdrop);new ResizeObserver(paintStudioBackdrop).observe(studioSection);
 if('requestVideoFrameCallback'in aboutVideo){const nextStudioFrame=()=>{paintStudioBackdrop();aboutVideo.requestVideoFrameCallback(nextStudioFrame)};aboutVideo.requestVideoFrameCallback(nextStudioFrame)}else{aboutVideo.addEventListener('timeupdate',paintStudioBackdrop)}
