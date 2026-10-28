@@ -514,3 +514,27 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 .hero-film#hero-gaze{container-type:size}
 .hero-film#hero-gaze>img{position:absolute;inset:auto;left:50%;bottom:0;width:min(177.777778cqh,calc((100cqw - 24px)*1.969231));height:auto;transform:translateX(-50%);object-fit:contain;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 @media(max-width:700px){.hero-film#hero-gaze>img{bottom:130px;mask-image:linear-gradient(180deg,transparent,#000 9%,#000 90%,transparent)}}
+
+/* Square supplied artwork, with one clean native-link pill. */
+.projects .project-grid{height:490px}
+.projects .project>.image-reveal,.projects .project .image-reveal>img{aspect-ratio:1/1}
+.projects .project>span.project-visit{inset:auto 14px 14px auto;padding:11px 15px;gap:10px;min-height:44px;border:1px solid #ffffffa6;border-radius:999px;background:#ffffffed;color:#17201b;box-shadow:0 3px 14px #00000012;backdrop-filter:blur(14px);transition:background .2s,translate .2s}
+.projects .project-visit>.project-visit-label{font-size:12px;font-weight:600;text-shadow:none;line-height:1}
+.projects .project-visit>svg{display:block;width:18px;height:18px;flex:0 0 18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transform:none}
+.projects .project:is(:hover,:focus-visible)>span.project-visit{background:#fff;translate:0 -2px}
+@media(min-width:701px) and (max-width:950px){.projects .project-grid{height:405px}}
+@media(max-width:700px){.projects .project-grid{height:auto}.projects .project>span.project-visit{inset:auto 12px 12px auto;padding:11px 14px}}
+/* Compact editorial cards: a project name, a short story, and quiet controls. */
+.reviews .review-card{padding:32px;border:1px solid #ffffffa6;border-radius:22px;box-shadow:0 12px 32px #203a1b12;background:#fffffff2}
+.reviews .review-category{display:block;font-size:10px;font-weight:500;letter-spacing:1.1px;line-height:1.5;color:#6b7c61;text-transform:uppercase}
+.reviews .review-card h3{font-size:clamp(25px,2.7vw,37px);font-weight:600;letter-spacing:-1.2px;line-height:1.1;margin:17px 0 14px;color:#20311b}
+.reviews .review-story{font-size:clamp(16px,1.45vw,20px);line-height:1.5;letter-spacing:-.25px;color:#4c5c44;max-width:480px;margin:0}
+.reviews .review-stack{min-height:230px}
+.reviews .reviews-controls{gap:9px;margin:14px 0 0}
+.reviews .reviews-controls>button{width:44px;height:44px;background:transparent;color:#fff;border:1px solid transparent}
+.reviews .reviews-controls>button:hover{background:#ffffff26;color:#fff}
+.reviews .reviews-controls>button svg{display:block;width:17px;height:17px;margin:auto;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.reviews .review-counter{font-size:11px;letter-spacing:2px;font-variant-numeric:tabular-nums;color:#f3faec;min-width:70px;text-align:center}
+.reviews .review-play:before{width:8px;height:10px;border-width:2px}
+@media(max-width:700px){.reviews .review-card{padding:26px 24px}.reviews .review-card h3{font-size:29px}.reviews .review-story{font-size:17px}.reviews .reviews-controls{margin-top:8px}}
+@media(prefers-reduced-motion:reduce){.projects .project>span.project-visit{transition:none}}
