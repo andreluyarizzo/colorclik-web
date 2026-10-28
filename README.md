@@ -47,9 +47,12 @@ formulario shadcn/ui. El menú y las tarjetas del inicio enlazan a ambas página
 
 Los PNG originales están en `docs/assets/marketing` y `docs/assets/web`, junto con
 codificaciones WebP optimizadas para servir en la web. No se regeneran personajes.
-Los heroes de servicios usan estas imágenes con un desplazamiento suave y limitado
-en escritorio; en táctiles o movimiento reducido permanecen estáticas. El hero
-interactivo de video del inicio no cambia.
+Los heroes de servicios usan los MP4 suministrados, en bucle y sin audio, con
+controles de pausa y pausa automática fuera de pantalla. Se conserva el video
+original en 720p sin recodificar y se sirve una versión 480p en teléfonos. Los
+posters provienen del mismo video; con movimiento reducido, ahorro de datos o
+fallo de carga se conserva la imagen estática. El hero interactivo del inicio
+no cambia.
 
 Los planes abren el formulario con servicio, nombre, precio y tipo de cobro:
 Marketing Digital es mensual; Desarrollo Web es pago único. El resumen descargable

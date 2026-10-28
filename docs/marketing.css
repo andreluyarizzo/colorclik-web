@@ -182,3 +182,15 @@
 .service-art-note{position:absolute;left:4%;top:42%;width:140px;font-size:17px;font-weight:600;letter-spacing:1px;line-height:1.4;rotate:-12deg;color:#22282d;z-index:2}
 .service-art-note svg{display:block;width:70px;height:40px;margin:5px auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:700px){.marketing-page .service-hero-art{height:310px;overflow:hidden;mask-image:linear-gradient(#000 0%,#000 85%,transparent);-webkit-mask-image:linear-gradient(#000 0%,#000 85%,transparent)}.marketing-page .service-hero-art>img{height:430px;max-width:none}.service-art-note{font-size:12px;left:3%;top:35%;width:105px}.service-art-note svg{width:55px;height:30px}}
+
+/* Original 16:9 hero films: complete native framing, integrated at the edges. */
+.marketing-page .marketing-hero{background:radial-gradient(ellipse at 50% 55%,#f8b020,#df900d)}
+.web-page .marketing-hero{background:linear-gradient(90deg,#1476d6,#258ce9)}
+.service-hero-film{position:absolute;inset:0;z-index:0;pointer-events:none;container-type:size}
+.service-film-stage{position:absolute;bottom:0;left:50%;width:177.777778cqh;height:100cqh;transform:translateX(-50%);mask-image:linear-gradient(90deg,transparent,#000 17%,#000 83%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 17%,#000 83%,transparent)}
+.service-film-stage>img,.service-film-stage>video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;transform:none;max-width:none}
+.service-film-stage>video{opacity:0}.service-film-stage.has-motion>video{opacity:1}.service-film-stage.has-motion>img{opacity:0}
+.service-hero-pause{position:absolute;right:23px;bottom:22px;z-index:4;display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff8c;border-radius:50%;background:#ffffffbd;backdrop-filter:blur(14px);color:#222a30;box-shadow:0 3px 15px #0000000c}
+.service-hero-pause[hidden]{display:none}.service-hero-pause:hover{background:#fff}
+.service-hero-pause svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:700px){.service-film-stage{top:250px;bottom:auto;width:568.888889px;height:320px;mask-image:linear-gradient(90deg,transparent,#000 17%,#000 83%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 86%,transparent);mask-composite:intersect;-webkit-mask-image:linear-gradient(90deg,transparent,#000 17%,#000 83%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 86%,transparent);-webkit-mask-composite:source-in}.service-hero-pause{right:18px;bottom:18px;width:44px;height:44px}}

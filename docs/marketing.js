@@ -42,19 +42,47 @@
   dialog.showModal();
  }));
 
- // Muted decorative films run only while visible; touch has no hover dependency.
- // Original service-page PNGs move as a whole by only a few pixels; no face edits.
- const hero=document.querySelector('.marketing-hero'),art=hero.querySelector('.service-hero-art');
- const fine=matchMedia('(hover:hover) and (pointer:fine)');
- if(art){
-  let visible=false,frame=0,last=0,x=0,y=0,targetX=0,targetY=0;
-  function stop(){cancelAnimationFrame(frame);frame=0;last=0;x=y=targetX=targetY=0;art.style.setProperty('--art-x','0px');art.style.setProperty('--art-y','0px')}
-  function update(now){frame=0;if(!visible||document.hidden||reduced.matches||!fine.matches){stop();return}const dt=last?Math.min((now-last)/1000,.05):1/60;last=now;const alpha=1-Math.exp(-dt/.18);x+=(targetX-x)*alpha;y+=(targetY-y)*alpha;art.style.setProperty('--art-x',`${x.toFixed(3)}px`);art.style.setProperty('--art-y',`${y.toFixed(3)}px`);if(Math.abs(targetX-x)+Math.abs(targetY-y)>.02)frame=requestAnimationFrame(update);else last=0}
-  function schedule(){if(visible&&!document.hidden&&!reduced.matches&&fine.matches&&!frame)frame=requestAnimationFrame(update)}
-  hero.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const r=hero.getBoundingClientRect();targetX=Math.max(-1,Math.min(1,2*(event.clientX-r.left)/r.width-1))*5;targetY=Math.max(-1,Math.min(1,2*(event.clientY-r.top)/r.height-1))*3;schedule()},{passive:true});
-  hero.addEventListener('pointerleave',()=>{targetX=targetY=0;schedule()});
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible)stop()}).observe(hero);
-  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});reduced.addEventListener('change',stop);fine.addEventListener('change',stop);
+ // The supplied hero films own their motion; no cursor transform is layered on top.
+ const hero=document.querySelector('.marketing-hero'),video=hero.querySelector('.service-hero-video');
+ if(video){
+  const stage=hero.querySelector('.service-film-stage'),toggle=hero.querySelector('.service-hero-pause');
+  let visible=false,userPaused=false,optedIn=false,primed=false,failed=false,request=0;
+  const saveData=Boolean(navigator.connection?.saveData);
+  const allowed=()=>visible&&!document.hidden&&!reduced.matches&&!userPaused&&!failed&&(!saveData||optedIn);
+  function reflect(){
+   const paused=video.paused||userPaused;
+   toggle.hidden=reduced.matches||failed;
+   const label=paused?'Reproducir animación del hero':'Pausar animación del hero';
+   toggle.setAttribute('aria-label',label);toggle.title=label;toggle.setAttribute('aria-pressed',String(userPaused));
+   toggle.querySelector('path').setAttribute('d',paused?'m9 5 11 7-11 7Z':'M8 5v14M16 5v14');
+  }
+  function load(){
+   if(video.hasAttribute('src')||!allowed())return;
+   video.src=innerWidth<=700?video.dataset.mobile:video.dataset.desktop;
+   video.load();
+  }
+  function sync(){
+   const token=++request;
+   if(!allowed()){video.pause();reflect();return;}
+   load();if(!primed)return;
+   video.muted=true;video.loop=true;
+   video.play().then(()=>{if(!allowed())video.pause();reflect()}).catch(()=>{if(token===request){stage.classList.remove('has-motion');reflect()}});
+  }
+  video.addEventListener('loadedmetadata',()=>{
+   try{video.currentTime=Math.min(1,video.duration-.05)}catch{primed=true;sync()}
+  });
+  video.addEventListener('seeked',()=>{if(!primed){primed=true;sync()}});
+  video.addEventListener('loadeddata',()=>{if(!primed&&!video.seeking){primed=true;sync()}});
+  video.addEventListener('playing',()=>{if(allowed())stage.classList.add('has-motion');else video.pause();reflect()});
+  video.addEventListener('pause',reflect);
+  video.addEventListener('error',()=>{failed=true;request++;video.pause();stage.classList.remove('has-motion');reflect()});
+  toggle.addEventListener('click',()=>{optedIn=true;userPaused=!video.paused;sync()});
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync()},{threshold:.1}).observe(hero);
+  document.addEventListener('visibilitychange',sync);
+  reduced.addEventListener('change',()=>{
+   if(reduced.matches){request++;video.pause();stage.classList.remove('has-motion');primed=false;video.removeAttribute('src');video.load();reflect();}else sync();
+  });
+  reflect();
  }
  const films=[...document.querySelectorAll('[data-ambient],.about-video')];
  const visibility=new Map(films.map(video=>[video,false]));
