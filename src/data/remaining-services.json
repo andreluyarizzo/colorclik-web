@@ -1,0 +1,473 @@
+[
+  {
+    "slug": "branding-diseno",
+    "key": "branding",
+    "service": "Branding y Diseño",
+    "theme": "branding-page",
+    "color": "#ef2026",
+    "title": [
+      "BRANDING",
+      "Y DISEÑO"
+    ],
+    "description": "Creamos identidades visuales que expresan tu esencia y conectan con las personas.",
+    "promise": [
+      "QUE TU MARCA",
+      "DEJE HUELLA."
+    ],
+    "starting": "Proyectos desde $149.990 + IVA.",
+    "directionTitle": [
+      "Tu esencia.",
+      "Una identidad propia."
+    ],
+    "directionCopy": "Diseñamos marcas con personalidad, que comunican lo que te hace único y conectan de verdad con tus clientes.",
+    "artNote": "IDEAS QUE CONECTAN",
+    "servicesTitle": [
+      "Diseño que habla",
+      "de tu marca."
+    ],
+    "offers": [
+      {
+        "name": "Identidad visual",
+        "icon": "spark",
+        "copy": "Marcas auténticas que comunican quién eres y generan conexión.",
+        "detail": "Definimos una dirección visual y trabajamos logotipo, color y tipografía para construir una identidad coherente con tu marca."
+      },
+      {
+        "name": "Diseño gráfico",
+        "icon": "pen",
+        "copy": "Piezas que dan vida a tu marca y la hacen destacar en todos sus canales.",
+        "detail": "Diseñamos aplicaciones y piezas visuales según el alcance acordado, cuidando que cada formato mantenga la personalidad de tu marca."
+      },
+      {
+        "name": "Guía de marca",
+        "icon": "book",
+        "copy": "Sistemas visuales claros para mantener una comunicación coherente y profesional.",
+        "detail": "Organizamos los elementos de identidad y sus usos para que puedas aplicar tu marca con criterio y consistencia."
+      }
+    ],
+    "ticker": [
+      "ESTRATEGIA",
+      "IDENTIDAD",
+      "DISEÑO",
+      "PERSONALIDAD"
+    ],
+    "plansTitle": [
+      "Dale forma a tu próxima",
+      "idea."
+    ],
+    "billing": "CLP + IVA · Pago único",
+    "plans": [
+      {
+        "name": "Esencia",
+        "subtitle": "Para comenzar tu marca",
+        "price": "149.990",
+        "icon": "rocket",
+        "features": [
+          "Brief y dirección visual",
+          "2 propuestas de logotipo",
+          "Paleta y tipografías",
+          "Logo en PNG, SVG y PDF",
+          "2 rondas de ajustes"
+        ]
+      },
+      {
+        "name": "Identidad",
+        "subtitle": "Para una marca completa",
+        "price": "299.990",
+        "icon": "diamond",
+        "features": [
+          "Todo el plan Esencia",
+          "Variantes del logotipo",
+          "Manual de marca de hasta 12 páginas",
+          "6 plantillas editables en Canva",
+          "3 rondas de ajustes"
+        ]
+      },
+      {
+        "name": "Universo",
+        "subtitle": "Para marcas en crecimiento",
+        "price": "499.990",
+        "icon": "star",
+        "features": [
+          "Todo el plan Identidad",
+          "Manual ampliado hasta 24 páginas",
+          "12 plantillas editables en Canva",
+          "3 aplicaciones de marca",
+          "3 rondas de ajustes"
+        ]
+      }
+    ],
+    "note": "Impresión, naming y registro de marca se cotizan aparte.",
+    "subnote": "Aplicaciones y formatos se definen al iniciar el proyecto.",
+    "process": [
+      [
+        "Descubrimos",
+        "Conocemos tu marca, tus objetivos y tu audiencia."
+      ],
+      [
+        "Exploramos",
+        "Investigamos, creamos propuestas y afinamos."
+      ],
+      [
+        "Diseñamos",
+        "Damos forma a tu identidad visual."
+      ],
+      [
+        "Entregamos",
+        "Te entregamos los archivos y te acompañamos."
+      ]
+    ],
+    "faq": [
+      [
+        "¿Qué archivos recibiré?",
+        "El plan Esencia incluye el logotipo en PNG, SVG y PDF. Los demás entregables dependen del plan elegido; revisamos los formatos y aplicaciones antes de comenzar."
+      ],
+      [
+        "¿Puedo renovar mi marca actual?",
+        "Sí. Podemos revisar tu identidad actual y definir qué conviene conservar, actualizar o replantear según los objetivos de tu marca."
+      ],
+      [
+        "¿Qué necesito para comenzar?",
+        "Cuéntanos qué hace tu marca, a quién se dirige y qué quieres transmitir. Revisamos tus referencias y antecedentes para preparar el brief y la dirección visual."
+      ],
+      [
+        "¿Incluye impresión o registro de marca?",
+        "No. La impresión, el naming y el registro de marca se cotizan aparte. Las aplicaciones y formatos específicos se acuerdan al inicio del proyecto."
+      ]
+    ],
+    "cta": "Quiero diseñar mi marca",
+    "dimensions": {
+      "hero": [
+        1145,
+        1374
+      ],
+      "pointing": [
+        1312,
+        1199
+      ],
+      "feature": [
+        1184,
+        1328
+      ],
+      "contact": [
+        1536,
+        1024
+      ]
+    },
+    "start": 2
+  },
+  {
+    "slug": "redes-contenido",
+    "key": "social",
+    "service": "Redes y Contenido",
+    "theme": "social-page",
+    "color": "#00afb5",
+    "title": [
+      "REDES",
+      "Y CONTENIDO"
+    ],
+    "description": "Damos voz a tu marca con contenido que conecta y una presencia constante en redes.",
+    "promise": [
+      "QUE TU MARCA",
+      "SEA PARTE DE LA CONVERSACIÓN."
+    ],
+    "starting": "Planes desde $149.990 + IVA al mes.",
+    "directionTitle": [
+      "Más que publicar.",
+      "Conectar de verdad."
+    ],
+    "directionCopy": "Creamos contenido con propósito, gestionamos tus redes y construimos una comunidad que realmente se interese por tu marca.",
+    "artNote": "IDEAS QUE CONECTAN",
+    "servicesTitle": [
+      "Contenido que impulsa",
+      "tu marca."
+    ],
+    "offers": [
+      {
+        "name": "Contenido con intención",
+        "icon": "spark",
+        "copy": "Creamos contenido estratégico y atractivo que refleja la esencia de tu marca.",
+        "detail": "Planificamos mensajes y piezas visuales con un propósito claro, de acuerdo con tu audiencia y el alcance del plan."
+      },
+      {
+        "name": "Gestión de redes",
+        "icon": "phone",
+        "copy": "Planificamos, programamos y optimizamos tus redes para una presencia constante y coherente.",
+        "detail": "Organizamos el calendario y la programación de contenidos de las redes incluidas, con seguimiento y reportes según el plan."
+      },
+      {
+        "name": "Comunidad",
+        "icon": "people",
+        "copy": "Fomentamos la interacción y construimos una comunidad que se conecta de verdad con tu marca.",
+        "detail": "Trabajamos una comunicación cercana. El plan Comunidad incluye moderación de hasta 30 minutos por día hábil; no incluye atención comercial de ventas."
+      }
+    ],
+    "ticker": [
+      "ESTRATEGIA",
+      "CONTENIDO",
+      "COMUNIDAD",
+      "CONEXIÓN"
+    ],
+    "plansTitle": [
+      "Tu marca tiene mucho",
+      "que contar."
+    ],
+    "billing": "CLP / mes + IVA",
+    "plans": [
+      {
+        "name": "Presencia",
+        "subtitle": "Para comenzar en redes",
+        "price": "149.990",
+        "icon": "send",
+        "features": [
+          "1 red social",
+          "8 publicaciones estáticas al mes",
+          "4 historias adaptadas",
+          "Calendario y programación",
+          "Reporte mensual"
+        ]
+      },
+      {
+        "name": "Conexión",
+        "subtitle": "Para marcas en crecimiento",
+        "price": "249.990",
+        "icon": "diamond",
+        "features": [
+          "Instagram + Facebook",
+          "12 publicaciones: 8 gráficas + 4 reels",
+          "8 historias adaptadas",
+          "Reels con material del cliente",
+          "Reporte y reunión mensual"
+        ]
+      },
+      {
+        "name": "Comunidad",
+        "subtitle": "Para marcas que quieren más",
+        "price": "399.990",
+        "icon": "people",
+        "features": [
+          "Instagram + Facebook",
+          "16 publicaciones: 8 gráficas + 8 reels",
+          "12 historias adaptadas",
+          "Moderación hasta 30 min al día hábil",
+          "Reporte y reunión mensual"
+        ]
+      }
+    ],
+    "note": "No incluye pauta publicitaria, grabación ni atención de ventas.",
+    "subnote": "Piezas adaptadas entre redes, no duplicadas por canal. Reels con material del cliente.",
+    "process": [
+      [
+        "Escuchamos",
+        "Conocemos tu marca, tus objetivos y tu audiencia."
+      ],
+      [
+        "Planificamos",
+        "Definimos la estrategia y el calendario de contenido."
+      ],
+      [
+        "Creamos",
+        "Diseñamos piezas, reels e historias que conectan."
+      ],
+      [
+        "Conectamos",
+        "Publicamos, analizamos y acompañamos a tu comunidad."
+      ]
+    ],
+    "faq": [
+      [
+        "¿Qué material debo entregar?",
+        "Necesitamos tu identidad visual, información de productos o servicios y el material audiovisual disponible. Los reels se trabajan con material entregado por el cliente; la grabación no está incluida."
+      ],
+      [
+        "¿Incluye responder mensajes?",
+        "El plan Comunidad incluye moderación de hasta 30 minutos por día hábil. La atención comercial de ventas no está incluida; el alcance se acuerda antes de comenzar."
+      ],
+      [
+        "¿La publicidad se paga aparte?",
+        "Sí. Estos planes corresponden a contenido y gestión de redes. La inversión publicitaria y las campañas de anuncios se cotizan por separado."
+      ],
+      [
+        "¿Se publica lo mismo en cada red?",
+        "Las piezas se adaptan entre las redes incluidas. Las cantidades se entienden como contenido del plan, no como piezas nuevas duplicadas por canal."
+      ]
+    ],
+    "cta": "Quiero impulsar mis redes",
+    "dimensions": {
+      "hero": [
+        1159,
+        1358
+      ],
+      "pointing": [
+        1145,
+        1374
+      ],
+      "feature": [
+        1266,
+        1242
+      ],
+      "contact": [
+        1536,
+        1024
+      ]
+    }
+  },
+  {
+    "slug": "soluciones-medida",
+    "key": "custom",
+    "service": "Soluciones a Medida",
+    "theme": "custom-page",
+    "color": "#7437ef",
+    "customHero": true,
+    "title": [
+      "SOLUCIONES",
+      "A MEDIDA"
+    ],
+    "description": "Desarrollamos herramientas, automatizaciones e integraciones inteligentes que se adaptan a tu negocio.",
+    "promise": [
+      "TU IDEA",
+      "AQUÍ."
+    ],
+    "starting": "Tecnología pensada para tus procesos.",
+    "directionTitle": [
+      "Sin límites",
+      "para crear."
+    ],
+    "directionCopy": "Convertimos tus ideas en soluciones reales. Diseñamos y desarrollamos herramientas que se adaptan a tus procesos, integran tus sistemas y automatizan lo que realmente importa.",
+    "artNote": "IDEAS QUE FUNCIONAN",
+    "servicesTitle": [
+      "Tecnología que se adapta",
+      "a tu negocio."
+    ],
+    "offers": [
+      {
+        "name": "Desarrollo personalizado",
+        "icon": "code",
+        "copy": "Plataformas, herramientas y módulos creados especialmente para tu negocio.",
+        "detail": "Partimos de tus necesidades para definir una solución y sus funcionalidades, con un alcance y una propuesta técnica acordados."
+      },
+      {
+        "name": "Automatizaciones",
+        "icon": "gear",
+        "copy": "Optimizamos procesos repetitivos para que enfoques tu tiempo en lo importante.",
+        "detail": "Revisamos las tareas de tu operación y diseñamos flujos automatizados, considerando los datos, accesos y servicios disponibles."
+      },
+      {
+        "name": "Integraciones",
+        "icon": "share",
+        "copy": "Conectamos tus sistemas, servicios y herramientas para que todo funcione en conjunto.",
+        "detail": "Evaluamos las APIs, permisos y limitaciones de tus herramientas actuales antes de definir la integración y su alcance."
+      }
+    ],
+    "ticker": [
+      "IDEA",
+      "ESTRATEGIA",
+      "DESARROLLO",
+      "INTEGRACIÓN",
+      "RESULTADOS"
+    ],
+    "plansTitle": [
+      "Elige la opción que se adapta",
+      "a tu idea."
+    ],
+    "billing": "CLP + IVA · Pago único",
+    "plans": [
+      {
+        "name": "Solución puntual",
+        "subtitle": "Para una necesidad específica",
+        "price": "299.990",
+        "icon": "puzzle",
+        "features": [
+          "Análisis de requerimientos",
+          "Desarrollo de funcionalidad",
+          "Integración básica",
+          "Pruebas y ajustes",
+          "Soporte inicial"
+        ]
+      },
+      {
+        "name": "Proyecto personalizado",
+        "subtitle": "Para ideas más completas",
+        "price": "499.990",
+        "icon": "cube",
+        "features": [
+          "Análisis y planificación",
+          "Desarrollo a medida",
+          "Integraciones avanzadas",
+          "Panel de administración",
+          "Pruebas, ajustes y soporte"
+        ]
+      },
+      {
+        "name": "Desarrollo integral",
+        "subtitle": "Para soluciones más grandes",
+        "price": "699.990",
+        "icon": "growth",
+        "features": [
+          "Todo el plan personalizado",
+          "Automatizaciones avanzadas",
+          "Integración con múltiples sistemas",
+          "Capacitación y documentación",
+          "Soporte extendido"
+        ]
+      }
+    ],
+    "note": "Precios referenciales. Cada proyecto se cotiza según sus requerimientos.",
+    "subnote": "No incluye costos de licencias o servicios externos. Te asesoramos en todo el proceso.",
+    "process": [
+      [
+        "Descubrimos",
+        "Conocemos tu idea, tus objetivos y tu negocio."
+      ],
+      [
+        "Diseñamos",
+        "Creamos la propuesta técnica y visual."
+      ],
+      [
+        "Desarrollamos",
+        "Damos vida a la solución e integramos lo necesario."
+      ],
+      [
+        "Entregamos",
+        "Probamos, capacitamos y te acompañamos en el lanzamiento."
+      ]
+    ],
+    "faq": [
+      [
+        "¿Qué tipo de soluciones pueden desarrollar?",
+        "Herramientas, módulos, plataformas, automatizaciones e integraciones de acuerdo con las necesidades del negocio. Primero revisamos la viabilidad y el alcance de tu idea."
+      ],
+      [
+        "¿Pueden integrarse con mis sistemas actuales?",
+        "Lo evaluamos según las APIs, los permisos y la documentación disponible. La compatibilidad se confirma durante el análisis, antes de comprometer el desarrollo."
+      ],
+      [
+        "¿Cuánto tiempo tarda un proyecto?",
+        "Depende del alcance, la complejidad y las integraciones necesarias. Definimos un calendario y entregables después de revisar los requerimientos."
+      ],
+      [
+        "¿Qué necesito para comenzar?",
+        "Descríbenos el problema que quieres resolver, cómo trabajas hoy y qué sistemas utilizas. Con esa información podemos evaluar el proyecto y preparar una propuesta."
+      ]
+    ],
+    "cta": "Quiero una solución a medida",
+    "dimensions": {
+      "hero": [
+        1536,
+        1024
+      ],
+      "pointing": [
+        1536,
+        1024
+      ],
+      "feature": [
+        1536,
+        1024
+      ],
+      "contact": [
+        1536,
+        1024
+      ]
+    }
+  }
+]

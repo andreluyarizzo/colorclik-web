@@ -2,14 +2,17 @@ const { spawnSync } = require('node:child_process');
 const path = require('node:path');
 const fs = require('node:fs');
 
-// Render one shared footer into static HTML; it remains available without JS.
+const { renderServicePages, renderHeader, pages } = require('./scripts/service-pages.cjs');
+renderServicePages();
+
+// Render shared navigation and footer into static HTML, without client-side fetches.
 const footer = fs.readFileSync(path.join(__dirname, 'src/templates/footer.html'), 'utf8').trim();
-for (const page of ['index.html', 'marketing-digital.html', 'desarrollo-web.html']) {
+for (const page of pages) {
   const file = path.join(__dirname, 'docs', page);
   const html = fs.readFileSync(file, 'utf8');
   const marker = /<!-- site-footer:start -->[\s\S]*?<!-- site-footer:end -->/;
   if (!marker.test(html)) throw new Error(`Shared footer marker missing in ${page}`);
-  fs.writeFileSync(file, html.replace(marker, `<!-- site-footer:start -->${footer}<!-- site-footer:end -->`));
+  fs.writeFileSync(file, html.replace(/<header class="site-header">[\s\S]*?<\/header>/, renderHeader(page)).replace(marker, `<!-- site-footer:start -->${footer}<!-- site-footer:end -->`));
 }
 
 

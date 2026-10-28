@@ -31,7 +31,7 @@
   if(expanded&&!reduced.matches)panel.animate([{opacity:0,transform:'translateY(-5px)'},{opacity:1,transform:'none'}],{duration:220,easing:'ease-out'});
  }));
 
- document.querySelector("#service-select").value=document.body.classList.contains("web-page")?"Desarrollo Web":"Marketing Digital";
+ document.querySelector("#service-select").value=document.body.dataset.service||(document.body.classList.contains("web-page")?"Desarrollo Web":"Marketing Digital");
 
  // All plan buttons work with the native quote fallback when React is unavailable.
  document.querySelectorAll('[data-quote]').forEach(trigger=>trigger.addEventListener('click',()=>{
@@ -69,7 +69,7 @@
    video.play().then(()=>{if(!allowed())video.pause();reflect()}).catch(()=>{if(token===request){stage.classList.remove('has-motion');reflect()}});
   }
   video.addEventListener('loadedmetadata',()=>{
-   try{video.currentTime=Math.min(1,video.duration-.05)}catch{primed=true;sync()}
+   try{video.currentTime=Math.min(Number(video.dataset.start||1),video.duration-.05)}catch{primed=true;sync()}
   });
   video.addEventListener('seeked',()=>{if(!primed){primed=true;sync()}});
   video.addEventListener('loadeddata',()=>{if(!primed&&!video.seeking){primed=true;sync()}});

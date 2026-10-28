@@ -62,6 +62,22 @@ No se instalan dependencias adicionales.
 
 ### Footer compartido
 
-El footer de las tres paginas se edita en `src/templates/footer.html`.
+El footer de todas las páginas se edita en `src/templates/footer.html`.
 `npm run build` lo incorpora en los HTML estaticos; el estilo comun esta en
 `docs/styles.css` (`.site-footer`). No depende de JavaScript en el navegador.
+
+### Servicios de Branding, Redes y Soluciones a Medida
+
+Las páginas `branding-diseno.html`, `redes-contenido.html` y
+`soluciones-medida.html` se generan con `npm run build` desde
+`src/data/remaining-services.json` y `src/templates/service-page.html`.
+Los textos, precios, modalidades, entregables y exclusiones se editan en ese JSON;
+`src/templates/header.html` centraliza la navegación de las seis páginas.
+`scripts/service-pages.cjs` genera los HTML y `docs/services.css` contiene los
+colores específicos. El footer sigue usando la plantilla compartida.
+
+Los PNG originales de los ZIP se conservan en `docs/assets/branding`,
+`docs/assets/social` y `docs/assets/custom`; se sirven codificaciones WebP.
+Cada hero utiliza el video suministrado, sin audio, con versión móvil y poster.
+Branding y Soluciones son de pago único; Redes es mensual. Los precios de
+Soluciones a Medida son referenciales, tal como indica el esquema suministrado.
