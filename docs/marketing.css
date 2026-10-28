@@ -132,3 +132,53 @@
 .marketing-marquee-track{animation-play-state:paused}
 .marketing-marquee.is-visible .marketing-marquee-track{animation-play-state:running}
 .marketing-marquee:hover .marketing-marquee-track{animation-play-state:paused}
+
+/* High-resolution supplied PNGs: full scenes stay original and unmodified. */
+.marketing-page .marketing-hero{background:radial-gradient(ellipse at 50% 65%,#ffc727,#ffb300 58%,#f6a000)}
+.service-hero-art{position:absolute;left:24%;top:15px;width:52%;height:calc(100% + 360px);z-index:0;pointer-events:none;transform:translate3d(var(--art-x,0px),var(--art-y,0px),0)}
+.service-hero-art>img{display:block;width:100%;height:100%;object-fit:contain;object-position:center top}
+.marketing-page .marketing-direction .service-direction-art{overflow:hidden;isolation:isolate;min-height:460px}
+.service-direction-art:before{content:'';position:absolute;inset:0 0 0 78%;z-index:0;background:linear-gradient(100deg,#ffd80a,#ffb900)}
+.marketing-page .service-direction-art>img{position:absolute;inset:0 0 0 auto;width:100%;height:100%;object-fit:contain;object-position:right bottom;z-index:1}
+.marketing-meta-art>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;z-index:1}
+.marketing-meta .marketing-meta-art{overflow:visible}
+.marketing-page .marketing-meta{overflow:visible}
+.marketing-page .marketing-meta .offer-detail{border-radius:0 0 24px 24px}
+@media(min-width:701px) and (max-width:1100px){.service-hero-art{left:19%;width:62%;top:48px;height:calc(100% + 300px)}.marketing-page .marketing-direction .service-direction-art{min-height:420px}}
+@media(max-width:700px){.service-hero-art{left:15%;top:258px;width:70%;height:430px}.marketing-page .marketing-direction .service-direction-art{height:auto;min-height:0;aspect-ratio:1.4}.marketing-page .service-direction-art>img{object-position:right bottom}.marketing-meta-art>img{width:115%;max-width:none;left:-8%;object-position:center bottom}}
+/* Development Web uses the same components with the supplied blue artwork. */
+.web-page{--purple:#048cfa}
+.web-page em,.web-page .marketing-direction .about-copy h2 em{color:#058bfb}
+.web-page .marketing-hero{background:radial-gradient(ellipse at 50% 60%,#22aaff,#098bf8 55%,#0075df)}
+.web-page .hero-title h1{font-size:clamp(44px,5vw,80px)}
+.web-page .hero-title .headline-light{font-size:1.53em;line-height:.9}
+.web-page .service-direction-art:before{background:linear-gradient(100deg,#16a3ff,#0784f5)}
+.web-page .marketing-underline:after{background:#008cff}
+.web-page .marketing-meta{background:linear-gradient(130deg,#159fff,#0789f9);border-color:#219dff;color:#fff}
+.web-page .marketing-meta .marketing-offer-copy>p{color:#f1f8ff}
+.web-page .marketing-meta .offer-icon{color:#fff}
+.web-page .marketing-offer .offer-detail{color:#243951}
+.web-page .marketing-marquee i{color:#0a9bff}
+.web-page .marketing-plan.is-recommended{background:linear-gradient(140deg,#13a7ff,#0686fb);border-color:#078afa;color:#fff}
+.web-page .is-recommended .plan-heading h3,.web-page .is-recommended .plan-heading p,.web-page .is-recommended .plan-price,.web-page .is-recommended .plan-currency,.web-page .is-recommended li{color:#fff}
+.web-page .plan-heading h3{font-size:21px}
+.web-page .plan-icon{background:#e0f2ff;color:#008aff}
+.web-page .is-recommended .plan-icon{background:#ffffffd9;color:#008aff}
+.web-page .marketing-plan li>span{background:#078afb;color:#fff}
+.web-page .is-recommended li>span{background:#fff;color:#078afb}
+.web-page .marketing-process{background:linear-gradient(110deg,#089eff,#0083ee);color:#fff}
+.web-page .marketing-process>.eyebrow,.web-page .marketing-process li p,.web-page .process-arrow{color:#f0f8ff}
+.web-page .marketing-faq details[open]{background:#f4faff;border-color:#95caff}
+.web-page .marketing-faq summary:focus-visible{outline-color:#0070d0}
+.web-page .contact h2 em{color:#079bff}
+.web-page .contact #quote{background:#0072d6;color:#fff;border-color:#4bb2ff;box-shadow:0 8px 25px #0089ff33}
+.web-page .contact #quote:hover{background:#1687eb;box-shadow:0 12px 30px #0089ff44}
+.web-page .contact #quote:focus-visible{outline-color:#72c5ff}
+.web-page .interactive-hover.dark{--hover-fill:#086cbb;--hover-ink:#fff}
+.web-page .interactive-hover.dark:before{background:#179bff}
+.web-page .contact.section>#contact-character{inset:-65px 1% auto auto;width:min(62%,960px)}
+@media(max-width:900px){.web-page .contact.section>#contact-character{inset:-65px 50% auto auto;width:min(88%,600px);transform:translateX(50%)}.web-page .contact.section{padding-top:270px}}
+@media(max-width:700px){.web-page .hero-title h1{font-size:clamp(33px,8.8vw,60px);letter-spacing:-1.5px}.web-page .service-hero-art{left:12%;width:76%;top:255px;height:415px}.web-page .contact.section>#contact-character{width:min(90%,430px)}.web-page .contact.section{padding-top:clamp(150px,42vw,185px)}}
+.service-art-note{position:absolute;left:4%;top:42%;width:140px;font-size:17px;font-weight:600;letter-spacing:1px;line-height:1.4;rotate:-12deg;color:#22282d;z-index:2}
+.service-art-note svg{display:block;width:70px;height:40px;margin:5px auto;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:700px){.marketing-page .service-hero-art{height:310px;overflow:hidden;mask-image:linear-gradient(#000 0%,#000 85%,transparent);-webkit-mask-image:linear-gradient(#000 0%,#000 85%,transparent)}.marketing-page .service-hero-art>img{height:430px;max-width:none}.service-art-note{font-size:12px;left:3%;top:35%;width:105px}.service-art-note svg{width:55px;height:30px}}

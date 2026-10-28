@@ -16,7 +16,7 @@ function Quote() {
   const [saved, setSaved] = useState(false)
   const textarea = useRef<HTMLTextAreaElement>(null)
   const returnFocus = useRef<HTMLElement | null>(null)
-  const [plan, setPlan] = useState<{ name: string; price: string } | null>(null)
+  const [plan, setPlan] = useState<{ name: string; price: string; billing: string; note: string } | null>(null)
 
   useEffect(() => {
     const triggers = [...document.querySelectorAll<HTMLElement>("#quote, [data-quote]")]
@@ -27,7 +27,7 @@ function Quote() {
       returnFocus.current = trigger
       const selectedService = trigger.dataset.quoteService
       if (selectedService && services.includes(selectedService)) setService(selectedService)
-      setPlan(trigger.dataset.plan ? { name: trigger.dataset.plan, price: trigger.dataset.price || "" } : null)
+      setPlan(trigger.dataset.plan ? { name: trigger.dataset.plan, price: trigger.dataset.price || "", billing: trigger.dataset.billing || "CLP/mes + IVA", note: trigger.dataset.planNote || "Inversión publicitaria no incluida." } : null)
       setSaved(false); setError(false); setOpen(true)
     }
     fallback.setAttribute("data-enhanced", "true")
@@ -45,7 +45,7 @@ function Quote() {
       textarea.current?.focus()
       return
     }
-    const file = new Blob([`COLORCLIK — Mi proyecto\n\nServicio: ${service}\n${plan ? `Plan: ${plan.name} · ${plan.price} CLP/mes + IVA\nInversión publicitaria no incluida.\n` : ""}\n${brief.trim()}\n`], { type: "text/plain;charset=utf-8" })
+    const file = new Blob([`COLORCLIK — Mi proyecto\n\nServicio: ${service}\n${plan ? `Plan: ${plan.name} · ${plan.price} ${plan.billing}\n${plan.note}\n` : ""}\n${brief.trim()}\n`], { type: "text/plain;charset=utf-8" })
     const url = URL.createObjectURL(file)
     const link = document.createElement("a")
     link.href = url
@@ -66,11 +66,11 @@ function Quote() {
           <DialogTitle>Tu idea empieza aquí.</DialogTitle>
           <DialogDescription>Prepara un resumen de tu proyecto para guardarlo y compartirlo cuando quieras.</DialogDescription>
         </DialogHeader>
-        {plan && <p className="quote-plan">Plan {plan.name} · {plan.price} CLP/mes + IVA</p>}
+        {plan && <p className="quote-plan">Plan {plan.name} · {plan.price} {plan.billing}</p>}
         <form className="grid gap-5" onSubmit={save} noValidate>
           <div className="grid gap-2">
             <label htmlFor="quote-service">¿Qué necesitas?</label>
-            <Select value={service} onValueChange={value => { setService(value); if (value !== "Marketing Digital") setPlan(null); setSaved(false) }}>
+            <Select value={service} onValueChange={value => { setService(value); setPlan(null); setSaved(false) }}>
               <SelectTrigger id="quote-service" className="min-h-12 w-full rounded-xl"><SelectValue /></SelectTrigger>
               <SelectContent className="quote-select" position="popper">
                 {services.map(name => <SelectItem key={name} value={name}>{name}</SelectItem>)}

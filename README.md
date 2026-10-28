@@ -38,15 +38,21 @@ La base shadcn/ui y sus instrucciones de uso están documentadas en [UI.md](UI.m
 
 Los testimonios son ejemplos ilustrativos, no reseñas reales. El formulario guarda un resumen local y no envía mensajes.
 
-### Página de Marketing Digital
+### Páginas de servicios
 
-`docs/marketing-digital.html` reutiliza la navegación (`navigation.js`), los efectos
-compartidos (`script.js`, `ui.js`), el hero React y el formulario shadcn/ui del inicio.
-Su diseño e interacciones específicas están en `docs/marketing.css` y
-`docs/marketing.js`. La tarjeta y el menú de Marketing Digital del inicio enlazan a
-esta página.
+`docs/marketing-digital.html` y `docs/desarrollo-web.html` siguen los esquemas
+suministrados y comparten navegación (`navigation.js`), efectos de letras/scroll
+(`script.js`, `ui.js`), estilos/interacciones (`marketing.css`, `marketing.js`) y el
+formulario shadcn/ui. El menú y las tarjetas del inicio enlazan a ambas páginas.
 
-Los tres planes del esquema abren el formulario con servicio, nombre y precio
-preseleccionados. El resumen descargable incluye esa selección; no hay pago ni
-envío de mensajes. Los botones también abren el formulario nativo si el bundle de
-React falla. No se instalan dependencias adicionales.
+Los PNG originales están en `docs/assets/marketing` y `docs/assets/web`, junto con
+codificaciones WebP optimizadas para servir en la web. No se regeneran personajes.
+Los heroes de servicios usan estas imágenes con un desplazamiento suave y limitado
+en escritorio; en táctiles o movimiento reducido permanecen estáticas. El hero
+interactivo de video del inicio no cambia.
+
+Los planes abren el formulario con servicio, nombre, precio y tipo de cobro:
+Marketing Digital es mensual; Desarrollo Web es pago único. El resumen descargable
+incluye esa selección y las exclusiones correspondientes. No hay cobros ni envío
+de mensajes. Los botones también funcionan con el formulario nativo si falla React.
+No se instalan dependencias adicionales.

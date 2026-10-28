@@ -31,18 +31,31 @@
   if(expanded&&!reduced.matches)panel.animate([{opacity:0,transform:'translateY(-5px)'},{opacity:1,transform:'none'}],{duration:220,easing:'ease-out'});
  }));
 
- document.querySelector("#service-select").value="Marketing Digital";
+ document.querySelector("#service-select").value=document.body.classList.contains("web-page")?"Desarrollo Web":"Marketing Digital";
 
  // All plan buttons work with the native quote fallback when React is unavailable.
  document.querySelectorAll('[data-quote]').forEach(trigger=>trigger.addEventListener('click',()=>{
   const dialog=document.querySelector('#quote-dialog');if(dialog.hasAttribute('data-enhanced'))return;
-  document.querySelector('#service-select').value='Marketing Digital';
+  document.querySelector('#service-select').value=trigger.dataset.quoteService||'Marketing Digital';
   const plan=trigger.dataset.plan,price=trigger.dataset.price;
-  if(plan)document.querySelector('#brief').value=`Me interesa el plan ${plan} (${price} CLP/mes + IVA). Inversión publicitaria no incluida.\n\nMi proyecto: `;
+  if(plan)document.querySelector('#brief').value=`Me interesa el plan ${plan} (${price} ${trigger.dataset.billing||"CLP/mes + IVA"}). ${trigger.dataset.planNote||"Inversión publicitaria no incluida."}\n\nMi proyecto: `;
   dialog.showModal();
  }));
 
  // Muted decorative films run only while visible; touch has no hover dependency.
+ // Original service-page PNGs move as a whole by only a few pixels; no face edits.
+ const hero=document.querySelector('.marketing-hero'),art=hero.querySelector('.service-hero-art');
+ const fine=matchMedia('(hover:hover) and (pointer:fine)');
+ if(art){
+  let visible=false,frame=0,last=0,x=0,y=0,targetX=0,targetY=0;
+  function stop(){cancelAnimationFrame(frame);frame=0;last=0;x=y=targetX=targetY=0;art.style.setProperty('--art-x','0px');art.style.setProperty('--art-y','0px')}
+  function update(now){frame=0;if(!visible||document.hidden||reduced.matches||!fine.matches){stop();return}const dt=last?Math.min((now-last)/1000,.05):1/60;last=now;const alpha=1-Math.exp(-dt/.18);x+=(targetX-x)*alpha;y+=(targetY-y)*alpha;art.style.setProperty('--art-x',`${x.toFixed(3)}px`);art.style.setProperty('--art-y',`${y.toFixed(3)}px`);if(Math.abs(targetX-x)+Math.abs(targetY-y)>.02)frame=requestAnimationFrame(update);else last=0}
+  function schedule(){if(visible&&!document.hidden&&!reduced.matches&&fine.matches&&!frame)frame=requestAnimationFrame(update)}
+  hero.addEventListener('pointermove',event=>{if(event.pointerType==='touch')return;const r=hero.getBoundingClientRect();targetX=Math.max(-1,Math.min(1,2*(event.clientX-r.left)/r.width-1))*5;targetY=Math.max(-1,Math.min(1,2*(event.clientY-r.top)/r.height-1))*3;schedule()},{passive:true});
+  hero.addEventListener('pointerleave',()=>{targetX=targetY=0;schedule()});
+  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible)stop()}).observe(hero);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});reduced.addEventListener('change',stop);fine.addEventListener('change',stop);
+ }
  const films=[...document.querySelectorAll('[data-ambient],.about-video')];
  const visibility=new Map(films.map(video=>[video,false]));
  function syncVideo(video){if(visibility.get(video)&&!document.hidden&&!reduced.matches){video.muted=true;video.loop=true;video.play().catch(()=>{})}else video.pause();}
