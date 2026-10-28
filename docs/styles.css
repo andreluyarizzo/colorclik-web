@@ -559,3 +559,7 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 @media(max-width:700px){.contact.section>#contact-character{width:min(90%,430px);right:50%;top:-65px;transform:translateX(50%)}.contact.section>div{max-width:none}}
 @media(max-width:900px){.reviews.section{padding-bottom:65px}}
 @media(max-width:700px){.contact.section{padding-top:clamp(150px,43vw,185px)}}
+/* Fit the corrected original PNG's 3:2 proportions without changing the artwork. */
+@media(min-width:901px){.contact.section{min-height:480px}.contact.section>#contact-character{width:min(53%,800px)}}
+@media(min-width:701px) and (max-width:900px){.contact.section{padding-top:360px}}
+@media(max-width:700px){.contact.section{padding-top:clamp(160px,calc(60vw - 33px),255px)}}
