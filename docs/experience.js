@@ -30,9 +30,14 @@
  if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.querySelector('.image-reveal').classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.12});revealFrames.forEach(frame=>{if(reduce.matches)frame.classList.add('is-visible');else observer.observe(frame.parentElement)})}else revealFrames.forEach(frame=>frame.classList.add('is-visible'));
  // A keyboard-accessible review stack. All copy is clearly marked as illustrative.
  const carousel=document.querySelector('.reviews-carousel'),cards=Array.from(document.querySelectorAll('.review-card')),dots=Array.from(document.querySelectorAll('.review-dots>button')),previous=carousel.querySelector('.review-prev'),next=carousel.querySelector('.review-next'),play=carousel.querySelector('.review-play'),announce=carousel.querySelector('.review-announcement');
+ // Size the shared viewport to the longest card, including narrow screens and fonts.
+ const reviewStack=carousel.querySelector('.review-stack');
+ function fitReviews(){let height=0;cards.forEach(card=>{const top=card.getBoundingClientRect().top;const padding=parseFloat(getComputedStyle(card).paddingBottom);for(const child of card.children)height=Math.max(height,child.getBoundingClientRect().bottom-top+padding)});reviewStack.style.minHeight=`${Math.max(320,Math.ceil(height)+2)}px`}
+ if('ResizeObserver'in window)new ResizeObserver(fitReviews).observe(carousel);else addEventListener('resize',fitReviews);
+ document.fonts.ready.then(fitReviews);fitReviews();
  let current=0,userPaused=false,carouselVisible=false,hovering=false,focused=false,interval;
  function renderReview(index,manual=false){current=(index+cards.length)%cards.length;cards.forEach((card,i)=>{const position=(i-current+cards.length)%cards.length;card.dataset.position=String(position);card.setAttribute('aria-hidden',String(position!==0));card.inert=position!==0});dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===current)));previous.disabled=current===0;next.disabled=current===cards.length-1;if(manual)announce.textContent=`Ejemplo de reseña ${current+1} de ${cards.length}`}
- function syncReviewPlayback(){clearInterval(interval);if(!userPaused&&!reduce.matches&&carouselVisible&&!hovering&&!focused&&!document.hidden)interval=setInterval(()=>renderReview(current+1),6500);play.textContent=userPaused?'▶':'Ⅱ';play.setAttribute('aria-label',userPaused?'Activar carrusel':'Pausar carrusel');play.setAttribute('aria-pressed',String(userPaused))}
+ function syncReviewPlayback(){clearInterval(interval);if(!userPaused&&!reduce.matches&&carouselVisible&&!hovering&&!focused&&!document.hidden)interval=setInterval(()=>renderReview(current+1),6500);play.textContent='';play.classList.toggle('is-paused',userPaused);play.setAttribute('aria-label',userPaused?'Activar carrusel':'Pausar carrusel');play.setAttribute('aria-pressed',String(userPaused))}
  previous.addEventListener('click',()=>{renderReview(current-1,true);syncReviewPlayback()});next.addEventListener('click',()=>{renderReview(current+1,true);syncReviewPlayback()});dots.forEach((dot,i)=>dot.addEventListener('click',()=>{renderReview(i,true);syncReviewPlayback()}));play.addEventListener('click',()=>{userPaused=!userPaused;syncReviewPlayback()});
  carousel.addEventListener('keydown',event=>{if(event.key==='ArrowRight'){event.preventDefault();renderReview(Math.min(current+1,cards.length-1),true)}else if(event.key==='ArrowLeft'){event.preventDefault();renderReview(Math.max(current-1,0),true)}});
  carousel.addEventListener('pointerenter',()=>{hovering=true;syncReviewPlayback()});carousel.addEventListener('pointerleave',()=>{hovering=false;syncReviewPlayback()});carousel.addEventListener('focusin',()=>{focused=true;syncReviewPlayback()});carousel.addEventListener('focusout',event=>{if(!carousel.contains(event.relatedTarget)){focused=false;syncReviewPlayback()}});
@@ -44,33 +49,35 @@
 
 
 
-// Loop the new service film and extend the banner's actual red backdrop.
+// Sample only the clean service blue; testimonial media owns its playback.
 (()=>{
- const mediaReduced=matchMedia('(prefers-reduced-motion: reduce)');
- const webVideo=document.querySelector('.web-service-video'),banner=document.querySelector('.reviews-video'),reviewSection=document.querySelector('#resenas');
- const sample=document.createElement('canvas');sample.width=1;sample.height=1;const sampleContext=sample.getContext('2d',{willReadFrequently:true});
- function sampleWebBlue(){if(webVideo.readyState<2)return;sampleContext.drawImage(webVideo,webVideo.videoWidth*.94,webVideo.videoHeight*.5,1,1,0,0,1,1);const pixel=sampleContext.getImageData(0,0,1,1).data;const blue=`rgb(${pixel[0]} ${pixel[1]} ${pixel[2]})`;webVideo.closest('.service').style.setProperty('--web-blue',blue);document.documentElement.style.setProperty('--web-blue',blue)}
- const backdrop=document.createElement('canvas');backdrop.className='reviews-backdrop';backdrop.setAttribute('aria-hidden','true');backdrop.width=96;backdrop.height=160;reviewSection.prepend(backdrop);const backdropContext=backdrop.getContext('2d',{alpha:false});
- function paintRed(){
-  if(banner.readyState<2||!banner.videoWidth)return;
-  const section=reviewSection.getBoundingClientRect(),film=banner.getBoundingClientRect();
-  if(!section.width||!section.height)return;
-  const width=384,height=Math.max(1,Math.round(width*section.height/section.width));
-  if(backdrop.width!==width||backdrop.height!==height){backdrop.width=width;backdrop.height=height}
-  const scale=width/section.width,x=(film.left-section.left)*scale,y=(film.top-section.top)*scale,w=film.width*scale,h=film.height*scale;
-  // Extend the clean right edge with its original vertical lighting, then the
-  // top row above the film. Both joins match the source frame at the same point.
-  backdropContext.drawImage(banner,banner.videoWidth-3,0,1,1,0,0,width,height);
-  backdropContext.drawImage(banner,banner.videoWidth-3,0,1,banner.videoHeight,0,y,width,h);
-  if(y>0)backdropContext.drawImage(banner,0,0,banner.videoWidth,1,x,0,w,y+1);
-
- }
- for(const film of [banner]){film.muted=true;film.loop=true;const sync=()=>{if(mediaReduced.matches){film.pause();film.controls=true}else{film.controls=false;film.play().catch(()=>{})}};film.addEventListener('loadeddata',sync);mediaReduced.addEventListener('change',sync);document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync()});sync()}
- webVideo.addEventListener('loadeddata',sampleWebBlue);sampleWebBlue();banner.addEventListener('loadeddata',paintRed);paintRed();banner.addEventListener('seeked',paintRed);
- if('requestVideoFrameCallback'in banner){const paint=()=>{paintRed();banner.requestVideoFrameCallback(paint)};banner.requestVideoFrameCallback(paint)}else banner.addEventListener('timeupdate',paintRed);
+ const webVideo=document.querySelector('.web-service-video');
+ const sample=document.createElement('canvas');sample.width=sample.height=1;const ctx=sample.getContext('2d',{willReadFrequently:true});
+ function paint(){if(webVideo.readyState<2)return;ctx.drawImage(webVideo,webVideo.videoWidth*.94,webVideo.videoHeight*.5,1,1,0,0,1,1);const p=ctx.getImageData(0,0,1,1).data;const blue=`rgb(${p[0]} ${p[1]} ${p[2]})`;webVideo.closest('.service').style.setProperty('--web-blue',blue);document.documentElement.style.setProperty('--web-blue',blue)}
+ webVideo.addEventListener('loadeddata',paint);paint();
 })();
 
-
+// Play once on arrival, pause outside the section, and respect explicit controls.
+(()=>{
+ const section=document.querySelector('#resenas'),video=section.querySelector('video'),sound=section.querySelector('.reviews-sound'),play=section.querySelector('.reviews-video-play');
+ const reduced=matchMedia('(prefers-reduced-motion:reduce)');
+ let visible=false,userPaused=false,userMuted=false,request=0;
+ function reflect(){sound.textContent=video.muted?'Activar sonido':'Silenciar';sound.setAttribute('aria-pressed',String(!video.muted));play.textContent=video.ended?'Volver a ver':video.paused?'Reproducir':'Pausar';play.setAttribute('aria-label',video.ended?'Volver a ver el video':video.paused?'Reproducir video':'Pausar video')}
+ async function start(audible=true){
+  const token=++request;video.muted=!audible||userMuted;video.volume=.65;
+  try{await video.play()}catch{if(token!==request)return;video.muted=true;try{await video.play()}catch{}}
+  if(token!==request){video.pause();video.muted=true}reflect();
+ }
+ function stop(){request++;video.pause();video.muted=true;reflect()}
+ function sync(){if(visible&&!document.hidden&&!userPaused&&!video.ended&&!reduced.matches)start();else stop()}
+ new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync()},{threshold:.4}).observe(video);
+ sound.addEventListener('click',()=>{userMuted=!video.muted;if(!userMuted){userPaused=false;if(video.ended)video.currentTime=0;start(true)}else{video.muted=true;reflect()}});
+ play.addEventListener('click',()=>{if(video.paused){userPaused=false;if(video.ended)video.currentTime=0;start(!userMuted)}else{userPaused=true;stop()}});
+ // A preceding interaction allows an audible start in browsers that require it.
+ document.addEventListener('pointerdown',event=>{if(visible&&!section.contains(event.target)&&!userMuted&&!userPaused&&!video.ended&&!reduced.matches)start()});
+ for(const event of ['play','pause','volumechange','ended'])video.addEventListener(event,reflect);
+ document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);reflect();
+})();
 
 // All projects share a rotating fan; mobile keeps native swipe navigation.
 (()=>{
