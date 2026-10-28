@@ -22,7 +22,7 @@
 (()=>{
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const selectors=['.about-copy > *','.services .section-heading > *','.service-grid > .service','.projects .section-heading > *','.project-grid > .project','.reviews-carousel','.contact > div > *'];
- const elements=[...document.querySelectorAll(selectors.join(','))];
+ const elements=[...document.querySelectorAll(selectors.join(','))].filter(element=>element.id!=='quote');
  if(!elements.length||!elements[0].animate)return;
  let tracks=[],raf=0;
  function layoutTop(element){let top=0;for(let node=element;node;node=node.offsetParent)top+=node.offsetTop;return top}
