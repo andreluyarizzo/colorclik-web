@@ -54,7 +54,9 @@
 .remaining-service-page .marketing-direction h2{font-size:clamp(36px,4vw,59px)}
 @media(max-width:700px){.remaining-service-page .marketing-direction h2{font-size:clamp(34px,8.7vw,46px)}.remaining-service-page .plan-heading{min-height:60px}}
 @media(max-width:700px){
- .custom-page .marketing-hero{height:600px;min-height:600px}
+ .custom-page .marketing-hero{height:420px;min-height:420px}
  .custom-page .hero-intro,.custom-page .hero-idea-list{display:none}
- .custom-page .hero-title>.pill{position:absolute;top:430px;left:0;margin:0;min-height:46px}
+ .custom-page .hero-title>.pill{position:absolute;top:260px;left:0;margin:0;min-height:46px}
 }
+
+@media(max-width:700px){.remaining-service-page .hero-title h1{font-size:clamp(28px,8vw,40px);letter-spacing:-1.2px}}
