@@ -37,3 +37,22 @@ Publica ambos archivos generados cuando cambies `src/`. Los demás archivos de `
 La base shadcn/ui y sus instrucciones de uso están documentadas en [UI.md](UI.md).
 
 Los testimonios son ejemplos ilustrativos, no reseñas reales. El formulario guarda un resumen local y no envía mensajes.
+
+### Páginas de servicios
+
+`docs/marketing-digital.html` y `docs/desarrollo-web.html` siguen los esquemas
+suministrados y comparten navegación (`navigation.js`), efectos de letras/scroll
+(`script.js`, `ui.js`), estilos/interacciones (`marketing.css`, `marketing.js`) y el
+formulario shadcn/ui. El menú y las tarjetas del inicio enlazan a ambas páginas.
+
+Los PNG originales están en `docs/assets/marketing` y `docs/assets/web`, junto con
+codificaciones WebP optimizadas para servir en la web. No se regeneran personajes.
+Los heroes de servicios usan estas imágenes con un desplazamiento suave y limitado
+en escritorio; en táctiles o movimiento reducido permanecen estáticas. El hero
+interactivo de video del inicio no cambia.
+
+Los planes abren el formulario con servicio, nombre, precio y tipo de cobro:
+Marketing Digital es mensual; Desarrollo Web es pago único. El resumen descargable
+incluye esa selección y las exclusiones correspondientes. No hay cobros ni envío
+de mensajes. Los botones también funcionan con el formulario nativo si falla React.
+No se instalan dependencias adicionales.

@@ -47,3 +47,5 @@
 @media (prefers-reduced-motion: reduce) {
   [data-slot="dialog-overlay"], .quote-ui, .quote-select { animation: none !important; transition: none !important; }
 }
+
+.quote-ui .quote-plan{padding:12px 14px;border:1px solid #e7dcff;border-radius:12px;background:#f5f0ff;font-size:13px;line-height:1.5;color:#5736a4}

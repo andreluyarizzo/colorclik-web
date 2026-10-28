@@ -563,3 +563,7 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 @media(min-width:901px){.contact.section{min-height:480px}.contact.section>#contact-character{width:min(53%,800px)}}
 @media(min-width:701px) and (max-width:900px){.contact.section{padding-top:360px}}
 @media(max-width:700px){.contact.section{padding-top:clamp(160px,calc(60vw - 33px),255px)}}
+/* First service page is available from the homepage card as well as the menu. */
+.service .service-page-link{position:absolute;left:20px;bottom:18px;z-index:3;display:inline-flex;align-items:center;gap:12px;min-height:44px;padding:11px 17px;border:1px solid #ffffff66;border-radius:999px;background:#111518;color:#fff;font-size:12px;font-weight:600}
+.service .service-page-link:hover{background:#35312c}
+.service .service-page-link svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}

@@ -77,4 +77,5 @@ function Gaze() {
   },[]);
   return <div className="gaze-stage" ref={stageRef}><img className="gaze-poster" src="assets/gaze/original.webp" alt="" width="1672" height="941" fetchPriority="high"/><video ref={videoRef} className="gaze-source" muted playsInline preload="none" disablePictureInPicture aria-hidden="true"/></div>;
 }
-createRoot(document.getElementById('hero-gaze')).render(<Gaze/>);
+const mount=document.getElementById('hero-gaze');
+if(mount)createRoot(mount).render(<Gaze/>);
