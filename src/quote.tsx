@@ -38,7 +38,7 @@ function Quote() {
       setService(catalog.some(item => item.name === requested) ? requested : catalog[0].name)
       setSelectedPlan(trigger.dataset.plan || "")
       setGoal(""); setAnswer(""); setBrief(""); setName(""); setEmail(""); setPhone(""); setCompany("")
-      setNotice(""); setStep(0); setOpen(true)
+      setNotice(""); setStep(requested && catalog.some(item => item.name === requested) ? 0 : -1); setOpen(true)
     }
     fallback.setAttribute("data-enhanced", "true")
     triggers.forEach(trigger => trigger.addEventListener("click", show))
@@ -62,16 +62,17 @@ function Quote() {
   return <Dialog open={open} onOpenChange={setOpen}>
     <DialogContent className="quote-ui quote-wizard" style={{ "--quote-accent": current.color } as CSSProperties}
       onCloseAutoFocus={event => { event.preventDefault(); returnFocus.current?.focus() }}>
-      <aside className="quote-art" aria-hidden="true">
+      <aside className={`quote-art quote-art-${current.key}`} aria-hidden="true">
         <strong className="quote-logo">ColorClik<span>✳</span></strong>
         <div className="quote-art-copy"><h2>Tu próximo <br />clik empieza <br />aquí.</h2><p>{current.name}<br />Ideas que conectan.<br />Proyectos que avanzan.</p></div>
         <img key={current.key} src={`assets/${current.key}/hero.webp`} alt="" className="quote-character" />
       </aside>
       <div className="quote-body">
-        <ol className="quote-progress" aria-label="Progreso de la cotización">{steps.map((label,index) => <li key={label} aria-current={index === step ? "step" : undefined} className={index <= step ? "active" : ""}><span>{index < step ? <Check size={14} /> : `0${index+1}`}</span>{label}</li>)}</ol>
-        <DialogTitle ref={heading} tabIndex={-1}>{step === 0 ? current.title : step === 1 ? "Nos falta conocerte." : "Tu cotización, a un clik."}</DialogTitle>
-        <DialogDescription>{step === 0 ? "Cuéntanos qué necesitas y preparemos tu próxima idea." : step === 1 ? "¿Con quién tendremos el gusto de hacer clik?" : "Revisa tu proyecto y elige cómo quieres enviarlo."}</DialogDescription>
+        <ol className="quote-progress" hidden={step < 0} aria-label="Progreso de la cotización">{steps.map((label,index) => <li key={label} aria-current={index === step ? "step" : undefined} className={index <= step ? "active" : ""}><span>{index < step ? <Check size={14} /> : `0${index+1}`}</span>{label}</li>)}</ol>
+        <DialogTitle ref={heading} tabIndex={-1}>{step < 0 ? "¿Qué vamos a crear?" : step === 0 ? current.title : step === 1 ? "Nos falta conocerte." : "Tu cotización, a un clik."}</DialogTitle>
+        <DialogDescription>{step < 0 ? "Cada gran idea tiene su equipo. Elige tu servicio y hagamos clik." : step === 0 ? "Cuéntanos qué necesitas y preparemos tu próxima idea." : step === 1 ? "¿Con quién tendremos el gusto de hacer clik?" : "Revisa tu proyecto y elige cómo quieres enviarlo."}</DialogDescription>
         <form onSubmit={advance} className="quote-form">
+          {step < 0 && <div className="quote-service-picker" role="group" aria-label="Elige un servicio">{catalog.map(item => <button type="button" key={item.key} className={`quote-service-tile ${service === item.name ? "is-selected" : ""}`} style={{ "--tile-accent": item.color } as CSSProperties} aria-pressed={service === item.name} onClick={()=>setService(item.name)}><span className="quote-service-portrait"><img src={`assets/${item.key}/hero.webp`} alt="" loading="lazy" /></span><strong>{item.name}</strong>{service === item.name ? <Check size={18} aria-hidden="true" /> : <ArrowRight size={18} aria-hidden="true" />}</button>)}</div>}
           {step === 0 && <>
             <label className="quote-label" htmlFor="quote-service">Servicio</label>
             <select id="quote-service" className="quote-field" value={service} onChange={e => {setService(e.target.value);setSelectedPlan("");setGoal("");setAnswer("")}}>{catalog.map(item => <option key={item.name}>{item.name}</option>)}</select>
@@ -94,7 +95,7 @@ function Quote() {
             <p className="quote-help">Se abrirá WhatsApp o tu aplicación de correo con la cotización completa. Confirma el envío allí. Correo: {EMAIL}.</p>
           </>}
           <p className="quote-notice" role="status" aria-live="polite">{notice}</p>
-          <div className="quote-navigation">{step > 0 && <button type="button" className="quote-back" onClick={()=>{setStep(step-1);setNotice("")}}><ArrowLeft size={17} /> Atrás</button>}{step < 2 && <button type="submit" className="quote-next">{step === 0 ? "Continuar" : "Ver mi resumen"}<ArrowRight size={18} /></button>}</div>
+          <div className="quote-navigation">{step > 0 && <button type="button" className="quote-back" onClick={()=>{setStep(step-1);setNotice("")}}><ArrowLeft size={17} /> Atrás</button>}{step < 2 && <button type="submit" className="quote-next">{step < 0 ? "Cotizar mi proyecto" : step === 0 ? "Continuar" : "Ver mi resumen"}<ArrowRight size={18} /></button>}</div>
         </form>
       </div>
     </DialogContent>

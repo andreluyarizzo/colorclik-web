@@ -573,3 +573,13 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 .site-footer>a img{width:100px;height:auto;display:block}
 .site-footer>p{margin-right:auto}.site-footer nav{display:flex;gap:25px;flex-wrap:wrap}.site-footer a:hover{color:#fff}
 @media(max-width:700px){.site-footer{padding:26px 24px;gap:15px}.site-footer>p{font-size:10px}.site-footer nav{width:100%;gap:22px;font-size:11px}}
+
+/* Quote CTA: light sweep, responsive arrow capsule, no layout movement. */
+.contact #quote{position:relative;isolation:isolate;overflow:hidden;padding:9px 10px 9px 24px;min-height:60px;gap:22px;transition:background .2s,box-shadow .2s,translate .2s}
+.contact #quote::before{content:"";position:absolute;inset:-80% auto -80% -55%;width:35%;background:linear-gradient(90deg,transparent,#fff5,transparent);transform:skewX(-20deg);pointer-events:none;z-index:-1;transition:left .65s ease}
+.contact #quote:is(:hover,:focus-visible)::before{left:130%}
+.contact #quote>svg{width:40px;height:40px;padding:10px;border-radius:50%;background:#ffffff25;transition:transform .25s,background .25s,rotate .25s}
+.contact #quote:is(:hover,:focus-visible)>svg{transform:translateX(2px);rotate:-35deg;background:#ffffff40}
+.contact #quote:active{translate:0 0;scale:.98}
+@media(max-width:700px){.contact #quote{padding:9px 10px 9px 20px;justify-content:space-between;gap:16px}}
+@media(prefers-reduced-motion:reduce){.contact #quote,.contact #quote>svg,.contact #quote::before{transition:none}.contact #quote::before{display:none}.contact #quote:is(:hover,:focus-visible)>svg{transform:none;rotate:none}.contact #quote:active{scale:1}}
