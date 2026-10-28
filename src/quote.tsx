@@ -63,7 +63,7 @@ function Quote() {
     <DialogContent className="quote-ui quote-wizard" style={{ "--quote-accent": current.color } as CSSProperties}
       onCloseAutoFocus={event => { event.preventDefault(); returnFocus.current?.focus() }}>
       <aside className={`quote-art quote-art-${current.key}`} aria-hidden="true">
-        <strong className="quote-logo">ColorClik<span>✳</span></strong>
+        <div className="quote-logo"><img src="assets/image-2.png" alt="" width="496" height="120" /></div>
         <div className="quote-art-copy"><h2>Tu próximo <br />clik empieza <br />aquí.</h2><p>{current.name}<br />Ideas que conectan.<br />Proyectos que avanzan.</p></div>
         <img key={current.key} src={`assets/${current.key}/hero.webp`} alt="" className="quote-character" />
       </aside>

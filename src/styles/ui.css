@@ -78,3 +78,7 @@
 .quote-ui .quote-body::-webkit-scrollbar{width:7px}.quote-ui .quote-body::-webkit-scrollbar-thumb{background:#a3a7b0;border-radius:8px}.quote-ui .quote-body::-webkit-scrollbar-track{background:#f2f3f5}
 @media(max-width:620px){.quote-ui.quote-wizard{height:calc(100dvh - 16px);max-height:calc(100dvh - 16px);overflow:hidden}.quote-ui .quote-art{min-height:155px;height:155px;flex:0 0 155px}.quote-ui .quote-body{flex:1 1 0;min-height:0;overflow-y:auto}}
 @media(max-height:550px) and (max-width:620px){.quote-ui .quote-art{min-height:100px;height:100px;flex-basis:100px}.quote-ui .quote-character,.quote-ui .quote-art-custom .quote-character{height:100px}.quote-art-copy{margin-top:6px}.quote-art-copy h2,.quote-art-custom .quote-art-copy h2{font-size:20px}.quote-logo{font-size:19px}}
+/* Use the exact shared site logo asset, including in the mobile quote header. */
+.quote-ui .quote-logo{display:inline-flex;width:auto;padding:10px 14px;border-radius:999px;background:#131519;line-height:1}
+.quote-ui .quote-logo>img{display:block;width:118px;height:auto;max-width:100%;object-fit:contain}
+@media(max-width:620px){.quote-ui .quote-logo{padding:8px 11px}.quote-ui .quote-logo>img{width:104px}}

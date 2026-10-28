@@ -24,7 +24,11 @@ const icons={
  cube:'<path d="m12 2 10 5v10l-10 5-10-5V7Zm0 10v10M2 7l10 5 10-5M7 4l10 5"/>',
  growth:'<path d="M4 21V14h4v7m2 0V8h4v13m2 0V2h4v19"/>'
 };
-function renderHeader(page){return read('src/templates/header.html').trim().replace(`href="${page}"><strong>`,`href="${page}" aria-current="page"><strong>`);}
+function renderHeader(page){
+ let header=read('src/templates/header.html').trim();
+ if(page==='estudio.html')header=header.replace('href="#servicios"','href="index.html#servicios"');
+ return header.replace(`href="${page}"><strong>`,`href="${page}" aria-current="page"><strong>`).replace(`href="${page}"><small>`,`href="${page}" aria-current="page"><small>`);
+}
 function quoteButton(s,text,extra='',className='pill dark'){
  return `<button type="button" class="${escape(className)}" data-quote data-quote-service="${escape(s.service)}" ${extra}>${escape(text)} <span>↗</span></button>`;
 }
@@ -46,4 +50,4 @@ function renderServicePages(){
  fs.writeFileSync(path.join(root,'docs',s.slug+'.html'),html);
  }
 }
-module.exports={renderServicePages,renderHeader,pages:['index.html','marketing-digital.html','desarrollo-web.html',...data.map(s=>s.slug+'.html')]};
+module.exports={renderServicePages,renderHeader,pages:['estudio.html','index.html','marketing-digital.html','desarrollo-web.html',...data.map(s=>s.slug+'.html')]};
