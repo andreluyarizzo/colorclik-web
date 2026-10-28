@@ -87,8 +87,8 @@
   });
   buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
  }
- function select(index){highlight(index);if(mobile.matches)gallery.scrollTo({left:projects[index].offsetLeft-projects[0].offsetLeft,behavior:reduced.matches?'instant':'smooth'})}
- function reflect(){frame=null;if(!mobile.matches)return;let index=0,distance=Infinity;projects.forEach((project,i)=>{const delta=Math.abs(project.getBoundingClientRect().left-gallery.getBoundingClientRect().left);if(delta<distance){index=i;distance=delta}});highlight(index)}
+ function select(index){highlight(index);if(mobile.matches)gallery.scrollTo({left:projects[index].offsetLeft+(projects[index].offsetWidth-gallery.clientWidth)/2,behavior:'instant'})}
+ function reflect(){frame=null;if(!mobile.matches)return;let index=0,distance=Infinity;projects.forEach((project,i)=>{const delta=Math.abs(project.getBoundingClientRect().left+project.offsetWidth/2-gallery.getBoundingClientRect().left-gallery.clientWidth/2);if(delta<distance){index=i;distance=delta}});highlight(index)}
  buttons.forEach((button,index)=>button.addEventListener('click',()=>select(index)));
  projects.forEach((project,index)=>project.addEventListener('focus',()=>{if(!mobile.matches&&project.matches(':focus-visible'))select(index)}));
  gallery.addEventListener('scroll',()=>{if(!frame&&mobile.matches)frame=requestAnimationFrame(reflect)},{passive:true});
