@@ -4,6 +4,7 @@ const fs = require('node:fs');
 
 const { renderServicePages, renderHeader, pages } = require('./scripts/service-pages.cjs');
 renderServicePages();
+require('./scripts/studio-page.cjs').renderStudioPage();
 
 // Render shared navigation and footer into static HTML, without client-side fetches.
 const footer = fs.readFileSync(path.join(__dirname, 'src/templates/footer.html'), 'utf8').trim();
