@@ -67,7 +67,7 @@ function Quote() {
         <div className="quote-art-copy"><h2>Tu próximo <br />clik empieza <br />aquí.</h2><p>{current.name}<br />Ideas que conectan.<br />Proyectos que avanzan.</p></div>
         <img key={current.key} src={`assets/${current.key}/hero.webp`} alt="" className="quote-character" />
       </aside>
-      <div className="quote-body">
+      <div className="quote-body" role="region" aria-label="Formulario de cotización" tabIndex={0}>
         <ol className="quote-progress" hidden={step < 0} aria-label="Progreso de la cotización">{steps.map((label,index) => <li key={label} aria-current={index === step ? "step" : undefined} className={index <= step ? "active" : ""}><span>{index < step ? <Check size={14} /> : `0${index+1}`}</span>{label}</li>)}</ol>
         <DialogTitle ref={heading} tabIndex={-1}>{step < 0 ? "¿Qué vamos a crear?" : step === 0 ? current.title : step === 1 ? "Nos falta conocerte." : "Tu cotización, a un clik."}</DialogTitle>
         <DialogDescription>{step < 0 ? "Cada gran idea tiene su equipo. Elige tu servicio y hagamos clik." : step === 0 ? "Cuéntanos qué necesitas y preparemos tu próxima idea." : step === 1 ? "¿Con quién tendremos el gusto de hacer clik?" : "Revisa tu proyecto y elige cómo quieres enviarlo."}</DialogDescription>

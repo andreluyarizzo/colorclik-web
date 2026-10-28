@@ -71,3 +71,10 @@
 @media(max-width:620px){.quote-ui .quote-art-custom .quote-character{width:70%;height:155px;right:-12%;object-fit:contain}.quote-art-custom .quote-art-copy{width:53%}.quote-art-custom .quote-art-copy h2{font-size:23px}.quote-service-picker{gap:8px}.quote-ui .quote-service-tile{display:flex;flex-direction:column;align-items:flex-start;gap:9px;padding:12px;min-height:156px}.quote-service-tile>svg{position:absolute;right:12px;top:12px}.quote-service-tile:last-child{display:grid;grid-template-columns:70px 1fr;min-height:100px}.quote-service-tile strong{font-size:12px}.quote-service-portrait{height:75px}}
 @media(prefers-reduced-motion:reduce){.quote-ui .quote-service-tile{transition:none}.quote-ui .quote-service-tile:hover{transform:none}}
 .quote-ui .quote-art-custom{color:#fff}
+/* Constrain the grid track itself so long forms scroll inside the viewport. */
+.quote-ui.quote-wizard{height:min(880px,calc(100dvh - 32px));max-height:calc(100dvh - 32px);grid-template-rows:minmax(0,1fr)}
+.quote-ui .quote-art{min-height:0}
+.quote-ui .quote-body{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#a3a7b0 #f2f3f5;-webkit-overflow-scrolling:touch;scroll-padding-block:20px}
+.quote-ui .quote-body::-webkit-scrollbar{width:7px}.quote-ui .quote-body::-webkit-scrollbar-thumb{background:#a3a7b0;border-radius:8px}.quote-ui .quote-body::-webkit-scrollbar-track{background:#f2f3f5}
+@media(max-width:620px){.quote-ui.quote-wizard{height:calc(100dvh - 16px);max-height:calc(100dvh - 16px);overflow:hidden}.quote-ui .quote-art{min-height:155px;height:155px;flex:0 0 155px}.quote-ui .quote-body{flex:1 1 0;min-height:0;overflow-y:auto}}
+@media(max-height:550px) and (max-width:620px){.quote-ui .quote-art{min-height:100px;height:100px;flex-basis:100px}.quote-ui .quote-character,.quote-ui .quote-art-custom .quote-character{height:100px}.quote-art-copy{margin-top:6px}.quote-art-copy h2,.quote-art-custom .quote-art-copy h2{font-size:20px}.quote-logo{font-size:19px}}
