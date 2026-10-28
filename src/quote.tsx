@@ -15,17 +15,26 @@ function Quote() {
   const [error, setError] = useState(false)
   const [saved, setSaved] = useState(false)
   const textarea = useRef<HTMLTextAreaElement>(null)
+  const returnFocus = useRef<HTMLElement | null>(null)
+  const [plan, setPlan] = useState<{ name: string; price: string } | null>(null)
 
   useEffect(() => {
-    const trigger = document.getElementById("quote")
+    const triggers = [...document.querySelectorAll<HTMLElement>("#quote, [data-quote]")]
     const fallback = document.getElementById("quote-dialog")
-    if (!trigger || !fallback) return
-    const show = () => { setSaved(false); setError(false); setOpen(true) }
+    if (!triggers.length || !fallback) return
+    const show = (event: Event) => {
+      const trigger = event.currentTarget as HTMLElement
+      returnFocus.current = trigger
+      const selectedService = trigger.dataset.quoteService
+      if (selectedService && services.includes(selectedService)) setService(selectedService)
+      setPlan(trigger.dataset.plan ? { name: trigger.dataset.plan, price: trigger.dataset.price || "" } : null)
+      setSaved(false); setError(false); setOpen(true)
+    }
     fallback.setAttribute("data-enhanced", "true")
-    trigger.addEventListener("click", show)
+    triggers.forEach(trigger => trigger.addEventListener("click", show))
     return () => {
       fallback.removeAttribute("data-enhanced")
-      trigger.removeEventListener("click", show)
+      triggers.forEach(trigger => trigger.removeEventListener("click", show))
     }
   }, [])
 
@@ -36,7 +45,7 @@ function Quote() {
       textarea.current?.focus()
       return
     }
-    const file = new Blob([`COLORCLIK — Mi proyecto\n\nServicio: ${service}\n\n${brief.trim()}\n`], { type: "text/plain;charset=utf-8" })
+    const file = new Blob([`COLORCLIK — Mi proyecto\n\nServicio: ${service}\n${plan ? `Plan: ${plan.name} · ${plan.price} CLP/mes + IVA\nInversión publicitaria no incluida.\n` : ""}\n${brief.trim()}\n`], { type: "text/plain;charset=utf-8" })
     const url = URL.createObjectURL(file)
     const link = document.createElement("a")
     link.href = url
@@ -51,16 +60,17 @@ function Quote() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="quote-ui max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-3xl border-0 p-6 sm:max-w-xl sm:p-8"
-        onCloseAutoFocus={event => { event.preventDefault(); document.getElementById("quote")?.focus() }}>
+        onCloseAutoFocus={event => { event.preventDefault(); (returnFocus.current || document.getElementById("quote"))?.focus() }}>
         <DialogHeader className="text-left">
           <p className="quote-eyebrow">HAGAMOS CLIK</p>
           <DialogTitle>Tu idea empieza aquí.</DialogTitle>
           <DialogDescription>Prepara un resumen de tu proyecto para guardarlo y compartirlo cuando quieras.</DialogDescription>
         </DialogHeader>
+        {plan && <p className="quote-plan">Plan {plan.name} · {plan.price} CLP/mes + IVA</p>}
         <form className="grid gap-5" onSubmit={save} noValidate>
           <div className="grid gap-2">
             <label htmlFor="quote-service">¿Qué necesitas?</label>
-            <Select value={service} onValueChange={value => { setService(value); setSaved(false) }}>
+            <Select value={service} onValueChange={value => { setService(value); if (value !== "Marketing Digital") setPlan(null); setSaved(false) }}>
               <SelectTrigger id="quote-service" className="min-h-12 w-full rounded-xl"><SelectValue /></SelectTrigger>
               <SelectContent className="quote-select" position="popper">
                 {services.map(name => <SelectItem key={name} value={name}>{name}</SelectItem>)}

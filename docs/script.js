@@ -17,7 +17,7 @@ document.querySelector('#brief-form').addEventListener('submit',event=>{event.pr
 // Shared hover treatment: expanding dot, sliding label, and incoming arrow.
 document.querySelectorAll('.pill:not(#quote)').forEach(control=>{
  const label=control.textContent.replace(/[→↗↓]/g,'').trim();
- control.classList.add('interactive-hover');control.setAttribute('aria-label',label);
+ control.classList.add('interactive-hover');if(!control.hasAttribute('aria-label'))control.setAttribute('aria-label',label);
  const dot=document.createElement('span');dot.className='hover-dot';dot.setAttribute('aria-hidden','true');
  const text=document.createElement('span');text.className='hover-label';text.textContent=label;
  const incoming=document.createElement('span');incoming.className='hover-incoming';incoming.setAttribute('aria-hidden','true');
@@ -27,7 +27,7 @@ document.querySelectorAll('.pill:not(#quote)').forEach(control=>{
 });
 // Keep the supplied studio animation looping, including when scrolling away.
 const aboutVideo=document.querySelector('.about-video');
-function syncAboutVideo(){aboutVideo.muted=true;aboutVideo.loop=true;if(reduced.matches){aboutVideo.pause();aboutVideo.controls=true}else{aboutVideo.play().catch(()=>{aboutVideo.controls=true})}}
-aboutVideo.addEventListener('loadeddata',syncAboutVideo);
+function syncAboutVideo(){if(!aboutVideo||document.body.classList.contains("marketing-page"))return;aboutVideo.muted=true;aboutVideo.loop=true;if(reduced.matches){aboutVideo.pause();aboutVideo.controls=true}else{aboutVideo.play().catch(()=>{aboutVideo.controls=true})}}
+aboutVideo?.addEventListener('loadeddata',syncAboutVideo);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncAboutVideo()});
 reduced.addEventListener('change',syncAboutVideo);syncAboutVideo();

@@ -37,3 +37,16 @@ Publica ambos archivos generados cuando cambies `src/`. Los demás archivos de `
 La base shadcn/ui y sus instrucciones de uso están documentadas en [UI.md](UI.md).
 
 Los testimonios son ejemplos ilustrativos, no reseñas reales. El formulario guarda un resumen local y no envía mensajes.
+
+### Página de Marketing Digital
+
+`docs/marketing-digital.html` reutiliza la navegación (`navigation.js`), los efectos
+compartidos (`script.js`, `ui.js`), el hero React y el formulario shadcn/ui del inicio.
+Su diseño e interacciones específicas están en `docs/marketing.css` y
+`docs/marketing.js`. La tarjeta y el menú de Marketing Digital del inicio enlazan a
+esta página.
+
+Los tres planes del esquema abren el formulario con servicio, nombre y precio
+preseleccionados. El resumen descargable incluye esa selección; no hay pago ni
+envío de mensajes. Los botones también abren el formulario nativo si el bundle de
+React falla. No se instalan dependencias adicionales.
