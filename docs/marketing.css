@@ -194,3 +194,14 @@
 .service-hero-pause[hidden]{display:none}.service-hero-pause:hover{background:#fff}
 .service-hero-pause svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 @media(max-width:700px){.service-film-stage{top:250px;bottom:auto;width:568.888889px;height:320px;mask-image:linear-gradient(90deg,transparent,#000 17%,#000 83%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 86%,transparent);mask-composite:intersect;-webkit-mask-image:linear-gradient(90deg,transparent,#000 17%,#000 83%,transparent),linear-gradient(180deg,transparent,#000 8%,#000 86%,transparent);-webkit-mask-composite:source-in}.service-hero-pause{right:18px;bottom:18px;width:44px;height:44px}}
+/* Mobile service heroes: one headline, original character, price and one CTA. */
+@media(max-width:700px){
+ .marketing-page .marketing-hero{height:600px;min-height:600px;max-height:none}
+ .marketing-page .hero-title{top:96px;left:22px;right:22px}
+ .marketing-page .hero-title>p.marketing-hero-description{display:none}
+ .marketing-page .hero-intro{bottom:24px}
+ .marketing-page .hero-intro h2,.marketing-page .hero-scroll-cue{display:none}
+ .marketing-page .hero-intro>p{margin:0 0 12px;font-size:13px}
+ .marketing-page .hero-intro .pill{min-height:46px}
+ .marketing-page .service-film-stage{top:200px;height:250px;width:444.444444px}
+}

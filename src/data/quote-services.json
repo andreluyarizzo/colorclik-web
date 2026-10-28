@@ -55,21 +55,21 @@
     "plans": [
       {
         "name": "Landing",
-        "price": "$249.990",
+        "price": "$120.000",
         "billing": "CLP + IVA · Pago único",
-        "note": "Hosting, dominio y licencias se cotizan aparte."
+        "note": "Autoadministrable, capacitación de uso y 3 meses de hosting gratis. Dominio y licencias aparte; renovación del hosting desde el cuarto mes se cotiza por separado."
       },
       {
         "name": "Web Corporativa",
-        "price": "$449.990",
+        "price": "$380.000",
         "billing": "CLP + IVA · Pago único",
-        "note": "Hosting, dominio y licencias se cotizan aparte."
+        "note": "Autoadministrable, capacitación de uso y 3 meses de hosting gratis. Dominio y licencias aparte; renovación del hosting desde el cuarto mes se cotiza por separado."
       },
       {
         "name": "Tienda Online",
-        "price": "$699.990",
+        "price": "$480.000",
         "billing": "CLP + IVA · Pago único",
-        "note": "Hosting, dominio y licencias se cotizan aparte."
+        "note": "Autoadministrable, capacitación de uso y 3 meses de hosting gratis. Dominio y licencias aparte; renovación del hosting desde el cuarto mes se cotiza por separado."
       }
     ]
   },
