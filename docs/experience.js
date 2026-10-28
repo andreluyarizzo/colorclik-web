@@ -72,18 +72,27 @@
 
 
 
-// The fan responds to pointer/focus; on mobile the selectors follow native swiping.
+// All projects share a rotating fan; mobile keeps native swipe navigation.
 (()=>{
  const gallery=document.querySelector('.project-grid'),projects=[...gallery.querySelectorAll('.project')],buttons=[...document.querySelectorAll('[data-project-index]')];
  const reduced=matchMedia('(prefers-reduced-motion:reduce)'),mobile=matchMedia('(max-width:700px)');
- let frame,current=1;
- function highlight(index){current=index;projects.forEach((project,i)=>project.classList.toggle('is-featured',i===index));buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)))}
- function select(index){highlight(index);if(mobile.matches)gallery.scrollTo({left:projects[index].offsetLeft-projects[0].offsetLeft,behavior:reduced.matches?'instant':'smooth'})}
- function reflect(){frame=null;if(!mobile.matches)return;let index=0,distance=Infinity;projects.forEach((project,i)=>{const delta=Math.abs(project.getBoundingClientRect().left-gallery.getBoundingClientRect().left);if(delta<distance){index=i;distance=delta}});highlight(index)}
+ let frame,current=0;
+ function highlight(index){
+  current=index;
+  projects.forEach((project,i)=>{
+   let slot=(i-index+projects.length)%projects.length;if(slot>projects.length/2)slot-=projects.length;
+   const hidden=!mobile.matches&&Math.abs(slot)>2;
+   project.style.setProperty('--slot',slot);project.style.setProperty('--card-angle',`${slot*9}deg`);project.style.setProperty('--card-y',`${Math.abs(slot)*20}px`);project.style.setProperty('--card-order',10-Math.abs(slot));
+   project.classList.toggle('is-featured',i===index);project.classList.toggle('is-outside-fan',hidden);project.inert=hidden;
+  });
+  buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)));
+ }
+ function select(index){highlight(index);if(mobile.matches)gallery.scrollTo({left:projects[index].offsetLeft+(projects[index].offsetWidth-gallery.clientWidth)/2,behavior:'instant'})}
+ function reflect(){frame=null;if(!mobile.matches)return;let index=0,distance=Infinity;projects.forEach((project,i)=>{const delta=Math.abs(project.getBoundingClientRect().left+project.offsetWidth/2-gallery.getBoundingClientRect().left-gallery.clientWidth/2);if(delta<distance){index=i;distance=delta}});highlight(index)}
  buttons.forEach((button,index)=>button.addEventListener('click',()=>select(index)));
- projects.forEach((project,index)=>{project.addEventListener('pointerenter',event=>{if(!mobile.matches&&event.pointerType==='mouse')highlight(index)});project.addEventListener('focus',()=>select(index))});
+ projects.forEach((project,index)=>project.addEventListener('focus',()=>{if(!mobile.matches&&project.matches(':focus-visible'))select(index)}));
  gallery.addEventListener('scroll',()=>{if(!frame&&mobile.matches)frame=requestAnimationFrame(reflect)},{passive:true});
- gallery.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();select(event.key==='Home'?0:event.key==='End'?projects.length-1:Math.max(0,Math.min(projects.length-1,current+(event.key==='ArrowRight'?1:-1))))});
- mobile.addEventListener('change',()=>{gallery.scrollLeft=0;highlight(mobile.matches?0:1)});
- highlight(mobile.matches?0:1);
+ gallery.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();select(event.key==='Home'?0:event.key==='End'?projects.length-1:(current+(event.key==='ArrowRight'?1:projects.length-1))%projects.length)});
+ mobile.addEventListener('change',()=>{gallery.scrollLeft=0;highlight(0)});
+ highlight(0);
 })();
