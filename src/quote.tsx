@@ -7,12 +7,12 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } f
 const EMAIL = "hola@colorclik.cl"
 const WHATSAPP = "56964505484"
 const catalog = [
-  { name: "Quiero explorar una idea", color: "#ff9e24", options: ["Necesito orientación", "Tengo una idea nueva", "Quiero mejorar mi proyecto"] },
-  { name: "Marketing Digital", color: "#ffc928", options: ["Google Ads", "Meta Ads", "SEO", "Estrategia digital"] },
-  { name: "Desarrollo Web", color: "#57b8f5", options: ["Landing page", "Web corporativa", "Tienda online", "Desarrollo personalizado"] },
-  { name: "Branding y Diseño", color: "#f38dbb", options: ["Logo", "Identidad visual", "Packaging", "Piezas gráficas"] },
-  { name: "Redes y Contenido", color: "#8bdc79", options: ["Instagram", "TikTok", "Reels", "Gestión de redes"] },
-  { name: "Soluciones a Medida", color: "#a47af2", options: ["Automatización", "Inteligencia artificial", "Integraciones", "Software a medida"] },
+  { name: "Quiero explorar una idea", color: "#ff9e24", image: "assets/about-art.png", options: ["Necesito orientación", "Tengo una idea nueva", "Quiero mejorar mi proyecto"] },
+  { name: "Marketing Digital", color: "#ffb900", image: "assets/marketing-poster.webp", options: ["Google Ads", "Meta Ads", "SEO", "Estrategia digital"] },
+  { name: "Desarrollo Web", color: "#078afa", image: "assets/web-poster.webp", options: ["Landing page", "Web corporativa", "Tienda online", "Desarrollo personalizado"] },
+  { name: "Branding y Diseño", color: "#f38dbb", image: "assets/branding-poster.webp", options: ["Logo", "Identidad visual", "Packaging", "Piezas gráficas"] },
+  { name: "Redes y Contenido", color: "#8bdc79", image: "assets/social-poster.webp", options: ["Instagram", "TikTok", "Reels", "Gestión de redes"] },
+  { name: "Soluciones a Medida", color: "#a47af2", image: "assets/custom-poster.webp", options: ["Automatización", "Inteligencia artificial", "Integraciones", "Software a medida"] },
 ]
 const budgets = ["Aún no lo sé", "Menos de $200.000 CLP", "$200.000 a $500.000 CLP", "$500.000 a $1.000.000 CLP", "Más de $1.000.000 CLP"]
 type Plan = { name: string; price: string; billing: string; note: string }
@@ -101,10 +101,10 @@ function Quote() {
     <DialogContent className="quote-ui quote-wizard max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-3xl border-0 p-6 sm:max-w-xl sm:p-8"
       style={{ "--quote-accent": current.color } as React.CSSProperties}
       onCloseAutoFocus={event => { event.preventDefault(); (returnFocus.current || document.getElementById("quote"))?.focus() }}>
-      <DialogHeader className="text-left">
+      <div className="quote-hero" style={{ backgroundColor: current.color }} key={current.name}>\n        <div className="quote-hero-copy"><span className="quote-hero-kicker">COLORCLIK ✳ TU IDEA COMIENZA AQUÍ</span><strong>{service === catalog[0].name ? "¡Hagamos clik!" : service}</strong><span>Ideas que se convierten en algo increíble.</span></div>\n        <img className="quote-character" src={current.image} alt={\`Personaje 3D de \${service}\`} loading="lazy" />\n      </div>\n      <DialogHeader className="text-left">
         <p className="quote-eyebrow">COLORCLIK · HAGAMOS CLIK</p>
-        <DialogTitle>¡Tu idea merece hacerse realidad!</DialogTitle>
-        <DialogDescription>Cuéntanos qué imaginas y creemos algo increíble juntos.</DialogDescription>
+        <DialogTitle>{step === 0 ? "¿Qué vamos a crear?" : step === 1 ? "Hablemos de tu inversión" : "¡Estamos a un clik!"}</DialogTitle>
+        <DialogDescription>{step === 0 ? "Elige tu servicio y lo que necesitas. Cada idea tiene su color." : step === 1 ? "Una referencia para construir la propuesta perfecta." : "Deja tus datos y elige cómo quieres conversar."}</DialogDescription>
       </DialogHeader>
       <div className="quote-progress" aria-label={`Paso ${step + 1} de 3`}>
         {[0, 1, 2].map(index => <span key={index} className={index <= step ? "active" : ""} />)}
