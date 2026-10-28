@@ -49,3 +49,32 @@
 }
 
 .quote-ui .quote-plan{padding:12px 14px;border:1px solid #e7dcff;border-radius:12px;background:#f5f0ff;font-size:13px;line-height:1.5;color:#5736a4}
+
+
+/* ColorClik interactive quote wizard */
+.quote-wizard { --quote-accent:#ff9e24; }
+.quote-wizard .quote-eyebrow { color:var(--quote-accent); font-weight:800; letter-spacing:.12em; }
+.quote-progress { display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin:5px 0 10px; }
+.quote-progress span { height:6px; border-radius:99px; background:#e8e8e8; transition:background .25s ease; }
+.quote-progress .active { background:var(--quote-accent); }
+.quote-field { display:block; width:100%; min-height:46px; padding:12px 14px; border:1px solid #dedede; border-radius:14px; background:#fff; color:#181818; font:inherit; }
+.quote-field:focus-visible,.quote-option:focus-visible { outline:3px solid var(--quote-accent); outline-offset:2px; }
+.quote-textarea { min-height:110px; resize:vertical; }
+.quote-prompt { font-size:1.05rem; font-weight:750; }
+.quote-options { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.quote-budgets { display:grid; gap:8px; }
+.quote-option { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:60px; padding:14px; border:2px solid #ededed; border-radius:16px; background:#fafafa; color:#222; text-align:left; font-weight:650; transition:transform .2s ease,border-color .2s ease,background .2s ease; }
+.quote-option:hover { transform:translateY(-2px); border-color:var(--quote-accent); }
+.quote-option.selected { border-color:var(--quote-accent); background:color-mix(in srgb,var(--quote-accent) 15%,white); }
+.quote-selected-plan { padding:12px 15px; border-radius:15px; background:color-mix(in srgb,var(--quote-accent) 15%,white); font-weight:750; }
+.quote-selected-plan small { display:block; font-weight:400; margin-top:4px; }
+.quote-navigation { display:flex; justify-content:space-between; gap:10px; }
+.quote-next { margin-left:auto; background:var(--quote-accent); color:#171717; border-radius:99px; }
+.quote-send { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.quote-send button { min-height:52px; border-radius:14px; white-space:normal; font-size:.83rem; }
+.quote-send-email { background:var(--quote-accent); color:#151515; }
+.quote-send-whatsapp { background:#1eaf66; color:white; }
+.quote-help { color:#666; font-size:.79rem; }
+.quote-notice { padding:10px; border-radius:10px; background:#f4f4f4; font-size:.85rem; }
+@media(max-width:440px){.quote-options,.quote-send {grid-template-columns:1fr;} .quote-option{min-height:50px;}}
+@media(prefers-reduced-motion:reduce){.quote-option,.quote-progress span{transition:none;} .quote-option:hover{transform:none;}}
