@@ -28,8 +28,6 @@
  // Clip the frame while the image travels independently inside an overscanned area.
  const revealFrames=[];document.querySelectorAll('.project>img').forEach(img=>{const frame=document.createElement('span');frame.className='image-reveal';img.before(frame);frame.append(img);revealFrames.push(frame)});
  if('IntersectionObserver'in window){const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.querySelector('.image-reveal').classList.add('is-visible');observer.unobserve(entry.target)}}),{threshold:.12});revealFrames.forEach(frame=>{if(reduce.matches)frame.classList.add('is-visible');else observer.observe(frame.parentElement)})}else revealFrames.forEach(frame=>frame.classList.add('is-visible'));
- let scrollFrame=0;function updateParallax(){scrollFrame=0;if(reduce.matches)return;for(const frame of revealFrames){const r=frame.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)continue;const progress=Math.max(-1,Math.min(1,(innerHeight*.5-r.top-r.height*.5)/(innerHeight*.5+r.height*.5)));frame.querySelector('img').style.transform=`translate3d(0,${progress*-18}px,0)`}}
- addEventListener('scroll',()=>{if(!scrollFrame&&!reduce.matches)scrollFrame=requestAnimationFrame(updateParallax)},{passive:true});addEventListener('resize',updateParallax);reduce.addEventListener('change',()=>{revealFrames.forEach(frame=>{frame.classList.add('is-visible');frame.querySelector('img').style.transform='none'})});updateParallax();
  // A keyboard-accessible review stack. All copy is clearly marked as illustrative.
  const carousel=document.querySelector('.reviews-carousel'),cards=Array.from(document.querySelectorAll('.review-card')),dots=Array.from(document.querySelectorAll('.review-dots>button')),previous=carousel.querySelector('.review-prev'),next=carousel.querySelector('.review-next'),play=carousel.querySelector('.review-play'),announce=carousel.querySelector('.review-announcement');
  let current=0,userPaused=false,carouselVisible=false,hovering=false,focused=false,interval;
@@ -74,15 +72,18 @@
 
 
 
-// The dock follows native swiping, scrolling, and keyboard navigation.
+// The fan responds to pointer/focus; on mobile the selectors follow native swiping.
 (()=>{
  const gallery=document.querySelector('.project-grid'),projects=[...gallery.querySelectorAll('.project')],buttons=[...document.querySelectorAll('[data-project-index]')];
- const reduced=matchMedia('(prefers-reduced-motion:reduce)');
- let frame;
- function select(index){gallery.scrollTo({left:projects[index].offsetLeft-projects[0].offsetLeft,behavior:reduced.matches?'instant':'smooth'})}
- function reflect(){frame=null;let index=0,distance=Infinity;projects.forEach((project,i)=>{const delta=Math.abs(project.getBoundingClientRect().left-gallery.getBoundingClientRect().left);if(delta<distance){index=i;distance=delta}});buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)))}
+ const reduced=matchMedia('(prefers-reduced-motion:reduce)'),mobile=matchMedia('(max-width:700px)');
+ let frame,current=1;
+ function highlight(index){current=index;projects.forEach((project,i)=>project.classList.toggle('is-featured',i===index));buttons.forEach((button,i)=>button.setAttribute('aria-pressed',String(i===index)))}
+ function select(index){highlight(index);if(mobile.matches)gallery.scrollTo({left:projects[index].offsetLeft-projects[0].offsetLeft,behavior:reduced.matches?'instant':'smooth'})}
+ function reflect(){frame=null;if(!mobile.matches)return;let index=0,distance=Infinity;projects.forEach((project,i)=>{const delta=Math.abs(project.getBoundingClientRect().left-gallery.getBoundingClientRect().left);if(delta<distance){index=i;distance=delta}});highlight(index)}
  buttons.forEach((button,index)=>button.addEventListener('click',()=>select(index)));
- gallery.addEventListener('scroll',()=>{if(!frame)frame=requestAnimationFrame(reflect)},{passive:true});
- gallery.addEventListener('keydown',event=>{if(event.target!==gallery||!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();const current=Math.max(0,buttons.findIndex(button=>button.getAttribute('aria-pressed')==='true'));select(event.key==='Home'?0:event.key==='End'?projects.length-1:Math.max(0,Math.min(projects.length-1,current+(event.key==='ArrowRight'?1:-1))))});
- reflect();
+ projects.forEach((project,index)=>{project.addEventListener('pointerenter',event=>{if(!mobile.matches&&event.pointerType==='mouse')highlight(index)});project.addEventListener('focus',()=>select(index))});
+ gallery.addEventListener('scroll',()=>{if(!frame&&mobile.matches)frame=requestAnimationFrame(reflect)},{passive:true});
+ gallery.addEventListener('keydown',event=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return;event.preventDefault();select(event.key==='Home'?0:event.key==='End'?projects.length-1:Math.max(0,Math.min(projects.length-1,current+(event.key==='ArrowRight'?1:-1))))});
+ mobile.addEventListener('change',()=>{gallery.scrollLeft=0;highlight(mobile.matches?0:1)});
+ highlight(mobile.matches?0:1);
 })();
