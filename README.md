@@ -81,3 +81,11 @@ Los PNG originales de los ZIP se conservan en `docs/assets/branding`,
 Cada hero utiliza el video suministrado, sin audio, con versión móvil y poster.
 Branding y Soluciones son de pago único; Redes es mensual. Los precios de
 Soluciones a Medida son referenciales, tal como indica el esquema suministrado.
+
+### Cotizadores por servicio
+
+`src/quote.tsx` reutiliza el Dialog de Radix/shadcn: proyecto y plan → datos de contacto → resumen editable. `src/data/quote-services.json` contiene los cinco servicios, preguntas, colores y los 15 planes; mantener sus precios, periodicidad y exclusiones sincronizados con las páginas de servicio. Cada botón `data-quote` admite `data-quote-service` y `data-plan` para abrir la selección correspondiente. Los personajes se cargan desde los WebP originales de cada servicio.
+
+Los destinos están definidos en `src/quote.tsx`: WhatsApp **+56 9 6450 5484**, correo **hola@colorclik.cl**. WhatsApp abre una pestaña con el mensaje completo y correo usa `mailto:` con asunto y cuerpo codificados. El visitante confirma el envío en la aplicación elegida; la web no puede confirmar entrega. No hay envío automático, servidor de correo ni almacenamiento de datos. Para entrega automática al correo será necesario conectar un endpoint de formularios y verificar el destinatario; no incluir credenciales en el bundle público. El formulario nativo de respaldo sigue permitiendo descargar el resumen si el bundle no carga.
+
+Verificar antes de publicar: apertura desde los 15 planes, validación de pasos, edición sin pérdida de datos, mensaje y destino correctos, teclado/Escape y devolución de foco, vistas móvil/tablet/escritorio y `prefers-reduced-motion`.
