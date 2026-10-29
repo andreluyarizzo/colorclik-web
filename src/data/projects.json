@@ -1,0 +1,9 @@
+[
+  {"id":"cardhouse","name":"CardHouse","image":"assets/projects/cardhouse.webp","url":"https://cardhouse.cl/","categories":["web"],"keywords":"coleccionismo cartas pokemon comercio tienda online"},
+  {"id":"sokime","name":"SOKIME","image":"assets/projects/sokime.webp","url":"http://sokime.cl/","categories":["web"],"keywords":"salud kinesiologia congreso evento"},
+  {"id":"toletitos","name":"Toletitos","image":"assets/projects/toletitos.webp","url":"http://toletitos.cl/","categories":["web"],"keywords":"bebes familia maternidad comercio tienda online"},
+  {"id":"freshclean","name":"FreshClean","image":"assets/projects/comercializadorafreshclean.webp","url":"https://comercializadorafreshclean.cl/","categories":["web"],"keywords":"limpieza hogar productos comercio tienda online"},
+  {"id":"manton","name":"Manton","image":"assets/projects/manton.webp","url":"http://manton.cl/","categories":["web"],"keywords":"industria remolques fabricacion comercio"},
+  {"id":"naturalmentores","name":"Naturalmentores","image":"assets/projects/naturalmentores.webp","url":"https://naturalmentores.com/","categories":["web"],"keywords":"educacion cursos formacion bienestar salud"},
+  {"id":"indeedinsurance","name":"Indeed Insurance","image":"assets/projects/indeedinsurance.webp","url":"http://indeedinsurance.net/","categories":["web"],"keywords":"seguros servicios corporativo"}
+]
