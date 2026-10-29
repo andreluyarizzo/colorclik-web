@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client"
 import { ArrowLeft, ArrowRight, Check, Mail, MessageCircle, Pencil } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import baseCatalog from "./data/quote-services.json"
+import { buildQuoteMessages } from "./quote-messages.mjs"
 
 const EMAIL = "hola@colorclik.cl"
 const WHATSAPP = "56964505484"
@@ -30,7 +31,8 @@ function Quote({embedded = false}: {embedded?: boolean}) {
   const heading = useRef<HTMLHeadingElement>(null)
   const current = catalog.find(item => item.name === service) || catalog[0]
   const plan = current.plans.find(item => item.name === selectedPlan)
-  const summary = [current.key === "general" ? "¡Hola ColorClik! Necesito orientación." : "¡Hola ColorClik! Quiero cotizar un proyecto.", `Servicio: ${service}`, `Objetivo: ${goal}`, `${current.question} ${answer}`, plan ? `Plan: ${plan.name} · ${plan.price} ${plan.billing}\n${plan.note}` : "Plan: Necesito asesoría", `Mi proyecto: ${brief.trim()}`, `Nombre: ${name.trim()}`, `Empresa: ${company.trim() || "No indicada"}`, `Correo: ${email.trim()}`, `WhatsApp: ${phone.trim() || "No indicado"}`].join("\n")
+  const messages = buildQuoteMessages({service,goal,question:current.question,answer,plan,brief,name,email,phone,company,isHelp:current.key === "general"})
+
 
   useEffect(() => {
     if (embedded) return
@@ -59,10 +61,10 @@ function Quote({embedded = false}: {embedded?: boolean}) {
   }
   function send(channel: "email" | "whatsapp") {
     if (channel === "email") {
-      window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(`${current.key === "general" ? "Consulta" : "Cotización"} ColorClik · ${service}${plan ? ` · ${plan.name}` : ""}`)}&body=${encodeURIComponent(summary)}`
+      window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(messages.subject)}&body=${encodeURIComponent(messages.emailBody)}`
       setNotice("Tu correo se abrirá con la solicitud preparada. Revisa el mensaje y pulsa Enviar allí.")
     } else {
-      window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(summary)}`, "_blank", "noopener,noreferrer")
+      window.open(`https://wa.me/${WHATSAPP}?text=${encodeURIComponent(messages.whatsapp)}`, "_blank", "noopener,noreferrer")
       setNotice("WhatsApp se abrirá con la solicitud preparada. Pulsa Enviar allí para completar el envío.")
     }
   }
@@ -96,6 +98,7 @@ function Quote({embedded = false}: {embedded?: boolean}) {
           {step === 2 && <>
             <section className="quote-summary" aria-label="Resumen de tu proyecto"><div><span>{current.name}</span><button type="button" onClick={()=>setStep(0)}><Pencil size={14} /> Editar proyecto</button></div><h3>{plan?.name || (current.key === "general" ? "Conversemos sobre tu idea" : "Propuesta personalizada")}</h3>{plan && <><strong>{plan.price}</strong><p>{plan.billing}</p><p className="quote-help">{plan.note}</p></>}<dl><dt>Objetivo</dt><dd>{goal}</dd><dt>{current.question}</dt><dd>{answer}</dd><dt>Tu idea</dt><dd className="quote-summary-brief">{brief}</dd></dl></section>
             <div className="quote-contact-summary"><div><strong>{name}</strong><p>{email}</p>{phone && <p>{phone}</p>}{company && <p>{company}</p>}</div><button type="button" onClick={()=>setStep(1)}><Pencil size={14} /> Editar datos</button></div>
+            <details className="quote-message-preview"><summary>Ver cómo llegará tu solicitud</summary><p>WhatsApp mostrará los encabezados en negrita. El correo conservará estas secciones y sus espacios.</p><pre>{messages.emailBody}</pre></details>
             <div className="quote-send"><button type="button" className="quote-whatsapp" onClick={()=>send("whatsapp")}><MessageCircle size={20} /> Enviar por WhatsApp</button><button type="button" className="quote-email" onClick={()=>send("email")}><Mail size={20} /> Enviar por correo</button></div>
             <p className="quote-help">Se abrirá WhatsApp o tu aplicación de correo con la cotización completa. Confirma el envío allí. Correo: {EMAIL}.</p>
           </>}
