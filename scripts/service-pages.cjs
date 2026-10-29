@@ -26,7 +26,8 @@ const icons={
 };
 function renderHeader(page){
  let header=read('src/templates/header.html').trim();
- if(['estudio.html','proyectos.html'].includes(page))header=header.replace('href="#servicios"','href="index.html#servicios"');
+ if(page==='contacto.html')header=header.replace('href="contacto.html#contact-form"','href="contacto.html#contact-form" aria-current="page"');
+ if(['estudio.html','proyectos.html','contacto.html'].includes(page))header=header.replace('href="#servicios"','href="index.html#servicios"');
  return header.replace(`href="${page}">Estudio</a>`,`href="${page}" aria-current="page">Estudio</a>`).replace(`href="${page}">Proyectos</a>`,`href="${page}" aria-current="page">Proyectos</a>`).replace(`href="${page}"><strong>`,`href="${page}" aria-current="page"><strong>`).replace(`href="${page}"><small>`,`href="${page}" aria-current="page"><small>`);
 }
 function quoteButton(s,text,extra='',className='pill dark'){
@@ -50,4 +51,4 @@ function renderServicePages(){
  fs.writeFileSync(path.join(root,'docs',s.slug+'.html'),html);
  }
 }
-module.exports={renderServicePages,renderHeader,pages:['proyectos.html','estudio.html','index.html','marketing-digital.html','desarrollo-web.html',...data.map(s=>s.slug+'.html')]};
+module.exports={renderServicePages,renderHeader,pages:['contacto.html','proyectos.html','estudio.html','index.html','marketing-digital.html','desarrollo-web.html',...data.map(s=>s.slug+'.html')]};

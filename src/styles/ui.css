@@ -82,3 +82,7 @@
 .quote-ui .quote-logo{display:inline-flex;width:auto;padding:10px 14px;border-radius:999px;background:#131519;line-height:1}
 .quote-ui .quote-logo>img{display:block;width:118px;height:auto;max-width:100%;object-fit:contain}
 @media(max-width:620px){.quote-ui .quote-logo{padding:8px 11px}.quote-ui .quote-logo>img{width:104px}}
+.quote-ui .quote-message-preview{margin:8px 0;border:1px solid #e1e3e8;border-radius:14px;background:#fafbfc;overflow:hidden}
+.quote-message-preview>summary{padding:14px 16px;font-size:12px;font-weight:650;cursor:pointer;list-style-position:inside}
+.quote-message-preview>p{margin:0;padding:0 16px 12px;font-size:11px;line-height:1.5;color:#68717c}
+.quote-message-preview>pre{margin:0;padding:16px;max-height:340px;overflow:auto;border-top:1px solid #e1e3e8;font:12px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#303740;background:#fff}

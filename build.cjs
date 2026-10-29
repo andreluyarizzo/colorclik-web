@@ -6,6 +6,7 @@ const { renderServicePages, renderHeader, pages } = require('./scripts/service-p
 renderServicePages();
 require('./scripts/studio-page.cjs').renderStudioPage();
 require('./scripts/projects-page.cjs').renderProjectsPage();
+require('./scripts/contact-page.cjs').renderContactPage();
 
 // Render shared navigation and footer into static HTML, without client-side fetches.
 const footer = fs.readFileSync(path.join(__dirname, 'src/templates/footer.html'), 'utf8').trim();
@@ -14,7 +15,10 @@ for (const page of pages) {
   const html = fs.readFileSync(file, 'utf8');
   const marker = /<!-- site-footer:start -->[\s\S]*?<!-- site-footer:end -->/;
   if (!marker.test(html)) throw new Error(`Shared footer marker missing in ${page}`);
-  fs.writeFileSync(file, html.replace(/<header class="site-header">[\s\S]*?<\/header>/, renderHeader(page)).replace(marker, `<!-- site-footer:start -->${footer}<!-- site-footer:end -->`));
+  const whatsapp=fs.readFileSync(path.join(__dirname,'src/templates/whatsapp.html'),'utf8').trim();
+  const whatsappMarker=/<!-- whatsapp:start -->[\s\S]*?<!-- whatsapp:end -->/;
+  const withWhatsApp=whatsappMarker.test(html)?html.replace(whatsappMarker,whatsapp):html.replace('</body>',whatsapp+'</body>');
+  fs.writeFileSync(file, withWhatsApp.replace(/<header class="site-header">[\s\S]*?<\/header>/, renderHeader(page)).replace(marker, `<!-- site-footer:start -->${footer}<!-- site-footer:end -->`));
 }
 
 
