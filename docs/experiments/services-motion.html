@@ -6,49 +6,75 @@
 <meta name="robots" content="noindex,nofollow">
 <title>Laboratorio de movimiento — ColorClik</title>
 <style>
-:root{font-family:Montserrat,system-ui,sans-serif;background:#f7f8fb;color:#171820}
-*{box-sizing:border-box}body{margin:0;padding:clamp(20px,5vw,64px)}
-header{max-width:1080px;margin:0 auto 32px}h1{font-size:clamp(28px,5vw,48px);letter-spacing:-.04em;margin:.4em 0}p{line-height:1.5}header p{max-width:700px;color:#555d6b}
-.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:1200px;margin:auto}
-.card{--accent:#ffc900;--pointer-x:50%;--pointer-y:40%;--lift:0px;display:block;position:relative;isolation:isolate;overflow:hidden;border-radius:22px;min-height:280px;background:var(--accent);color:#10131a;text-decoration:none;transform:translate3d(0,var(--lift),0);transition:transform .35s cubic-bezier(.2,.75,.2,1),box-shadow .35s ease;box-shadow:0 5px 18px #15182712;outline-offset:5px}
-.card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(240px circle at var(--pointer-x) var(--pointer-y),#ffffff8a,transparent 65%);opacity:0;transition:opacity .3s}
-.card:is(:hover,:focus-visible){--lift:-7px;box-shadow:0 18px 32px #15182724}
-.card:is(:hover,:focus-visible)::after{opacity:1}
-.card img{display:block;width:100%;height:190px;object-fit:cover;object-position:center top;transition:transform .5s cubic-bezier(.2,.75,.2,1)}
-.card:is(:hover,:focus-visible) img{transform:scale(1.035)}
-.copy{position:relative;z-index:1;padding:12px 15px 24px}.copy strong{display:block;font-size:clamp(14px,1.5vw,20px);line-height:1.15}.copy small{display:block;margin-top:8px;opacity:.8;font-size:12px}.arrow{position:absolute;right:13px;bottom:14px;transition:transform .25s}.card:is(:hover,:focus-visible) .arrow{transform:translate(3px,-3px)}
-.card.web{--accent:#1283ff;color:white}.card.branding{--accent:#ff3568;color:white}.card.social{--accent:#00c9ae}.card.custom{--accent:#7748ff;color:white}
-footer{max-width:1080px;margin:30px auto;color:#586070;font-size:13px}
-@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card{min-height:230px}.card img{height:150px}.card:is(:hover,:focus-visible){--lift:0px}}
-@media(prefers-reduced-motion:reduce){.card,.card img,.card::after,.arrow{transition:none!important}.card:is(:hover,:focus-visible){--lift:0px}.card:is(:hover,:focus-visible) img{transform:none}}
+:root{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f8f8fb;color:#15151b;scroll-behavior:smooth}
+*{box-sizing:border-box}body{margin:0;overflow-x:hidden}a{color:inherit}
+.shell{position:relative;isolation:isolate;min-height:100svh;overflow:hidden;padding:clamp(26px,5vw,72px) clamp(20px,5vw,70px) 70px}
+.shell:before,.shell:after{content:"";position:absolute;z-index:-1;border-radius:50%;filter:blur(12px);pointer-events:none}
+.shell:before{width:min(60vw,560px);aspect-ratio:1;top:-260px;right:-120px;background:radial-gradient(circle,#7748ff22,transparent 68%);animation:ambient 14s ease-in-out infinite alternate}
+.shell:after{width:min(50vw,500px);aspect-ratio:1;left:-230px;bottom:-170px;background:radial-gradient(circle,#00c9ae26,transparent 70%);animation:ambient 17s ease-in-out infinite alternate-reverse}
+.topline{max-width:1320px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.wordmark{font-size:clamp(20px,2.4vw,29px);font-weight:900;letter-spacing:-.065em;text-decoration:none}.wordmark span{color:#7748ff}
+.lab{font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:#656575;border:1px solid #dddde7;border-radius:50px;padding:10px 15px}
+header{max-width:1320px;margin:clamp(50px,8vw,100px) auto clamp(28px,4vw,48px);display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:end}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:750;letter-spacing:.15em;text-transform:uppercase;color:#7350e6}
+.eyebrow:before{content:"";width:23px;height:3px;background:#7350e6;border-radius:5px}
+h1{font-size:clamp(39px,6.5vw,91px);line-height:.99;letter-spacing:-.075em;margin:18px 0 0;font-weight:850}
+h1 em{font-style:normal;color:#7748ff}
+header p{font-size:clamp(14px,1.4vw,18px);color:#606071;line-height:1.65;margin:0;max-width:390px;padding-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(12px,1.4vw,20px);max-width:1320px;margin:auto;align-items:stretch}
+.card{--accent:#ffcb00;--pointer-x:50%;--pointer-y:40%;--lift:0px;--rx:0deg;--ry:0deg;display:flex;flex-direction:column;position:relative;isolation:isolate;overflow:hidden;border-radius:clamp(18px,2vw,27px);min-height:clamp(320px,31vw,410px);background:var(--accent);color:#14151a;text-decoration:none;transform:perspective(950px) translate3d(0,var(--lift),0) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .4s cubic-bezier(.2,.75,.2,1),box-shadow .4s ease;box-shadow:0 8px 22px #17182713;outline-offset:5px;animation:rise .85s both cubic-bezier(.16,1,.3,1);animation-delay:calc(var(--i)*90ms)}
+.card:before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(160deg,#ffffff44,transparent 40%,#0000000b);opacity:.75}
+.card:after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(250px circle at var(--pointer-x) var(--pointer-y),#ffffff90,transparent 68%);opacity:0;transition:opacity .35s}
+.card:is(:hover,:focus-visible){--lift:-10px;box-shadow:0 24px 42px #17182727}
+.card:is(:hover,:focus-visible):after{opacity:1}
+.art{position:relative;flex:1;min-height:210px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.art:before{content:"";position:absolute;width:78%;aspect-ratio:1;top:17%;left:11%;border:1px solid #ffffff60;border-radius:50%;transform:scale(.88);transition:transform .7s ease;pointer-events:none}
+.art img{display:block;position:relative;z-index:1;width:112%;height:100%;max-height:310px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 14px 16px #00000015);transform:translateY(8px) scale(1.04);transition:transform .65s cubic-bezier(.16,1,.3,1)}
+.card:is(:hover,:focus-visible) .art img{transform:translateY(-4px) scale(1.105)}
+.card:is(:hover,:focus-visible) .art:before{transform:scale(1.05)}
+.copy{position:relative;z-index:2;display:block;min-height:118px;padding:20px 18px 24px}
+.copy strong{display:block;font-size:clamp(17px,1.6vw,23px);line-height:1.1;letter-spacing:-.04em;max-width:170px}
+.copy small{display:block;margin-top:10px;font-size:12px;opacity:.75;max-width:140px}
+.arrow{position:absolute;right:16px;bottom:20px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#ffffffb8;font-size:20px;transition:transform .3s,background .3s}
+.card:is(:hover,:focus-visible) .arrow{transform:rotate(45deg) scale(1.1);background:#fff}
+.card.web{--accent:#1283ff;color:#fff}.card.branding{--accent:#ff3568;color:#fff}.card.social{--accent:#00c9ae}.card.custom{--accent:#7748ff;color:#fff}
+footer{max-width:1320px;margin:35px auto 0;display:flex;justify-content:space-between;gap:15px;color:#737383;font-size:12px}
+@keyframes rise{from{opacity:0;transform:translateY(35px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes ambient{from{transform:translate(0,0)}to{transform:translate(80px,65px)}}
+@media(max-width:1080px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.card{min-height:350px}.art{min-height:210px}}
+@media(max-width:650px){.shell{padding:22px 16px 42px}.topline{gap:8px}.lab{font-size:9px;padding:8px 10px}header{display:block;margin:54px 5px 30px}header p{margin-top:19px;font-size:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{min-height:290px;border-radius:20px}.art{min-height:170px}.art img{max-height:210px}.copy{min-height:110px;padding:15px 12px 20px}.copy strong{font-size:17px}.copy small{font-size:11px;padding-right:24px}.arrow{width:28px;height:28px;right:10px;bottom:12px}.card:last-child{grid-column:1/-1;max-width:calc(50% - 6px);width:100%;justify-self:center}.card:is(:hover,:focus-visible){--lift:-4px}footer{display:block;line-height:1.7}}
+@media(max-width:380px){.grid{gap:9px}.card{min-height:255px}.art{min-height:145px}.copy strong{font-size:15px}.copy small{font-size:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.card,.card:is(:hover,:focus-visible){--lift:0px!important;--rx:0deg!important;--ry:0deg!important}.card:is(:hover,:focus-visible) .art img{transform:none}}
 </style>
 </head>
 <body>
-<header><small>COLORCLIK / LABORATORIO / NO PUBLICAR</small><h1>Los mismos personajes. Más vida.</h1><p>Prototipo aislado de tarjetas: iluminación que sigue al cursor, elevación sutil y respuesta de imagen. No reemplaza las tarjetas originales ni añade librerías.</p></header>
+<div class="shell">
+<nav class="topline" aria-label="Identidad del laboratorio"><span class="wordmark">Color<span>Clik</span>.</span><span class="lab">Laboratorio interactivo · v2</span></nav>
+<header><div><span class="eyebrow">Ideas que hacen clik</span><h1>Un mundo de ideas.<br><em>Mucho movimiento.</em></h1></div><p>Los mismos personajes que hacen única a ColorClik, ahora en una experiencia más dinámica. Mueve el cursor, descubre los detalles y elige tu próximo proyecto.</p></header>
 <main class="grid" aria-label="Servicios de ColorClik">
-<a class="card marketing" href="../marketing-digital.html"><img src="../assets/marketing/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Marketing Digital</strong><small>Ideas que conectan.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card web" href="../desarrollo-web.html"><img src="../assets/web/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Desarrollo Web</strong><small>Sitios que enamoran.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card branding" href="../branding-diseno.html"><img src="../assets/branding/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Branding y Diseño</strong><small>Marcas con personalidad.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card social" href="../redes-contenido.html"><img src="../assets/social/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Redes y Contenido</strong><small>Contenido que conecta.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card custom" href="../soluciones-medida.html"><img src="../assets/custom/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Soluciones a Medida</strong><small>Tecnología para tus ideas.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card marketing" style="--i:0" href="../marketing-digital.html"><span class="art"><img src="../assets/marketing/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Marketing Digital</strong><small>Ideas que conectan.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card web" style="--i:1" href="../desarrollo-web.html"><span class="art"><img src="../assets/web/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Desarrollo Web</strong><small>Sitios que enamoran.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card branding" style="--i:2" href="../branding-diseno.html"><span class="art"><img src="../assets/branding/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Branding y Diseño</strong><small>Marcas con personalidad.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card social" style="--i:3" href="../redes-contenido.html"><span class="art"><img src="../assets/social/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Redes y Contenido</strong><small>Contenido que conecta.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card custom" style="--i:4" href="../soluciones-medida.html"><span class="art"><img src="../assets/custom/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Soluciones a Medida</strong><small>Tecnología para tus ideas.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
 </main>
-<footer>Prototipo de evaluación. Sin GSAP ni modelos 3D nuevos. Mantener la versión actual hasta comparar visualmente, probar móvil y aprobar.</footer>
+<footer><span>Experimento de movimiento · sin modificar la web publicada</span><span>ColorClik © 2026</span></footer>
+</div>
 <script>
-(() => {
-  const fine=matchMedia('(hover:hover) and (pointer:fine)');
-  const reduce=matchMedia('(prefers-reduced-motion:reduce)');
-  for(const card of document.querySelectorAll('.card')){
-    let frame=0,x=0,y=0;
-    const render=()=>{frame=0;card.style.setProperty('--pointer-x',x+'px');card.style.setProperty('--pointer-y',y+'px')};
-    card.addEventListener('pointermove',e=>{
-      if(!fine.matches||reduce.matches)return;
-      const rect=card.getBoundingClientRect();
-      x=e.clientX-rect.left;y=e.clientY-rect.top;
-      if(!frame)frame=requestAnimationFrame(render);
-    },{passive:true});
-    card.addEventListener('pointerleave',()=>{if(frame)cancelAnimationFrame(frame);frame=0;card.style.removeProperty('--pointer-x');card.style.removeProperty('--pointer-y')});
-  }
+(()=>{
+const fine=matchMedia('(hover:hover) and (pointer:fine)'),reduce=matchMedia('(prefers-reduced-motion:reduce)');
+for(const card of document.querySelectorAll('.card')){
+ let frame=0,x=0,y=0,rx=0,ry=0;
+ const render=()=>{frame=0;card.style.setProperty('--pointer-x',x+'px');card.style.setProperty('--pointer-y',y+'px');card.style.setProperty('--rx',rx+'deg');card.style.setProperty('--ry',ry+'deg')};
+ card.addEventListener('pointermove',e=>{
+  if(!fine.matches||reduce.matches)return;
+  const r=card.getBoundingClientRect(),nx=(e.clientX-r.left)/r.width,ny=(e.clientY-r.top)/r.height;
+  x=e.clientX-r.left;y=e.clientY-r.top;rx=(.5-ny)*5;ry=(nx-.5)*5;
+  if(!frame)frame=requestAnimationFrame(render);
+ },{passive:true});
+ const reset=()=>{if(frame)cancelAnimationFrame(frame);frame=0;card.style.removeProperty('--pointer-x');card.style.removeProperty('--pointer-y');card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg')};
+ card.addEventListener('pointerleave',reset);card.addEventListener('blur',reset);
+}
 })();
 </script>
 </body>
