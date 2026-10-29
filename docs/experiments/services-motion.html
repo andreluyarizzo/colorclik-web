@@ -35,14 +35,13 @@ header p{font-size:clamp(14px,1.4vw,18px);color:#606071;line-height:1.65;margin:
 .copy{position:relative;z-index:2;display:block;min-height:118px;padding:20px 18px 24px}
 .copy strong{display:block;font-size:clamp(17px,1.6vw,23px);line-height:1.1;letter-spacing:-.04em;max-width:170px}
 .copy small{display:block;margin-top:10px;font-size:12px;opacity:.75;max-width:140px}
-.arrow{position:absolute;right:16px;bottom:20px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#ffffffb8;font-size:20px;transition:transform .3s,background .3s}
-.card:is(:hover,:focus-visible) .arrow{transform:rotate(45deg) scale(1.1);background:#fff}
+
 .card.web{--accent:#1283ff;color:#fff}.card.branding{--accent:#ff3568;color:#fff}.card.social{--accent:#00c9ae}.card.custom{--accent:#7748ff;color:#fff}
 footer{max-width:1320px;margin:35px auto 0;display:flex;justify-content:space-between;gap:15px;color:#737383;font-size:12px}
 @keyframes rise{from{opacity:0;transform:translateY(35px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes ambient{from{transform:translate(0,0)}to{transform:translate(80px,65px)}}
 @media(max-width:1080px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}.card{min-height:350px}.art{min-height:210px}}
-@media(max-width:650px){.shell{padding:22px 16px 42px}.topline{gap:8px}.lab{font-size:9px;padding:8px 10px}header{display:block;margin:54px 5px 30px}header p{margin-top:19px;font-size:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{min-height:290px;border-radius:20px}.art{min-height:170px}.art img{max-height:210px}.copy{min-height:110px;padding:15px 12px 20px}.copy strong{font-size:17px}.copy small{font-size:11px;padding-right:24px}.arrow{width:28px;height:28px;right:10px;bottom:12px}.card:last-child{grid-column:1/-1;max-width:calc(50% - 6px);width:100%;justify-self:center}.card:is(:hover,:focus-visible){--lift:-4px}footer{display:block;line-height:1.7}}
+@media(max-width:650px){.shell{padding:22px 16px 42px}.topline{gap:8px}.lab{font-size:9px;padding:8px 10px}header{display:block;margin:54px 5px 30px}header p{margin-top:19px;font-size:14px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.card{min-height:290px;border-radius:20px}.art{min-height:170px}.art img{max-height:210px}.copy{min-height:110px;padding:15px 12px 20px}.copy strong{font-size:17px}.copy small{font-size:11px;padding-right:24px}.card:last-child{grid-column:1/-1;max-width:calc(50% - 6px);width:100%;justify-self:center}.card:is(:hover,:focus-visible){--lift:-4px}footer{display:block;line-height:1.7}}
 @media(max-width:380px){.grid{gap:9px}.card{min-height:255px}.art{min-height:145px}.copy strong{font-size:15px}.copy small{font-size:10px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.card,.card:is(:hover,:focus-visible){--lift:0px!important;--rx:0deg!important;--ry:0deg!important}.card:is(:hover,:focus-visible) .art img{transform:none}}
 </style>
@@ -52,11 +51,11 @@ footer{max-width:1320px;margin:35px auto 0;display:flex;justify-content:space-be
 <nav class="topline" aria-label="Identidad del laboratorio"><span class="wordmark">Color<span>Clik</span>.</span><span class="lab">Laboratorio interactivo · v2</span></nav>
 <header><div><span class="eyebrow">Ideas que hacen clik</span><h1>Un mundo de ideas.<br><em>Mucho movimiento.</em></h1></div><p>Los mismos personajes que hacen única a ColorClik, ahora en una experiencia más dinámica. Mueve el cursor, descubre los detalles y elige tu próximo proyecto.</p></header>
 <main class="grid" aria-label="Servicios de ColorClik">
-<a class="card marketing" style="--i:0" href="../marketing-digital.html"><span class="art"><img src="../assets/marketing/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Marketing Digital</strong><small>Ideas que conectan.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card web" style="--i:1" href="../desarrollo-web.html"><span class="art"><img src="../assets/web/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Desarrollo Web</strong><small>Sitios que enamoran.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card branding" style="--i:2" href="../branding-diseno.html"><span class="art"><img src="../assets/branding/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Branding y Diseño</strong><small>Marcas con personalidad.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card social" style="--i:3" href="../redes-contenido.html"><span class="art"><img src="../assets/social/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Redes y Contenido</strong><small>Contenido que conecta.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
-<a class="card custom" style="--i:4" href="../soluciones-medida.html"><span class="art"><img src="../assets/custom/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Soluciones a Medida</strong><small>Tecnología para tus ideas.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card marketing" style="--i:0" href="../marketing-digital.html"><span class="art"><img src="../assets/marketing/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Marketing Digital</strong><small>Ideas que conectan.</small></span></a>
+<a class="card web" style="--i:1" href="../desarrollo-web.html"><span class="art"><img src="../assets/web/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Desarrollo Web</strong><small>Sitios que enamoran.</small></span></a>
+<a class="card branding" style="--i:2" href="../branding-diseno.html"><span class="art"><img src="../assets/branding/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Branding y Diseño</strong><small>Marcas con personalidad.</small></span></a>
+<a class="card social" style="--i:3" href="../redes-contenido.html"><span class="art"><img src="../assets/social/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Redes y Contenido</strong><small>Contenido que conecta.</small></span></a>
+<a class="card custom" style="--i:4" href="../soluciones-medida.html"><span class="art"><img src="../assets/custom/hero.webp" alt="" loading="eager"></span><span class="copy"><strong>Soluciones a Medida</strong><small>Tecnología para tus ideas.</small></span></a>
 </main>
 <footer><span>Experimento de movimiento · sin modificar la web publicada</span><span>ColorClik © 2026</span></footer>
 </div>
