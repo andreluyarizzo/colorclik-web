@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Laboratorio de movimiento — ColorClik</title>
+<style>
+:root{font-family:Montserrat,system-ui,sans-serif;background:#f7f8fb;color:#171820}
+*{box-sizing:border-box}body{margin:0;padding:clamp(20px,5vw,64px)}
+header{max-width:1080px;margin:0 auto 32px}h1{font-size:clamp(28px,5vw,48px);letter-spacing:-.04em;margin:.4em 0}p{line-height:1.5}header p{max-width:700px;color:#555d6b}
+.grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:1200px;margin:auto}
+.card{--accent:#ffc900;--pointer-x:50%;--pointer-y:40%;--lift:0px;display:block;position:relative;isolation:isolate;overflow:hidden;border-radius:22px;min-height:280px;background:var(--accent);color:#10131a;text-decoration:none;transform:translate3d(0,var(--lift),0);transition:transform .35s cubic-bezier(.2,.75,.2,1),box-shadow .35s ease;box-shadow:0 5px 18px #15182712;outline-offset:5px}
+.card::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(240px circle at var(--pointer-x) var(--pointer-y),#ffffff8a,transparent 65%);opacity:0;transition:opacity .3s}
+.card:is(:hover,:focus-visible){--lift:-7px;box-shadow:0 18px 32px #15182724}
+.card:is(:hover,:focus-visible)::after{opacity:1}
+.card img{display:block;width:100%;height:190px;object-fit:cover;object-position:center top;transition:transform .5s cubic-bezier(.2,.75,.2,1)}
+.card:is(:hover,:focus-visible) img{transform:scale(1.035)}
+.copy{position:relative;z-index:1;padding:12px 15px 24px}.copy strong{display:block;font-size:clamp(14px,1.5vw,20px);line-height:1.15}.copy small{display:block;margin-top:8px;opacity:.8;font-size:12px}.arrow{position:absolute;right:13px;bottom:14px;transition:transform .25s}.card:is(:hover,:focus-visible) .arrow{transform:translate(3px,-3px)}
+.card.web{--accent:#1283ff;color:white}.card.branding{--accent:#ff3568;color:white}.card.social{--accent:#00c9ae}.card.custom{--accent:#7748ff;color:white}
+footer{max-width:1080px;margin:30px auto;color:#586070;font-size:13px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.card{min-height:230px}.card img{height:150px}.card:is(:hover,:focus-visible){--lift:0px}}
+@media(prefers-reduced-motion:reduce){.card,.card img,.card::after,.arrow{transition:none!important}.card:is(:hover,:focus-visible){--lift:0px}.card:is(:hover,:focus-visible) img{transform:none}}
+</style>
+</head>
+<body>
+<header><small>COLORCLIK / LABORATORIO / NO PUBLICAR</small><h1>Los mismos personajes. Más vida.</h1><p>Prototipo aislado de tarjetas: iluminación que sigue al cursor, elevación sutil y respuesta de imagen. No reemplaza las tarjetas originales ni añade librerías.</p></header>
+<main class="grid" aria-label="Servicios de ColorClik">
+<a class="card marketing" href="../marketing-digital.html"><img src="../assets/marketing/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Marketing Digital</strong><small>Ideas que conectan.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card web" href="../desarrollo-web.html"><img src="../assets/web/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Desarrollo Web</strong><small>Sitios que enamoran.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card branding" href="../branding-diseno.html"><img src="../assets/branding/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Branding y Diseño</strong><small>Marcas con personalidad.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card social" href="../redes-contenido.html"><img src="../assets/social/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Redes y Contenido</strong><small>Contenido que conecta.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+<a class="card custom" href="../soluciones-medida.html"><img src="../assets/custom/hero.webp" alt="" loading="lazy"><span class="copy"><strong>Soluciones a Medida</strong><small>Tecnología para tus ideas.</small><span class="arrow" aria-hidden="true">↗</span></span></a>
+</main>
+<footer>Prototipo de evaluación. Sin GSAP ni modelos 3D nuevos. Mantener la versión actual hasta comparar visualmente, probar móvil y aprobar.</footer>
+<script>
+(() => {
+  const fine=matchMedia('(hover:hover) and (pointer:fine)');
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)');
+  for(const card of document.querySelectorAll('.card')){
+    let frame=0,x=0,y=0;
+    const render=()=>{frame=0;card.style.setProperty('--pointer-x',x+'px');card.style.setProperty('--pointer-y',y+'px')};
+    card.addEventListener('pointermove',e=>{
+      if(!fine.matches||reduce.matches)return;
+      const rect=card.getBoundingClientRect();
+      x=e.clientX-rect.left;y=e.clientY-rect.top;
+      if(!frame)frame=requestAnimationFrame(render);
+    },{passive:true});
+    card.addEventListener('pointerleave',()=>{if(frame)cancelAnimationFrame(frame);frame=0;card.style.removeProperty('--pointer-x');card.style.removeProperty('--pointer-y')});
+  }
+})();
+</script>
+</body>
+</html>
