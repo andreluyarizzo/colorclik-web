@@ -27,7 +27,7 @@ const icons={
 function renderHeader(page){
  let header=read('src/templates/header.html').trim();
  if(['estudio.html','proyectos.html'].includes(page))header=header.replace('href="#servicios"','href="index.html#servicios"');
- return header.replace(`href="${page}">Proyectos</a>`,`href="${page}" aria-current="page">Proyectos</a>`).replace(`href="${page}"><strong>`,`href="${page}" aria-current="page"><strong>`).replace(`href="${page}"><small>`,`href="${page}" aria-current="page"><small>`);
+ return header.replace(`href="${page}">Estudio</a>`,`href="${page}" aria-current="page">Estudio</a>`).replace(`href="${page}">Proyectos</a>`,`href="${page}" aria-current="page">Proyectos</a>`).replace(`href="${page}"><strong>`,`href="${page}" aria-current="page"><strong>`).replace(`href="${page}"><small>`,`href="${page}" aria-current="page"><small>`);
 }
 function quoteButton(s,text,extra='',className='pill dark'){
  return `<button type="button" class="${escape(className)}" data-quote data-quote-service="${escape(s.service)}" ${extra}>${escape(text)} <span>↗</span></button>`;

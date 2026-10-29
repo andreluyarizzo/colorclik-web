@@ -9,7 +9,7 @@
 .portfolio-hero-copy>p:not(.portfolio-eyebrow){font-size:15px;line-height:1.6;max-width:400px;margin:22px 0}
 .portfolio-explore{display:inline-flex;align-items:center;gap:24px;min-height:48px;border-radius:999px;padding:13px 22px;background:#151619;color:#fff;font-size:13px;font-weight:700;transition:background .2s,translate .2s}
 .portfolio-explore:hover{background:#303138;translate:0 -2px}.portfolio-explore svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.portfolio-mascot{position:absolute;right:1%;bottom:-2px;width:44%;height:400px;object-fit:contain;object-position:center bottom;pointer-events:none}
+.portfolio-mascot{position:absolute;right:1%;bottom:-2px;width:44%;height:400px;object-fit:cover;object-position:center top;pointer-events:none}
 .portfolio-gallery{max-width:1440px;margin:auto;padding:82px 6% 58px;scroll-margin-top:24px}
 .portfolio-heading{margin-bottom:42px}.portfolio-heading .portfolio-eyebrow{color:#747b86}.portfolio-heading h2{font-size:clamp(30px,3.2vw,43px);line-height:1.12;letter-spacing:-1.5px}
 .portfolio-toolbar{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 24px;min-width:0}.portfolio-toolbar[hidden]{display:none}
@@ -28,3 +28,7 @@
 @media(prefers-reduced-motion:reduce){.portfolio-card,.portfolio-visit,.portfolio-visit>span,.portfolio-filters button,.portfolio-explore,.portfolio-contact #quote{transition:none}.portfolio-card:is(:hover,:focus-visible),.portfolio-explore:hover,.portfolio-contact #quote:hover{translate:none}}
 
 .portfolio-page .nav-list a[aria-current=page]{text-decoration:underline;text-underline-offset:7px;text-decoration-color:#df1685}
+
+/* A closer, shoulder-level portrait with the complete hair silhouette visible. */
+@media(max-width:700px){.portfolio-mascot{object-position:center top;transform:scale(1.3);transform-origin:right top;right:0;width:58%}}
+@media(min-width:1024px){.portfolio-mascot{width:40%}}
