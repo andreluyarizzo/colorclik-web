@@ -557,7 +557,7 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 .contact.section>div{max-width:500px}
 @media(min-width:701px) and (max-width:900px){.contact.section{display:flex;flex-direction:column;align-items:stretch;padding:260px 40px 55px;min-height:0}.contact.section>div{max-width:620px}.contact.section>#contact-character{width:min(88%,600px);right:50%;top:-65px;transform:translateX(50%)}.contact.section h2{max-width:100%;font-size:48px}}
 @media(max-width:700px){.contact.section>#contact-character{width:min(90%,430px);right:50%;top:-65px;transform:translateX(50%)}.contact.section>div{max-width:none}}
-@media(max-width:900px){.reviews.section{padding-bottom:65px}}
+@media(max-width:900px){.reviews.section{padding-bottom:0}}
 @media(max-width:700px){.contact.section{padding-top:clamp(150px,43vw,185px)}}
 /* Fit the corrected original PNG's 3:2 proportions without changing the artwork. */
 @media(min-width:901px){.contact.section{min-height:480px}.contact.section>#contact-character{width:min(53%,800px)}}
@@ -583,3 +583,10 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 .contact #quote:active{translate:0 0;scale:.98}
 @media(max-width:700px){.contact #quote{padding:9px 10px 9px 20px;justify-content:space-between;gap:16px}}
 @media(prefers-reduced-motion:reduce){.contact #quote,.contact #quote>svg,.contact #quote::before{transition:none}.contact #quote::before{display:none}.contact #quote:is(:hover,:focus-visible)>svg{transform:none;rotate:none}.contact #quote:active{scale:1}}
+
+/* A visible direct WhatsApp channel, separate from the back-to-top control. */
+.whatsapp-float{position:fixed;right:22px;bottom:22px;z-index:24;display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:14px 18px;border-radius:999px;background:#008c46;color:#fff;box-shadow:0 6px 24px #002f2728;font-size:12px;font-weight:700;transition:background .2s,translate .2s}
+.whatsapp-float svg{width:25px;height:25px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.whatsapp-float:hover{background:#006d37;translate:0 -2px}.back-to-top{bottom:88px}
+@media(max-width:700px){.whatsapp-float{right:16px;bottom:16px;width:52px;height:52px;padding:13px}.whatsapp-float>span{display:none}.back-to-top{bottom:82px}.site-footer{padding-bottom:84px}}
+@media(prefers-reduced-motion:reduce){.whatsapp-float{transition:none}.whatsapp-float:hover{translate:none}}
+.site-header .nav-contact>svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
