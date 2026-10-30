@@ -21,7 +21,7 @@
   if(!reduced.matches)animation=slides[active].animate([{opacity:0,transform:'translateY(8px)'},{opacity:1,transform:'translateY(0)'}],{duration:450,easing:'ease-out'});
   if(announce)status.textContent=slides[active].querySelector('.work-name').textContent;
  }
- function updatePlay(){play.textContent=paused?'Reproducir':'Pausar';play.setAttribute('aria-label',paused?'Reproducir proyectos automáticamente':'Pausar proyectos automáticos');}
+ function updatePlay(){play.textContent=paused?'▷':'Ⅱ';const label=paused?'Reproducir proyectos automáticamente':'Pausar proyectos automáticos';play.setAttribute('aria-label',label);play.title=label;}
  choices.forEach((button,i)=>button.addEventListener('click',()=>{select(i);schedule();}));
  play.addEventListener('click',()=>{paused=!paused;updatePlay();schedule();});
  root.addEventListener('pointerenter',()=>{hovered=true;schedule();});
