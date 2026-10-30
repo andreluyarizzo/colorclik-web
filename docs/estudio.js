@@ -6,6 +6,11 @@
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   if (!navigation || !tabs.length) return;
   const video = document.querySelector('.studio-vision-video');
+  if (video) {
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+  }
   function syncVideo() {
     if (!video) return;
     const visible = !video.closest('[role="tabpanel"]').hidden && !document.hidden && !reduced.matches;
@@ -16,6 +21,9 @@
   video?.addEventListener('error', () => video.classList.remove('is-playing'));
   reduced.addEventListener('change', syncVideo);
   document.addEventListener('visibilitychange', syncVideo);
+  window.addEventListener('pageshow', syncVideo);
+  // Retry within a touch gesture when mobile power-saving policies block autoplay.
+  document.addEventListener('touchend', syncVideo, {passive:true});
   syncVideo();
   function select(index, focus = false) {
     tabs.forEach((tab, i) => {

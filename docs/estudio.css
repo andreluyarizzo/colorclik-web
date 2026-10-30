@@ -46,10 +46,11 @@
 
 /* Feather original footage into the page without a player frame. */
 .studio-art-vision{isolation:isolate}
-.studio-vision-media{position:absolute;inset:0;mix-blend-mode:multiply;mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 84%,transparent 99%)}
-.studio-art-vision .studio-vision-poster,.studio-vision-video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;object-position:50% 50%;mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent)}
+.studio-vision-media{position:absolute;inset:0;mix-blend-mode:multiply;mask-image:radial-gradient(ellipse closest-side at 50% 50%,#000 58%,rgba(0,0,0,.97) 70%,rgba(0,0,0,.75) 81%,rgba(0,0,0,.3) 92%,transparent 100%)}
+.studio-art-vision .studio-vision-poster,.studio-vision-video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;object-position:50% 50%}
 .studio-vision-video{opacity:0;transition:opacity .25s}
 .studio-vision-video.is-playing{opacity:1}
+.studio-vision-media:has(.is-playing) .studio-vision-poster{visibility:hidden}
 .studio-code{position:absolute;z-index:1;color:#078afa;font:12px/1.5 Consolas,monospace;letter-spacing:.5px;opacity:.55;pointer-events:none}
 .studio-code-open{top:12%;left:7%;transform:rotate(-9deg)}
 .studio-code-close{right:6%;bottom:6%;font-size:11px}
