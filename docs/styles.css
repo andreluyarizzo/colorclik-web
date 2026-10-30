@@ -590,3 +590,6 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 @media(max-width:700px){.whatsapp-float{right:16px;bottom:16px;width:52px;height:52px;padding:13px}.whatsapp-float>span{display:none}.back-to-top{bottom:82px}.site-footer{padding-bottom:84px}}
 @media(prefers-reduced-motion:reduce){.whatsapp-float{transition:none}.whatsapp-float:hover{translate:none}}
 .site-header .nav-contact>svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* Touch drag for the approved direct gaze interaction. */
+.hero-film#hero-gaze{touch-action:none}
