@@ -91,7 +91,9 @@
 
 // All projects share a rotating fan; mobile keeps native swipe navigation.
 (()=>{
- const gallery=document.querySelector('.project-grid'),projects=[...gallery.querySelectorAll('.project')],buttons=[...document.querySelectorAll('[data-project-index]')];
+ const gallery=document.querySelector('.project-grid');
+ if(!gallery)return;
+ const projects=[...gallery.querySelectorAll('.project')],buttons=[...document.querySelectorAll('[data-project-index]')];
  const reduced=matchMedia('(prefers-reduced-motion:reduce)'),mobile=matchMedia('(max-width:700px)');
  let frame,current=0;
  function highlight(index){

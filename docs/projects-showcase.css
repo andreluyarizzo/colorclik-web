@@ -1,0 +1,38 @@
+@font-face{font-family:Allura;src:url(assets/fonts/allura-400.ttf) format('truetype');font-weight:400;font-style:normal;font-display:swap}
+.work-showcase{position:relative;isolation:isolate;overflow:hidden;background:#fff;color:#111;min-height:46.3vw;font-family:Montserrat,Arial,sans-serif}
+.work-showcase::before,.work-showcase::after{content:"";position:absolute;pointer-events:none;border-radius:50%;z-index:-1;box-shadow:inset -10px -8px 18px #00000007,5px 5px 12px #00000005;background:linear-gradient(125deg,#fff,#fafafa)}
+.work-showcase::before{width:65%;aspect-ratio:1;left:-30%;top:-68%}
+.work-showcase::after{width:38%;aspect-ratio:1;left:-18%;top:-43%}
+.work-heading{position:relative;z-index:2;padding:4.5% 4.7% 0}
+.work-heading>p:first-child{font-size:clamp(9px,.75vw,14px);letter-spacing:.55em;font-weight:300}
+.work-heading h2{font-size:clamp(24px,2.8vw,52px);font-weight:400;line-height:1.15;letter-spacing:-.035em;margin:5px 0 9px}
+.work-heading h2 strong{color:#d52f76;font-weight:900}
+.work-heading>p:last-child{font-size:clamp(12px,1.2vw,20px);line-height:1.4}
+.work-presenter{position:absolute;right:-5%;bottom:0;width:30%;height:91%;object-fit:contain;object-position:right bottom;pointer-events:none}
+.work-stage{position:absolute;z-index:1;width:30%;left:33.3%;top:34%;text-align:center}
+.work-slide[hidden]{display:none}
+.work-category{font-size:clamp(8px,.75vw,13px);letter-spacing:.5em;font-weight:300;margin:0 0 4px}
+.work-name{font-family:Allura,'Segoe Script',cursive;font-size:clamp(28px,5.3vw,90px);font-style:normal;font-weight:400;line-height:.95;letter-spacing:-.02em;margin:0 0 8px}
+.work-laptop{position:relative;display:block;width:100%;padding:9px 9px 15px;border-radius:14px 14px 3px 3px;background:linear-gradient(#171717,#030303);box-shadow:0 1px 4px #0009;outline-offset:10px}
+.work-laptop svg{display:block;width:100%;aspect-ratio:831/573;background:#eee;overflow:hidden}
+.work-laptop::after{content:"";position:absolute;left:-10%;bottom:-7%;width:120%;height:9%;background:linear-gradient(#929292,#e0e0e0 28%,#777 60%,#b0b0b0 65%,#555);clip-path:polygon(8% 0,92% 0,100% 75%,97% 100%,3% 100%,0 75%);filter:drop-shadow(0 5px 4px #0003)}
+.work-laptop:focus-visible{outline:3px solid #d52f76}
+.work-controls{display:flex;gap:10px;align-items:center;justify-content:flex-start;position:absolute;left:4.7%;bottom:5%;max-width:23%;z-index:2;flex-wrap:wrap}
+.work-controls button,.work-all{font:inherit;font-size:11px;background:#fff;border:1px solid #ddd;border-radius:20px;color:#333;min-height:36px;padding:7px 13px;cursor:pointer;text-decoration:none}
+.work-controls button[aria-pressed=true]{background:#d52f76;border-color:#d52f76;color:#fff}
+.work-controls button:focus-visible,.work-all:focus-visible{outline:3px solid #d52f76;outline-offset:3px}
+.work-controls[hidden]{display:none}
+@media(max-width:760px){
+ .work-showcase{min-height:0;padding-bottom:0}
+ .work-heading{padding:30px 22px 0}
+ .work-heading h2{font-size:clamp(23px,6vw,35px)}
+ .work-heading>p:first-child{font-size:8px;letter-spacing:.35em}
+ .work-heading>p:last-child{font-size:12px;max-width:90%}
+ .work-stage{position:relative;left:auto;top:auto;width:74%;margin:36px 0 0 6%;padding-bottom:115px}
+ .work-name{font-size:36px}.work-category{font-size:7px;letter-spacing:.25em}
+ .work-presenter{right:-9%;width:32%;height:65%;object-position:right bottom}
+ .work-laptop{padding:6px 6px 10px;border-radius:9px 9px 2px 2px}
+ .work-controls{left:6%;bottom:15px;max-width:78%;gap:7px;justify-content:flex-start}
+ .work-controls button,.work-all{font-size:10px;padding:7px 10px}
+}
+@media(prefers-reduced-motion:reduce){.work-showcase *{scroll-behavior:auto}}
