@@ -43,3 +43,17 @@
 @media(max-width:700px){.studio-tabs>button{flex:1 0 20%;min-width:0;padding-inline:2px;font-size:10px;justify-content:flex-start}.studio-avatar{width:clamp(42px,12vw,55px);height:clamp(42px,12vw,55px)}}
 /* Keep the landscape mascot at its original scale, with breathing room for copy. */
 @media(min-width:701px){.studio-art-custom{translate:-24px 0}}
+
+/* Feather original footage into the page without a player frame. */
+.studio-art-vision{isolation:isolate}
+.studio-vision-media{position:absolute;inset:0;mix-blend-mode:multiply;mask-image:linear-gradient(to bottom,transparent,#000 9%,#000 84%,transparent 99%)}
+.studio-art-vision .studio-vision-poster,.studio-vision-video{position:absolute;inset:0;width:100%;height:100%;max-height:none;object-fit:cover;object-position:50% 50%;mask-image:linear-gradient(to right,transparent,#000 12%,#000 88%,transparent)}
+.studio-vision-video{opacity:0;transition:opacity .25s}
+.studio-vision-video.is-playing{opacity:1}
+.studio-code{position:absolute;z-index:1;color:#078afa;font:12px/1.5 Consolas,monospace;letter-spacing:.5px;opacity:.55;pointer-events:none}
+.studio-code-open{top:12%;left:7%;transform:rotate(-9deg)}
+.studio-code-close{right:6%;bottom:6%;font-size:11px}
+#panel-vision .studio-story .studio-eyebrow{color:#078afa}
+#panel-vision .studio-closing{border-left:2px solid #078afa;padding-left:12px}
+@media(max-width:700px){.studio-art-vision{height:310px}.studio-code-open{top:7%}.studio-code-close{bottom:5%}}
+@media(prefers-reduced-motion:reduce){.studio-vision-video{display:none;transition:none}}

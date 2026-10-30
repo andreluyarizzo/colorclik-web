@@ -5,6 +5,18 @@
   const panels = [...document.querySelectorAll('.studio-scene')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   if (!navigation || !tabs.length) return;
+  const video = document.querySelector('.studio-vision-video');
+  function syncVideo() {
+    if (!video) return;
+    const visible = !video.closest('[role="tabpanel"]').hidden && !document.hidden && !reduced.matches;
+    if (visible) video.play().catch(() => video.classList.remove('is-playing'));
+    else { video.pause(); video.classList.remove('is-playing'); }
+  }
+  video?.addEventListener('playing', () => video.classList.add('is-playing'));
+  video?.addEventListener('error', () => video.classList.remove('is-playing'));
+  reduced.addEventListener('change', syncVideo);
+  document.addEventListener('visibilitychange', syncVideo);
+  syncVideo();
   function select(index, focus = false) {
     tabs.forEach((tab, i) => {
       const active = i === index;
@@ -13,6 +25,7 @@
       panels[i].hidden = !active;
       if (active && !reduced.matches) panels[i].animate([{opacity:0,transform:'translateY(7px)'},{opacity:1,transform:'none'}], {duration:260,easing:'ease-out'});
     });
+    syncVideo();
     if (focus) tabs[index].focus({preventScroll:true});
     const tab = tabs[index], list = tab.parentElement;
     // Only move the tab strip; never jump the document on scene changes.
