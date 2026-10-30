@@ -53,6 +53,30 @@
 .showcase:not(.is-ready) .service-avatars{display:none}
 @media(min-width:1800px){.showcase-scenes{height:1100px}.scene-cta{min-height:94px}}
 @media(min-width:761px) and (max-height:750px){.showcase-scenes{height:62.5vw}.scene-cta{min-height:5.6vw}}
+/* Wide composition approved for the production services section. */
+@media(min-width:761px){
+ .showcase-scenes{height:46.3vw;min-height:0;max-height:none}
+ .showcase-heading{top:5.5%}
+ .showcase-heading h1,.showcase-heading .showcase-title{font-size:2.65vw}
+ .showcase-heading p{font-size:.75vw}
+ .showcase-heading .showcase-intro{font-size:1.02vw;max-width:26%}
+ .scene-marketing .scene-character{left:18%;width:26%;height:85%}
+ .scene-branding .scene-character{left:17%;width:28%;height:85%}
+ .scene-web .scene-character{left:15%;width:30%;height:85%}
+ .scene-social .scene-character,.scene-custom .scene-character{left:14%;width:32%;height:85%}
+ .scene .scene-copy{left:46.8%;right:10%;top:22.5%;font-size:1.45vw}
+ .scene-label{font-size:.75vw;margin-bottom:8px}
+ .scene .scene-copy .scene-title{font-size:2.8vw}
+ .scene-web .scene-copy .scene-title{font-size:2.4vw}
+ .scene-social .scene-copy .scene-title{font-size:2.15vw}
+ .scene-custom .scene-copy .scene-title{font-size:2.1vw}
+ .scene-social .scene-description,.scene-custom .scene-description{font-size:1.3vw}
+ .scene-copy .scene-title span{margin-bottom:6px}
+ .scene-description{max-width:34vw;margin-top:12px;min-height:3.3em}
+ .scene-cta{width:52%;min-height:5.6vw;margin-top:8px;font-size:1.25vw;border-radius:2.4vw}
+ .service-avatars{left:28%;right:28%;bottom:5.2%}
+ .service-avatars button{width:6.2vw;border-width:4px}
+}
 @media(max-width:760px){
  .showcase-scenes{height:auto;min-height:0}
  .showcase-heading{top:20px;left:12px;right:12px;display:block}
