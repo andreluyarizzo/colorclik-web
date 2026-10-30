@@ -494,7 +494,7 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 /* One original scene, one decoder: no layered faces, rotations, or cover crop. */
 .hero-film#hero-gaze{background:radial-gradient(ellipse at 50% 65%,#ffb40a 0%,#f6a000 58%,#e48e00 100%);transform:none}
 .hero-film#hero-gaze .gaze-stage{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:100%;height:100%;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%);mask-composite:intersect;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent),linear-gradient(180deg,transparent,#000 9%);-webkit-mask-composite:source-in}
-.hero-film#hero-gaze .gaze-stage>img,.hero-film#hero-gaze .gaze-stage>video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center;visibility:visible;transition:none;transform:none}
+.hero-film#hero-gaze .gaze-stage>img,.hero-film#hero-gaze .gaze-stage>video,.hero-film#hero-gaze .gaze-stage>canvas{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;object-position:center;visibility:visible;transition:none;transform:none}
 .hero-film#hero-gaze .gaze-stage>.gaze-poster{opacity:1}
 .hero-film#hero-gaze .gaze-stage>.gaze-source{opacity:0}
 .hero-film#hero-gaze .gaze-stage.has-frame>.gaze-source{opacity:1}
@@ -590,3 +590,6 @@ body,button,input,select,textarea{font-family:'Montserrat',Arial,sans-serif}
 @media(max-width:700px){.whatsapp-float{right:16px;bottom:16px;width:52px;height:52px;padding:13px}.whatsapp-float>span{display:none}.back-to-top{bottom:82px}.site-footer{padding-bottom:84px}}
 @media(prefers-reduced-motion:reduce){.whatsapp-float{transition:none}.whatsapp-float:hover{translate:none}}
 .site-header .nav-contact>svg{width:14px;height:14px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* Direct gaze on desktop and touch; other page scrolling remains unchanged. */
+.hero-film#hero-gaze{touch-action:none}
