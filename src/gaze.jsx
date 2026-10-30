@@ -1,81 +1,122 @@
 import React, { useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { normalizePointer, gazeTime, damp, clamp } from './gaze-motion.mjs';
+import { normalizePointer, damp, clamp } from './gaze-motion.mjs';
 
-function Gaze() {
-  const videoRef=useRef(null),stageRef=useRef(null);
+// Prototype: decode nine frames ONCE; pointer movement never seeks the MP4.
+const DIRECTIONS = [
+  { x:-1,y:-1,t:2.45 }, { x:0,y:-1,t:3.25 }, { x:1,y:-1,t:3.65 },
+  { x:-1,y:0,t:1.55 }, { x:0,y:0,t:9.42 }, { x:1,y:0,t:4.55 },
+  { x:-1,y:1,t:8.05 }, { x:0,y:1,t:7.55 }, { x:1,y:1,t:5.45 }
+];
+const IMAGE_W=1280, IMAGE_H=720;
+const frameAt = (video, t) => new Promise((resolve,reject)=>{
+  const timeout=setTimeout(()=>{cleanup();reject(new Error('Frame seek timeout'));},4000);
+  const cleanup=()=>{clearTimeout(timeout);video.removeEventListener('seeked',done);video.removeEventListener('error',error);};
+  const error=()=>{cleanup();reject(new Error('Video decoding error'));};
+  const done=()=>{cleanup();resolve();};
+  video.addEventListener('seeked',done,{once:true});
+  video.addEventListener('error',error,{once:true});
+  video.currentTime=t;
+});
+function Gaze(){
+  const canvasRef=useRef(null),stageRef=useRef(null);
   useEffect(()=>{
-    const hero=document.querySelector('.hero'),video=videoRef.current,stage=stageRef.current;
-    const reduced=matchMedia('(prefers-reduced-motion: reduce)'),fine=matchMedia('(hover: hover) and (pointer: fine)');
-    let visible=false,inside=false,returning=false,disposed=false,failed=false,ready=false,frame=0,last=0;
-    let target={x:0,y:0},point={x:0,y:0},time=0,destination=0,seekPending=false,seekSafety;
-    const allowed=()=>!disposed&&!failed&&visible&&!document.hidden&&!reduced.matches&&fine.matches;
-    function cancel(){cancelAnimationFrame(frame);frame=0;last=0;hero.dataset.gazeMoving='false';}
-    function schedule(){if(allowed()&&(inside||returning)&&ready&&!frame&&!seekPending){hero.dataset.gazeMoving='true';frame=requestAnimationFrame(update);}}
-    function fallback(){
-      cancel();clearTimeout(seekSafety);seekPending=false;time=destination=0;point={x:0,y:0};target={x:0,y:0};
-      hero.dataset.gaze='static';stage.classList.remove('has-frame');
-      if(ready&&!failed&&video.hasAttribute('src')){try{video.currentTime=0;}catch{}}
-    }
-    function fail(){failed=true;clearTimeout(seekSafety);seekPending=false;fallback();}
-    function decoded(){
-      clearTimeout(seekSafety);seekPending=false;
-      if(!allowed()||(!inside&&!returning))return;
-      if(video.readyState<2)return;
+    const hero=document.querySelector('.hero'),stage=stageRef.current,canvas=canvasRef.current;
+    if(!hero||!canvas)return;
+    const ctx=canvas.getContext('2d',{alpha:false});
+    if(!ctx)return;
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+    const fine=matchMedia('(hover: hover) and (pointer: fine)');
+    let disposed=false,visible=false,inside=false,ready=false,loading=false,raf=0,last=0;
+    let target={x:0,y:0},point={x:0,y:0},currentIndex=4;
+    const frames=[];
+    const allowed=()=>!disposed&&visible&&!document.hidden&&!reduced.matches&&fine.matches;
+    const draw=(index)=>{
+      const img=frames[index];if(!img)return;
+      ctx.drawImage(img,0,0,IMAGE_W,IMAGE_H);
       stage.classList.add('has-frame');
-      hero.dataset.gazeTime=video.currentTime.toFixed(3);
-      // Seeking is serialized: keep the last decoded frame until the next is ready.
-      if(returning&&video.currentTime<.025){returning=false;stage.classList.remove('has-frame');hero.dataset.gaze='static';hero.dataset.gazeMoving='false';}
-      else if(Math.abs(time-destination)>.018||(!returning&&Math.hypot(point.x-target.x,point.y-target.y)>.003))schedule();
-      else hero.dataset.gazeMoving='false';
-    }
-    function update(now){
-      frame=0;if(!allowed()||(!inside&&!returning)){cancel();return;}
+      hero.dataset.gaze='tracking';
+    };
+    function tick(now){
+      raf=0;if(!allowed()||!ready)return;
       const dt=last?Math.min((now-last)/1000,.05):1/60;last=now;
-      point={x:damp(point.x,target.x,dt,.09),y:damp(point.y,target.y,dt,.09)};
-      destination=returning?0:gazeTime(point.x,point.y,time);
-      // Damp time and bound travel through the recorded source sequence.
-      const proposed=damp(time,destination,dt,.28);
-      time+=clamp(proposed-time,-dt*2.5,dt*2.5);
-      const wanted=Math.round(time*24)/24;
-      if(Math.abs(wanted-video.currentTime)>.025){
-        const requested=clamp(wanted,0,9.75);seekPending=true;
-        seekSafety=setTimeout(fail,2500);
-        video.currentTime=requested;
-      }else if(returning&&video.currentTime<.025){returning=false;stage.classList.remove('has-frame');hero.dataset.gaze='static';hero.dataset.gazeMoving='false';}
-      else if(Math.abs(time-destination)>.018||(!returning&&Math.hypot(point.x-target.x,point.y-target.y)>.003))schedule();
-      else {hero.dataset.gazeMoving='false';if(returning){returning=false;stage.classList.remove('has-frame');hero.dataset.gaze='static';}}
+      point={x:damp(point.x,target.x,dt,.14),y:damp(point.y,target.y,dt,.14)};
+      // Nine stable sectors with a small dead zone to avoid jitter.
+      const col=point.x<-.32?0:point.x>.32?2:1;
+      const row=point.y<-.32?0:point.y>.32?2:1;
+      const next=row*3+col;
+      if(next!==currentIndex){currentIndex=next;draw(next);}
+      if(Math.hypot(point.x-target.x,point.y-target.y)>.008)raf=requestAnimationFrame(tick);
+      else {last=0;hero.dataset.gazeMoving='false';}
     }
-    function load(){
-      if(!allowed()||video.hasAttribute('src')||navigator.connection?.saveData)return;
-      video.src='assets/gaze/hero-scrub.mp4';video.load();
+    const schedule=()=>{if(!raf&&allowed()&&ready){hero.dataset.gazeMoving='true';raf=requestAnimationFrame(tick);}};
+    const reset=()=>{target={x:0,y:0};if(ready){schedule();}else{stage.classList.remove('has-frame');hero.dataset.gaze='static';}};
+    async function prepare(){
+      if(loading||ready||!allowed()||navigator.connection?.saveData)return;
+      loading=true;
+      const video=document.createElement('video');
+      video.muted=true;video.playsInline=true;video.preload='auto';
+      video.src='assets/gaze/hero-scrub.mp4';
+      try{
+        await new Promise((resolve,reject)=>{
+          video.addEventListener('loadedmetadata',resolve,{once:true});
+          video.addEventListener('error',()=>reject(new Error('Video unavailable')),{once:true});
+          video.load();
+        });
+        for(const dir of DIRECTIONS){
+          if(disposed)break;
+          await frameAt(video,Math.min(dir.t,Math.max(0,video.duration-.05)));
+          const bitmap=document.createElement('canvas');
+          bitmap.width=IMAGE_W;bitmap.height=IMAGE_H;
+          bitmap.getContext('2d').drawImage(video,0,0,IMAGE_W,IMAGE_H);
+          frames.push(bitmap);
+        }
+        if(!disposed&&frames.length===9){
+          ready=true;currentIndex=4;draw(4);
+          if(inside)schedule();
+          else {stage.classList.remove('has-frame');hero.dataset.gaze='static';}
+        }
+      }catch(err){console.warn('Gaze Canvas: keeping original poster',err);hero.dataset.gaze='static';}
+      finally{video.removeAttribute('src');video.load();loading=false;}
     }
-    function move(event){
-      if(!allowed()||event.pointerType==='touch')return;
-      inside=true;returning=false;target=normalizePointer(event.clientX,event.clientY,hero.getBoundingClientRect());
-      hero.dataset.gaze='tracking';load();if(ready&&!video.seeking)stage.classList.add('has-frame');schedule();
-    }
-    function leave(){
-      inside=false;returning=time>.025;hero.dataset.gaze='returning';
-      if(allowed()&&returning)schedule();else{cancel();stage.classList.remove('has-frame');hero.dataset.gaze='static';}
-    }
-    function policy(){if(!allowed()){inside=returning=false;fallback();if(reduced.matches||!fine.matches){video.removeAttribute('src');video.load();ready=false;}}else load();}
-    function resize(){
+    const move=e=>{
+      if(!allowed()||e.pointerType==='touch')return;
+      inside=true;target=normalizePointer(e.clientX,e.clientY,hero.getBoundingClientRect());
+      if(!ready)prepare();else schedule();
+    };
+    const leave=()=>{inside=false;reset();};
+    const policy=()=>{
+      if(!allowed()){
+        cancelAnimationFrame(raf);raf=0;last=0;inside=false;
+        stage.classList.remove('has-frame');hero.dataset.gaze='static';
+      }
+    };
+    const resize=()=>{
       const r=hero.getBoundingClientRect();
-      // Keep the complete head/glasses/shoulder envelope inside any viewport.
       const scale=Math.min(r.height/720,(r.width-24)/650);
       stage.style.width=`${1280*scale}px`;stage.style.height=`${720*scale}px`;
-    }
-    video.addEventListener('loadeddata',()=>{ready=true;video.pause();if(inside){stage.classList.add('has-frame');schedule();}});
-    video.addEventListener('seeked',decoded);video.addEventListener('error',fail);
-    const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){inside=returning=false;fallback();}else policy();},{threshold:.01});observer.observe(hero);
-    const resizeObserver=new ResizeObserver(resize);resizeObserver.observe(hero);resize();
-    hero.addEventListener('pointermove',move,{passive:true});hero.addEventListener('pointerleave',leave);hero.addEventListener('pointercancel',leave);
-    document.addEventListener('visibilitychange',policy);window.addEventListener('blur',leave);reduced.addEventListener('change',policy);fine.addEventListener('change',policy);
+    };
+    const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;policy();},{threshold:.01});
+    observer.observe(hero);
+    const ro=new ResizeObserver(resize);ro.observe(hero);resize();
+    hero.addEventListener('pointermove',move,{passive:true});
+    hero.addEventListener('pointerleave',leave);
+    hero.addEventListener('pointercancel',leave);
+    document.addEventListener('visibilitychange',policy);
+    reduced.addEventListener('change',policy);fine.addEventListener('change',policy);
     hero.dataset.gaze='static';hero.dataset.gazeMoving='false';
-    return()=>{disposed=true;cancel();clearTimeout(seekSafety);observer.disconnect();resizeObserver.disconnect();video.pause();video.removeAttribute('src');video.load();hero.removeEventListener('pointermove',move);hero.removeEventListener('pointerleave',leave);hero.removeEventListener('pointercancel',leave);document.removeEventListener('visibilitychange',policy);window.removeEventListener('blur',leave);reduced.removeEventListener('change',policy);fine.removeEventListener('change',policy);video.removeEventListener('seeked',decoded);video.removeEventListener('error',fail);};
+    return()=>{
+      disposed=true;cancelAnimationFrame(raf);observer.disconnect();ro.disconnect();
+      hero.removeEventListener('pointermove',move);hero.removeEventListener('pointerleave',leave);
+      hero.removeEventListener('pointercancel',leave);
+      document.removeEventListener('visibilitychange',policy);
+      reduced.removeEventListener('change',policy);fine.removeEventListener('change',policy);
+    };
   },[]);
-  return <div className="gaze-stage" ref={stageRef}><img className="gaze-poster" src="assets/gaze/original.webp" alt="" width="1672" height="941" fetchPriority="high"/><video ref={videoRef} className="gaze-source" muted playsInline preload="none" disablePictureInPicture aria-hidden="true"/></div>;
+  return <div className="gaze-stage" ref={stageRef}>
+    <img className="gaze-poster" src="assets/gaze/original.webp" alt="" width="1672" height="941" fetchPriority="high"/>
+    <canvas ref={canvasRef} className="gaze-source" width={1280} height={720} aria-hidden="true"/>
+  </div>;
 }
 const mount=document.getElementById('hero-gaze');
 if(mount)createRoot(mount).render(<Gaze/>);
