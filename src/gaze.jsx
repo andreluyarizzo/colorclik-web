@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
-import { normalizePointer, damp, clamp } from './gaze-motion.mjs';
+import { normalizePointer } from './gaze-motion.mjs';
 
 // Prototype: decode nine frames ONCE; pointer movement never seeks the MP4.
 const DIRECTIONS = [
-  { x:-1,y:-1,t:2.45 }, { x:0,y:-1,t:3.25 }, { x:1,y:-1,t:3.65 },
+  { x:-1,y:-1,t:2.45 }, { x:0,y:-1,t:3.42 }, { x:1,y:-1,t:3.65 },
   { x:-1,y:0,t:1.55 }, { x:0,y:0,t:9.42 }, { x:1,y:0,t:4.55 },
-  { x:-1,y:1,t:8.05 }, { x:0,y:1,t:7.55 }, { x:1,y:1,t:5.45 }
+  { x:-1,y:1,t:7.55 }, { x:0,y:1,t:6.35 }, { x:1,y:1,t:5.45 }
 ];
 const IMAGE_W=1280, IMAGE_H=720;
 const frameAt = (video, t) => new Promise((resolve,reject)=>{
@@ -26,31 +26,31 @@ function Gaze(){
     const ctx=canvas.getContext('2d',{alpha:false});
     if(!ctx)return;
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
-    const fine=matchMedia('(hover: hover) and (pointer: fine)');
-    let disposed=false,visible=false,inside=false,ready=false,loading=false,raf=0,last=0;
-    let target={x:0,y:0},point={x:0,y:0},currentIndex=4;
+    
+    let disposed=false,visible=false,inside=false,ready=false,loading=false,activePointer=null;
+    let currentIndex=4;
     const frames=[];
-    const allowed=()=>!disposed&&visible&&!document.hidden&&!reduced.matches&&fine.matches;
+    const allowed=()=>!disposed&&visible&&!document.hidden&&!reduced.matches;
     const draw=(index)=>{
       const img=frames[index];if(!img)return;
       ctx.drawImage(img,0,0,IMAGE_W,IMAGE_H);
       stage.classList.add('has-frame');
       hero.dataset.gaze='tracking';
     };
-    function tick(now){
-      raf=0;if(!allowed()||!ready)return;
-      const dt=last?Math.min((now-last)/1000,.05):1/60;last=now;
-      point={x:damp(point.x,target.x,dt,.14),y:damp(point.y,target.y,dt,.14)};
-      // Nine stable sectors with a small dead zone to avoid jitter.
-      const col=point.x<-.32?0:point.x>.32?2:1;
-      const row=point.y<-.32?0:point.y>.32?2:1;
+    // Direct mode is intentional: exactly the behavior approved in the mobile demo.
+    function showAt(clientX,clientY){
+      const rect=hero.getBoundingClientRect();
+      const p=normalizePointer(clientX,clientY,rect);
+      const col=p.x<-.32?0:p.x>.32?2:1;
+      const row=p.y<-.32?0:p.y>.32?2:1;
       const next=row*3+col;
-      if(next!==currentIndex){currentIndex=next;draw(next);}
-      if(Math.hypot(point.x-target.x,point.y-target.y)>.008)raf=requestAnimationFrame(tick);
-      else {last=0;hero.dataset.gazeMoving='false';}
+      if(ready&&next!==currentIndex){currentIndex=next;draw(next);}
     }
-    const schedule=()=>{if(!raf&&allowed()&&ready){hero.dataset.gazeMoving='true';raf=requestAnimationFrame(tick);}};
-    const reset=()=>{target={x:0,y:0};if(ready){schedule();}else{stage.classList.remove('has-frame');hero.dataset.gaze='static';}};
+    function reset(){
+      inside=false;
+      if(ready){currentIndex=4;draw(4);}
+      hero.dataset.gazeMoving='false';
+    }
     async function prepare(){
       if(loading||ready||!allowed()||navigator.connection?.saveData)return;
       loading=true;
@@ -73,21 +73,34 @@ function Gaze(){
         }
         if(!disposed&&frames.length===9){
           ready=true;currentIndex=4;draw(4);
-          if(inside)schedule();
+          if(inside)draw(currentIndex);
           else {stage.classList.remove('has-frame');hero.dataset.gaze='static';}
         }
       }catch(err){console.warn('Gaze Canvas: keeping original poster',err);hero.dataset.gaze='static';}
       finally{video.removeAttribute('src');video.load();loading=false;}
     }
     const move=e=>{
-      if(!allowed()||e.pointerType==='touch')return;
-      inside=true;target=normalizePointer(e.clientX,e.clientY,hero.getBoundingClientRect());
-      if(!ready)prepare();else schedule();
+      if(!allowed())return;
+      if(e.pointerType==='touch'&&activePointer!==e.pointerId)return;
+      inside=true;
+      if(!ready)prepare();
+      else showAt(e.clientX,e.clientY);
+      hero.dataset.gazeMoving='false';
     };
-    const leave=()=>{inside=false;reset();};
+    const down=e=>{
+      if(!allowed()||e.pointerType==='mouse')return;
+      activePointer=e.pointerId;
+      try{hero.setPointerCapture(e.pointerId);}catch{}
+      move(e);
+    };
+    const up=e=>{
+      if(e.pointerType!=='mouse'&&activePointer!==e.pointerId)return;
+      activePointer=null;reset();
+    };
+    const leave=e=>{if(e.pointerType==='mouse')reset();};
     const policy=()=>{
       if(!allowed()){
-        cancelAnimationFrame(raf);raf=0;last=0;inside=false;
+        activePointer=null;inside=false;
         stage.classList.remove('has-frame');hero.dataset.gaze='static';
       }
     };
@@ -99,18 +112,18 @@ function Gaze(){
     const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;policy();},{threshold:.01});
     observer.observe(hero);
     const ro=new ResizeObserver(resize);ro.observe(hero);resize();
-    hero.addEventListener('pointermove',move,{passive:true});
+    hero.addEventListener('pointerdown',down);hero.addEventListener('pointermove',move,{passive:true});hero.addEventListener('pointerup',up);
     hero.addEventListener('pointerleave',leave);
-    hero.addEventListener('pointercancel',leave);
+    hero.addEventListener('pointercancel',up);
     document.addEventListener('visibilitychange',policy);
-    reduced.addEventListener('change',policy);fine.addEventListener('change',policy);
+    reduced.addEventListener('change',policy);
     hero.dataset.gaze='static';hero.dataset.gazeMoving='false';
     return()=>{
-      disposed=true;cancelAnimationFrame(raf);observer.disconnect();ro.disconnect();
-      hero.removeEventListener('pointermove',move);hero.removeEventListener('pointerleave',leave);
-      hero.removeEventListener('pointercancel',leave);
+      disposed=true;observer.disconnect();ro.disconnect();
+      hero.removeEventListener('pointerdown',down);hero.removeEventListener('pointermove',move);hero.removeEventListener('pointerup',up);hero.removeEventListener('pointerleave',leave);
+      hero.removeEventListener('pointercancel',up);
       document.removeEventListener('visibilitychange',policy);
-      reduced.removeEventListener('change',policy);fine.removeEventListener('change',policy);
+      reduced.removeEventListener('change',policy);
     };
   },[]);
   return <div className="gaze-stage" ref={stageRef}>
