@@ -53,20 +53,43 @@
     console.warn('ColorClik gaze frames unavailable; retaining original poster',error);
     stage.classList.remove('has-frame');hero.dataset.gaze='static';
   });
-  hero.addEventListener('pointerdown',e=>{
-    if(!allowed()||e.pointerType==='mouse')return;
-    activeTouch=e.pointerId;
-    try{hero.setPointerCapture(e.pointerId);}catch{}
-    show(e.clientX,e.clientY);
-  });
+  // Desktop: pointer hover across the hero, without intercepting clicks.
   hero.addEventListener('pointermove',e=>{
-    if(!allowed())return;
-    if(e.pointerType==='touch'&&activeTouch!==e.pointerId)return;
+    if(e.pointerType!=='mouse'||!allowed())return;
     show(e.clientX,e.clientY);
   },{passive:true});
-  hero.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse'&&activeTouch===e.pointerId){activeTouch=null;center();}});
-  hero.addEventListener('pointercancel',e=>{if(activeTouch===e.pointerId){activeTouch=null;center();}});
   hero.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse')center();});
+
+  // Mobile: capture only gestures that START on the doll, not the entire hero.
+  // Preserve natural vertical scrolling everywhere else.
+  let touchStart=null;
+  const dollZone=(x,y)=>{
+    const r=host.getBoundingClientRect();
+    return x>=r.left+r.width*.20 && x<=r.right-r.width*.20 &&
+           y>=r.top+r.height*.08 && y<=r.bottom-r.height*.08;
+  };
+  hero.addEventListener('touchstart',e=>{
+    if(!allowed()||e.touches.length!==1)return;
+    const t=e.touches[0];
+    if(!dollZone(t.clientX,t.clientY))return;
+    touchStart={id:t.identifier};
+    show(t.clientX,t.clientY);
+  },{passive:true});
+  hero.addEventListener('touchmove',e=>{
+    if(!touchStart||!allowed())return;
+    const t=Array.from(e.changedTouches).find(t=>t.identifier===touchStart.id);
+    if(!t)return;
+    if(e.cancelable)e.preventDefault();
+    show(t.clientX,t.clientY);
+  },{passive:false});
+  const endTouch=e=>{
+    if(!touchStart)return;
+    if(Array.from(e.changedTouches).some(t=>t.identifier===touchStart.id)){
+      touchStart=null;center();
+    }
+  };
+  hero.addEventListener('touchend',endTouch,{passive:true});
+  hero.addEventListener('touchcancel',endTouch,{passive:true});
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){stage.classList.remove('has-frame');hero.dataset.gaze='static';}},{threshold:.01});
   observer.observe(hero);
   new ResizeObserver(resize).observe(hero);resize();
