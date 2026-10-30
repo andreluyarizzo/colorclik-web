@@ -52,6 +52,7 @@
 // Sample only the clean service blue; testimonial media owns its playback.
 (()=>{
  const webVideo=document.querySelector('.web-service-video');
+ if(!webVideo)return;
  const sample=document.createElement('canvas');sample.width=sample.height=1;const ctx=sample.getContext('2d',{willReadFrequently:true});
  function paint(){if(webVideo.readyState<2)return;ctx.drawImage(webVideo,webVideo.videoWidth*.94,webVideo.videoHeight*.5,1,1,0,0,1,1);const p=ctx.getImageData(0,0,1,1).data;const blue=`rgb(${p[0]} ${p[1]} ${p[2]})`;webVideo.closest('.service').style.setProperty('--web-blue',blue);document.documentElement.style.setProperty('--web-blue',blue)}
  webVideo.addEventListener('loadeddata',paint);paint();
