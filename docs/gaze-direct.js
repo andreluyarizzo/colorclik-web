@@ -8,9 +8,13 @@
   const canvas = host.querySelector('canvas');
   const ctx = canvas.getContext('2d', {alpha:false});
   if (!ctx) return;
-  const times = [2.45,3.42,3.65,1.55,9.42,4.55,7.55,6.35,5.45];
-  const frames = [];
-  let ready=false, loading=false, visible=false, index=4, activeTouch=null, lastPosition=null;
+  const names=['arriba-izquierda','arriba','arriba-derecha','izquierda','frente','derecha','abajo-izquierda','abajo','abajo-derecha'];
+  const frames=names.map(name=>{
+    const image=new Image();
+    image.src='assets/gaze/frames/'+name+'.webp';
+    return image;
+  });
+  let ready=false, visible=false, index=4, activeTouch=null, lastPosition=null;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const allowed = () => visible && !document.hidden && !reduced.matches;
   const draw = n => {
@@ -38,51 +42,27 @@
     stage.style.width=(1280*scale)+'px';
     stage.style.height=(720*scale)+'px';
   };
-  const seek=(video,time)=>new Promise((resolve,reject)=>{
-    const timeout=setTimeout(()=>{cleanup();reject(new Error('Frame timeout'));},4500);
-    const cleanup=()=>{clearTimeout(timeout);video.removeEventListener('seeked',done);video.removeEventListener('error',fail);};
-    const done=()=>{cleanup();resolve();};
-    const fail=()=>{cleanup();reject(new Error('Video error'));};
-    video.addEventListener('seeked',done,{once:true});
-    video.addEventListener('error',fail,{once:true});
-    video.currentTime=time;
+  // The images are exactly those from the approved direct-transition demo.
+  // No MP4 seeking or decoding during pointer movement.
+  Promise.all(frames.map(image=>image.decode())).then(()=>{
+    ready=true;
+    draw(4);
+    if(lastPosition)show(lastPosition.x,lastPosition.y);
+    else{stage.classList.remove('has-frame');hero.dataset.gaze='static';}
+  }).catch(error=>{
+    console.warn('ColorClik gaze frames unavailable; retaining original poster',error);
+    stage.classList.remove('has-frame');hero.dataset.gaze='static';
   });
-  async function load(){
-    if(loading||ready||!allowed())return;
-    loading=true;
-    const video=document.createElement('video');
-    video.muted=true;video.playsInline=true;video.preload='auto';
-    try{
-      video.src='assets/gaze/hero-scrub.mp4';
-      await new Promise((resolve,reject)=>{
-        video.addEventListener('loadedmetadata',resolve,{once:true});
-        video.addEventListener('error',()=>reject(new Error('Video unavailable')),{once:true});
-        video.load();
-      });
-      for(const t of times){
-        await seek(video,Math.min(t,video.duration-.05));
-        const frame=document.createElement('canvas');
-        frame.width=1280;frame.height=720;
-        frame.getContext('2d').drawImage(video,0,0,1280,720);
-        frames.push(frame);
-      }
-      ready=true;
-      draw(4);
-      if(lastPosition)show(lastPosition.x,lastPosition.y);
-      else{stage.classList.remove('has-frame');hero.dataset.gaze='static';}
-    }catch(error){console.warn('ColorClik gaze: original poster retained',error);stage.classList.remove('has-frame');hero.dataset.gaze='static';}
-    finally{video.removeAttribute('src');video.load();loading=false;}
-  }
   hero.addEventListener('pointerdown',e=>{
     if(!allowed()||e.pointerType==='mouse')return;
     activeTouch=e.pointerId;
     try{hero.setPointerCapture(e.pointerId);}catch{}
-    show(e.clientX,e.clientY);load();
+    show(e.clientX,e.clientY);
   });
   hero.addEventListener('pointermove',e=>{
     if(!allowed())return;
     if(e.pointerType==='touch'&&activeTouch!==e.pointerId)return;
-    show(e.clientX,e.clientY);load();
+    show(e.clientX,e.clientY);
   },{passive:true});
   hero.addEventListener('pointerup',e=>{if(e.pointerType!=='mouse'&&activeTouch===e.pointerId){activeTouch=null;center();}});
   hero.addEventListener('pointercancel',e=>{if(activeTouch===e.pointerId){activeTouch=null;center();}});
