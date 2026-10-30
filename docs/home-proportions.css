@@ -1,0 +1,90 @@
+/* Home compositions matched to the supplied desktop and phone references. */
+@media(min-width:761px){
+ .scene::before{width:70%;left:-37%;top:-90%}
+ .scene::after{width:33%;left:-16.5%;top:-45%}
+ .showcase-heading{left:5.5%;right:4.5%;top:7.8%}
+ .showcase-heading .showcase-title{font-size:2.22vw}
+ .showcase-heading p{font-size:.65vw}
+ .showcase-heading .showcase-intro{font-size:1.02vw;max-width:26%}
+ .scene-marketing .scene-character{left:19.5%;width:24%;height:81%}
+ .scene-branding .scene-character{left:18%;width:26%;height:81%}
+ .scene-web .scene-character{left:16%;width:29%;height:81%}
+ .scene-social .scene-character,.scene-custom .scene-character{left:15%;width:30%;height:81%}
+ .scene .scene-copy{top:33%;left:46.8%;right:12%;font-size:1.2vw}
+ .scene .scene-copy .scene-title{font-size:2.4vw}
+ .scene-web .scene-copy .scene-title{font-size:2.1vw}
+ .scene-social .scene-copy .scene-title,.scene-custom .scene-copy .scene-title{font-size:2vw}
+ .scene-label{font-size:.65vw;margin-bottom:6px}
+ .scene-description{font-size:1.2vw;max-width:30vw;min-height:0;margin-top:9px;line-height:1.35}
+ .scene-social .scene-description,.scene-custom .scene-description{font-size:1.1vw}
+ .scene-cta{width:36.5%;min-height:3.9vw;font-size:.9vw;margin-top:10px;border-radius:1.6vw}
+ .service-avatars{left:28.5%;right:34.5%;bottom:5.3%}
+ .service-avatars button{width:5vw;border-width:3px}
+ .service-avatars button[aria-pressed=true],.service-avatars button[aria-pressed=true]:hover{transform:scale(1.2)}
+ .work-heading{padding:5.4% 5.3% 0}
+ .work-heading h2{font-size:2.4vw}
+ .work-heading>p:first-child{font-size:.6vw}
+ .work-heading>p:last-child{font-size:1.1vw}
+ .work-stage{left:34.8%;width:28.2%;top:38%}
+ .work-name{font-size:3.3vw;min-height:3.7vw;margin-bottom:12px}
+ .work-name-long{font-size:2.55vw}
+ .work-category{font-size:.6vw}
+ .work-controls{left:49%;right:auto;bottom:.5%;max-width:none;transform:translateX(-50%);gap:0}
+ .work-controls [data-work-index]{width:15px;min-width:15px;min-height:24px}
+ .work-controls [data-work-play]{min-width:24px}
+ .work-all{font-size:9px}
+}
+@media(max-width:760px){
+ .showcase-scenes{height:120.5vw;min-height:450px}
+ .showcase-heading{top:12.5%;left:14%;right:14%;text-align:center}
+ .showcase-heading p{font-size:clamp(7px,1.85vw,13px);letter-spacing:.5em}
+ .showcase-heading .showcase-title{font-size:3.85vw;margin:3px -4vw 6px}
+ .showcase-heading .showcase-intro{font-size:clamp(10px,2.6vw,18px);max-width:none;line-height:1.35}
+ .scene,.scene.is-leaving{position:absolute;inset:0;min-height:0;padding:0;display:block}
+ .scene .scene-copy{position:absolute;left:4.5%;right:37%;top:37%;margin:0;font-size:2.9vw}
+ .scene .scene-copy .scene-title{font-size:5.4vw}
+ .scene-copy .scene-title span{white-space:nowrap;margin-bottom:7px}
+ .scene-copy .scene-title strong{font-size:1.4em}
+ .scene-web .scene-copy .scene-title{font-size:3.8vw}
+ .scene-social .scene-copy .scene-title{font-size:4.5vw}
+ .scene-custom .scene-copy .scene-title{font-size:4.1vw}
+ .scene-label{font-size:clamp(7px,1.6vw,11px);letter-spacing:.45em;margin-bottom:9px}
+ .scene-description{font-size:clamp(10px,2.9vw,20px);line-height:1.35;margin-top:12px;min-height:0}
+ .scene-cta{width:67%;min-height:36px;margin-top:12px;border-radius:16px;font-size:clamp(9px,2.5vw,16px)}
+ .scene .scene-character{position:absolute;bottom:0;left:auto;right:-13%;margin:0;width:64%;height:71%;object-fit:contain;object-position:right bottom}
+ .scene::before{width:150%;left:-100%;top:-18%}
+ .scene::after{width:70%;left:-53%;top:-10%}
+ .service-avatars{left:9%;right:9%;bottom:5%;gap:8px}
+ .service-avatars button{width:11vw;border-width:2px}
+ .service-avatars button[aria-pressed=true],.service-avatars button[aria-pressed=true]:hover{transform:scale(1.2)}
+ .work-showcase{min-height:121vw;padding-bottom:80px}
+ .work-heading{padding-top:16vw}
+ .work-stage{width:60%;margin-top:9.5vw}
+ .work-name{font-size:6.5vw}
+ .work-controls{left:48%;right:auto;bottom:5%;transform:translateX(-50%);max-width:none;gap:0}
+ .work-controls [data-work-index]{width:16px;min-width:16px;min-height:24px}
+ .work-controls [data-work-play]{min-width:24px;font-size:10px}
+ .work-all{font-size:9px;padding-inline:4px}
+}
+.about.about-reference{position:relative;isolation:isolate;overflow:hidden;display:block;min-height:46.3vw;background:#fff;color:#111;padding:0;font-family:Montserrat,Arial,sans-serif}
+.about-reference::before,.about-reference::after{content:"";position:absolute;border-radius:50%;pointer-events:none;z-index:-1;background:linear-gradient(130deg,#fff,#fafafa);box-shadow:inset -6px -7px 14px #00000007,4px 5px 10px #00000006;aspect-ratio:1}
+.about-reference::before{width:65%;left:-30%;top:-68%}
+.about-reference::after{width:38%;left:-20%;top:-43%}
+.about.about-reference .about-copy{position:absolute;left:11.7%;top:33%;width:35%;padding:0;z-index:1}
+.about.about-reference .eyebrow{font-size:.55vw;font-weight:300;letter-spacing:.6em;color:#333;margin:0}
+.about.about-reference h2{font-size:2.4vw;line-height:1.35;letter-spacing:-.025em;font-weight:400;text-transform:uppercase}
+.about-reference h2 strong{color:#526f24;font-weight:900}
+.about.about-reference .about-copy>p:not(.eyebrow){font-size:1.05vw;line-height:1.4;color:#222;margin:9px 0}
+.about-reference .about-cta{display:inline-flex;align-items:center;justify-content:center;background:#83c52a;border:1px solid #91ca43;border-radius:18px;padding:10px 18px;min-height:4.1vw;color:#fff;font-size:.8vw;text-decoration:none;text-transform:uppercase;box-shadow:inset 0 1px 4px #ffffff70}
+.about-reference .about-cta:hover{background:#71af1f}
+.about-reference .about-cta:focus-visible{outline:3px solid #526f24;outline-offset:4px}
+.about-reference .about-green{position:absolute;right:7%;bottom:0;width:28%;height:90%;object-fit:contain;object-position:center bottom}
+@media(max-width:760px){
+ .about.about-reference{min-height:0}
+ .about.about-reference .about-copy{position:relative;left:auto;top:auto;width:auto;padding:40px 22px 20px}
+ .about.about-reference .eyebrow{font-size:8px;letter-spacing:.4em}
+ .about.about-reference h2{font-size:clamp(23px,6vw,34px);line-height:1.3}
+ .about.about-reference .about-copy>p:not(.eyebrow){font-size:13px;max-width:440px;margin:14px 0}
+ .about-reference .about-cta{font-size:10px;min-height:40px}
+ .about-reference .about-green{position:relative;right:auto;bottom:auto;width:75%;height:340px;display:block;margin-left:auto;object-position:center bottom}
+}
