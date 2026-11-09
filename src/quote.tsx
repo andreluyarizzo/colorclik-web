@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type FormEvent, type CSSProperties } from "react"
-import { createRoot } from "react-dom/client"
-import { ArrowLeft, ArrowRight, Check, Mail, MessageCircle, Pencil } from "lucide-react"
+import { createRoot, hydrateRoot } from "react-dom/client"
+import { ArrowLeft, ArrowRight, Check, Copy, Download, Mail, MessageCircle, Pencil } from "lucide-react"
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import baseCatalog from "./data/quote-services.json"
 import { buildQuoteMessages } from "./quote-messages.mjs"
@@ -9,8 +9,8 @@ const EMAIL = "hola@colorclik.cl"
 const WHATSAPP = "56964505484"
 const steps = ["Tu proyecto", "Tus datos", "Resumen"]
 const general: typeof baseCatalog[number] = {name:"Necesito orientación",key:"general",color:"#7437ef",title:"No necesitas tenerlo todo resuelto.",goals:["Tengo una idea", "Necesito ayuda", "Quiero saber por dónde empezar"],question:"¿Cómo podemos ayudarte?",answers:["Quiero empezar un proyecto", "Quiero mejorar algo que ya tengo", "Necesito ayuda con mi web o herramientas", "Otra consulta"],plans:[]}
-const character = (key: string) => key === "general" ? "assets/contact-character-corrected.png" : `assets/${key}/hero.webp`
-function Quote({embedded = false}: {embedded?: boolean}) {
+const character = (key: string) => key === "general" ? "assets/optimized/contact-character-480.webp" : `assets/optimized/${key}-quote.webp`
+export function Quote({embedded = false}: {embedded?: boolean}) {
   const catalog = embedded ? [general, ...baseCatalog] : baseCatalog
   const Title = embedded ? "h2" : DialogTitle
   const Description = embedded ? "p" : DialogDescription
@@ -27,6 +27,9 @@ function Quote({embedded = false}: {embedded?: boolean}) {
   const [phone, setPhone] = useState("")
   const [company, setCompany] = useState("")
   const [notice, setNotice] = useState("")
+  const [manualCopy, setManualCopy] = useState(false)
+  const copyField = useRef<HTMLTextAreaElement>(null)
+  const openedSelection = useRef<string | null>(null)
   const returnFocus = useRef<HTMLElement | null>(null)
   const heading = useRef<HTMLHeadingElement>(null)
   const current = catalog.find(item => item.name === service) || catalog[0]
@@ -35,7 +38,7 @@ function Quote({embedded = false}: {embedded?: boolean}) {
 
 
   useEffect(() => {
-    if (embedded) return
+    if (embedded) { document.dispatchEvent(new Event("colorclik:quote-ready")); return }
     const triggers = [...document.querySelectorAll<HTMLElement>("#quote, [data-quote]")]
     const fallback = document.getElementById("quote-dialog")
     if (!fallback) return
@@ -44,16 +47,46 @@ function Quote({embedded = false}: {embedded?: boolean}) {
       returnFocus.current = trigger
       const pageService = document.body.dataset.service || (document.body.classList.contains("web-page") ? "Desarrollo Web" : document.body.classList.contains("marketing-page") ? "Marketing Digital" : "")
       const requested = trigger.dataset.quoteService || pageService
-      setService(catalog.some(item => item.name === requested) ? requested : catalog[0].name)
-      setSelectedPlan(trigger.dataset.plan || "")
-      setGoal(""); setAnswer(""); setBrief(""); setName(""); setEmail(""); setPhone(""); setCompany("")
-      setNotice(""); setStep(requested && catalog.some(item => item.name === requested) ? 0 : -1); setOpen(true)
+      const selection = `${requested}|${trigger.dataset.plan || ""}`
+      if (openedSelection.current !== selection) {
+        setService(catalog.some(item => item.name === requested) ? requested : catalog[0].name)
+        setSelectedPlan(trigger.dataset.plan || "")
+        setGoal(""); setAnswer("")
+        setStep(requested && catalog.some(item => item.name === requested) ? 0 : -1)
+        openedSelection.current = selection
+      }
+      setNotice(""); setOpen(true)
     }
     fallback.setAttribute("data-enhanced", "true")
     triggers.forEach(trigger => trigger.addEventListener("click", show))
+    document.dispatchEvent(new Event("colorclik:quote-ready"))
     return () => { fallback.removeAttribute("data-enhanced"); triggers.forEach(trigger => trigger.removeEventListener("click", show)) }
   }, [])
   useEffect(() => { if (open || (embedded && previousStep.current !== step)) heading.current?.focus(); previousStep.current = step }, [step, open])
+  useEffect(() => { if (manualCopy) { copyField.current?.focus(); copyField.current?.select() } }, [manualCopy])
+  function restart() {
+    setGoal(""); setAnswer(""); setBrief(""); setName(""); setEmail(""); setPhone(""); setCompany("")
+    setSelectedPlan(""); setService(catalog[0].name); setStep(-1); setManualCopy(false)
+    setNotice("Puedes empezar una nueva solicitud.")
+    heading.current?.focus()
+  }
+  async function copyMessage() {
+    try {
+      await navigator.clipboard.writeText(`Para: ${EMAIL}\nAsunto: ${messages.subject}\n\n${messages.emailBody}`)
+      setManualCopy(false); setNotice("Mensaje copiado. Pégalo en tu correo o en WhatsApp y confirma el envío allí.")
+    } catch {
+      setManualCopy(true); setNotice("Selecciona y copia el texto de abajo. También puedes descargar tu solicitud.")
+      copyField.current?.focus(); copyField.current?.select()
+    }
+  }
+  function downloadMessage() {
+    const file = new Blob([`Para: ${EMAIL}\nAsunto: ${messages.subject}\n\n${messages.emailBody}`], {type:"text/plain;charset=utf-8"})
+    const url = URL.createObjectURL(file)
+    const link = document.createElement("a")
+    link.href = url; link.download = "solicitud-colorclik.txt"; link.click()
+    setTimeout(() => URL.revokeObjectURL(url), 1000)
+    setNotice("Solicitud preparada para descargar. Puedes adjuntarla en un correo a " + EMAIL + ".")
+  }
   function advance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     if (step === 0 && brief.trim().length < 10) { setNotice("Describe tu proyecto con al menos 10 caracteres."); document.getElementById("quote-brief")?.focus(); return }
@@ -70,7 +103,7 @@ function Quote({embedded = false}: {embedded?: boolean}) {
   }
   const content = <>
       <aside className={`quote-art quote-art-${current.key}`} aria-hidden="true">
-        <div className="quote-logo"><img src="assets/image-2.png" alt="" width="496" height="120" /></div>
+        <div className="quote-logo"><img src="assets/optimized/logo.webp" alt="" width="496" height="120" /></div>
         <div className="quote-art-copy"><h2>Tu próximo <br />clik empieza <br />aquí.</h2><p>{current.name}<br />Ideas que conectan.<br />Proyectos que avanzan.</p></div>
         <img key={current.key} src={character(current.key)} alt="" className="quote-character" />
       </aside>
@@ -79,7 +112,7 @@ function Quote({embedded = false}: {embedded?: boolean}) {
         <Title ref={heading} tabIndex={-1}>{step < 0 ? (embedded ? "¿En qué podemos ayudarte?" : "¿Qué vamos a crear?") : step === 0 ? current.title : step === 1 ? "Nos falta conocerte." : (current.key === "general" ? "Tu consulta, a un clik." : "Tu cotización, a un clik.")}</Title>
         <Description className="quote-description">{step < 0 ? "Cada gran idea tiene su equipo. Elige tu servicio y hagamos clik." : step === 0 ? "Cuéntanos qué necesitas y preparemos tu próxima idea." : step === 1 ? "¿Con quién tendremos el gusto de hacer clik?" : "Revisa tu proyecto y elige cómo quieres enviarlo."}</Description>
         <form onSubmit={advance} className="quote-form">
-          {step < 0 && <div className="quote-service-picker" role="group" aria-label="Elige un servicio">{catalog.map(item => <button type="button" key={item.key} className={`quote-service-tile ${service === item.name ? "is-selected" : ""}`} style={{ "--tile-accent": item.color } as CSSProperties} aria-pressed={service === item.name} onClick={()=>{setService(item.name);setSelectedPlan("");setGoal("");setAnswer("")}}><span className="quote-service-portrait"><img src={character(item.key)} alt="" loading="lazy" /></span><strong>{item.name}</strong>{service === item.name ? <Check size={18} aria-hidden="true" /> : <ArrowRight size={18} aria-hidden="true" />}</button>)}</div>}
+          {step < 0 && <div className="quote-service-picker" role="group" aria-label="Elige un servicio">{catalog.map(item => <button type="button" key={item.key} className={`quote-service-tile ${service === item.name ? "is-selected" : ""}`} style={{ "--tile-accent": item.color } as CSSProperties} aria-pressed={service === item.name} onClick={()=>{setService(item.name);setSelectedPlan("");setGoal("");setAnswer("")}}><span className="quote-service-portrait"><img src={item.key === "general" ? character(item.key) : `assets/optimized/${item.key}-avatar.webp`} alt="" loading="lazy" /></span><strong>{item.name}</strong>{service === item.name ? <Check size={18} aria-hidden="true" /> : <ArrowRight size={18} aria-hidden="true" />}</button>)}</div>}
           {step === 0 && <>
             <label className="quote-label" htmlFor="quote-service">Servicio</label>
             <select id="quote-service" className="quote-field" value={service} onChange={e => {setService(e.target.value);setSelectedPlan("");setGoal("");setAnswer("")}}>{catalog.map(item => <option key={item.name}>{item.name}</option>)}</select>
@@ -93,24 +126,27 @@ function Quote({embedded = false}: {embedded?: boolean}) {
             <label htmlFor="quote-email">Tu correo *<input id="quote-email" className="quote-field" type="email" autoComplete="email" required maxLength={120} value={email} onChange={e=>setEmail(e.target.value)} /></label>
             <label htmlFor="quote-phone">Tu WhatsApp (opcional)<input id="quote-phone" className="quote-field" type="tel" autoComplete="tel" maxLength={25} value={phone} onChange={e=>setPhone(e.target.value)} placeholder="+56 9…" /></label>
             <label htmlFor="quote-company">Tu empresa (opcional)<input id="quote-company" className="quote-field" autoComplete="organization" maxLength={100} value={company} onChange={e=>setCompany(e.target.value)} /></label>
-            <p className="quote-help">Usaremos estos datos para conversar sobre tu solicitud.</p>
+            <p className="quote-help">Usaremos estos datos para conversar sobre tu solicitud. Se compartirán por el canal que elijas al confirmar el envío. <a href="privacidad.html" target="_blank" rel="noopener noreferrer">Cómo cuidamos tus datos (abre otra pestaña)</a>.</p>
           </div>}
           {step === 2 && <>
             <section className="quote-summary" aria-label="Resumen de tu proyecto"><div><span>{current.name}</span><button type="button" onClick={()=>setStep(0)}><Pencil size={14} /> Editar proyecto</button></div><h3>{plan?.name || (current.key === "general" ? "Conversemos sobre tu idea" : "Propuesta personalizada")}</h3>{plan && <><strong>{plan.price}</strong><p>{plan.billing}</p><p className="quote-help">{plan.note}</p></>}<dl><dt>Objetivo</dt><dd>{goal}</dd><dt>{current.question}</dt><dd>{answer}</dd><dt>Tu idea</dt><dd className="quote-summary-brief">{brief}</dd></dl></section>
             <div className="quote-contact-summary"><div><strong>{name}</strong><p>{email}</p>{phone && <p>{phone}</p>}{company && <p>{company}</p>}</div><button type="button" onClick={()=>setStep(1)}><Pencil size={14} /> Editar datos</button></div>
             <details className="quote-message-preview"><summary>Ver cómo llegará tu solicitud</summary><p>WhatsApp mostrará los encabezados en negrita. El correo conservará estas secciones y sus espacios.</p><pre>{messages.emailBody}</pre></details>
             <div className="quote-send"><button type="button" className="quote-whatsapp" onClick={()=>send("whatsapp")}><MessageCircle size={20} /> Enviar por WhatsApp</button><button type="button" className="quote-email" onClick={()=>send("email")}><Mail size={20} /> Enviar por correo</button></div>
+            <div className="quote-alternatives"><button type="button" onClick={copyMessage}><Copy size={18} /> Copiar mensaje</button><button type="button" onClick={downloadMessage}><Download size={18} /> Descargar solicitud</button></div>
+            {manualCopy && <label htmlFor="quote-copy">Tu solicitud lista para copiar<textarea ref={copyField} id="quote-copy" className="quote-field" readOnly rows={8} value={`Para: ${EMAIL}\nAsunto: ${messages.subject}\n\n${messages.emailBody}`} /></label>}
             <p className="quote-help">Se abrirá WhatsApp o tu aplicación de correo con la cotización completa. Confirma el envío allí. Correo: {EMAIL}.</p>
           </>}
           <p className="quote-notice" role="status" aria-live="polite">{notice}</p>
           <div className="quote-navigation">{(step > 0 || (embedded && step === 0)) && <button type="button" className="quote-back" onClick={()=>{setStep(step-1);setNotice("")}}><ArrowLeft size={17} /> Atrás</button>}{step < 2 && <button type="submit" className="quote-next">{step < 0 ? (embedded ? "Continuar" : "Cotizar mi proyecto") : step === 0 ? "Continuar" : "Ver mi resumen"}<ArrowRight size={18} /></button>}</div>
+          {(brief || name || email) && <button type="button" className="quote-restart" onClick={restart}>Empezar de nuevo</button>}
         </form>
       </div>
   </>
   if (embedded) return <section className="quote-ui quote-wizard contact-wizard" style={{"--quote-accent": current.color} as CSSProperties} aria-label="Formulario de contacto interactivo">{content}</section>
   return <Dialog open={open} onOpenChange={setOpen}><DialogContent className="quote-ui quote-wizard" style={{"--quote-accent":current.color} as CSSProperties} onCloseAutoFocus={event => {event.preventDefault();returnFocus.current?.focus()}}>{content}</DialogContent></Dialog>
 }
-const mount = document.getElementById("quote-ui")
+const mount = typeof document !== "undefined" ? document.getElementById("quote-ui") : null
 if (mount) createRoot(mount).render(<Quote />)
-const contactMount = document.getElementById("contact-app")
-if (contactMount) createRoot(contactMount).render(<Quote embedded />)
+const contactMount = typeof document !== "undefined" ? document.getElementById("contact-app") : null
+if (contactMount) hydrateRoot(contactMount, <Quote embedded />)

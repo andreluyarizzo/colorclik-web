@@ -1,0 +1,73 @@
+/* Shared accessibility, privacy and progressive-enhancement foundations. */
+:root{--text-secondary:#535c69}
+html{scroll-padding-top:24px}body{overflow-wrap:break-word}
+:focus-visible{outline:3px solid #5928c5;outline-offset:4px}
+.site-footer{font-size:13px;line-height:1.5}.site-footer>p{font-size:12px}.site-footer nav{gap:8px 20px}.site-footer nav a{display:inline-flex;align-items:center;min-height:44px;padding-block:8px}
+.whatsapp-float{background:#006d37;font-size:14px}.whatsapp-float:hover{background:#00572c}
+.eyebrow{color:#535c69}.contact .eyebrow{color:#fff}
+.hero:not(.marketing-hero){color:#fff}
+.hero:not(.marketing-hero) .hero-title>p,.hero:not(.marketing-hero) .hero-intro>p{display:table;width:auto;max-width:100%;padding:8px 12px;border-radius:10px;background:#513000;color:#fff;white-space:normal;font-size:14px;line-height:1.5}
+.hero-scroll-cue{background:#513000;color:#fff;border-color:#513000;font-size:14px;min-height:44px;padding:12px 18px}
+.hero-scroll-cue>span{font-size:14px}
+.contact-eyebrow,.contact-direct>a>span:first-child,.studio-closing,.studio-topics>p,.studio-tabs>button,.portfolio-heading .portfolio-eyebrow,.portfolio-count,.portfolio-link-note{color:#535c69}
+.contact-eyebrow,.studio-eyebrow,.portfolio-eyebrow,.marketing-heading .eyebrow,.marketing-price-note{font-size:13px}
+.studio-closing,.studio-topics>p,.portfolio-count,.portfolio-link-note{font-size:14px}
+.quote-ui .quote-progress{font-size:12px;gap:12px;flex-wrap:wrap}.quote-ui .quote-progress .active>span{background:#30223f;color:#fff}
+.quote-ui .quote-help,.quote-ui .quote-count{font-size:13px;color:#535b66;line-height:1.6}
+.quote-ui label,.quote-ui legend{font-size:14px}.quote-ui .quote-choice,.quote-ui .quote-plan-choice{font-size:13px!important}
+.quote-ui .quote-whatsapp{background:#006d37;color:#fff}.quote-ui .quote-help a{text-decoration:underline;text-underline-offset:3px}
+.quote-ui .quote-alternatives{display:flex;gap:8px;flex-wrap:wrap}.quote-alternatives button,.quote-ui .quote-restart{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:10px 14px;border:1px solid #c7ccd3;border-radius:12px;background:#fff;color:#30343b;font-size:14px;cursor:pointer}
+.quote-ui .quote-restart{align-self:flex-start;margin-top:8px;text-decoration:underline}
+.quote-ui .quote-plan-choice strong{font-size:clamp(18px,2vw,23px)}
+.contact-page .contact-wizard .quote-art-general .quote-character{object-fit:contain}
+.marketing-page .hero-intro>p{font-size:15px;line-height:1.5}
+.marketing-page .hero-title>.marketing-hero-description{background:#26211ddd;padding:10px 14px;border-radius:12px;color:#fff;white-space:normal;font-size:16px;line-height:1.5}
+.marketing-page .marketing-direction em{color:#835800}.web-page .marketing-direction em{color:#005fa8}
+.branding-page .marketing-direction em{color:#b9131c}.social-page .marketing-direction em{color:#00646a}.custom-page .marketing-direction em{color:#5622bc}
+.marketing-page .contact h2 em{color:#bda0ff}.web-page .contact h2 em{color:#5abdff}.branding-page .contact h2 em{color:#ff7378}.social-page .contact h2 em{color:#40d6d0}
+.marketing-page .marketing-faq h2 em{color:#835800}.web-page .marketing-faq h2 em{color:#005fa8}.branding-page .marketing-faq h2 em{color:#b9131c}.social-page .marketing-faq h2 em{color:#00646a}.custom-page .marketing-faq h2 em{color:#5622bc}
+.marketing-price-note{color:#505966;line-height:1.7}
+.marketing-marquee{color:#fff;background:#17191d}
+/* The full navigation remains accessible if JavaScript fails or is disabled. */
+.nav-fallback-services{list-style:none;padding:8px 0;margin:0;display:flex;flex-wrap:wrap;gap:8px}.nav-fallback-services a{display:block;min-height:44px;padding:12px;color:#29221e;font-size:14px}
+html:not(.navigation-ready) .site-header .menu-toggle,html:not(.navigation-ready) .nav-trigger{display:none}
+html:not(.navigation-ready) .site-header{position:relative;left:auto;transform:none;background:#24201b;color:#fff;flex-wrap:wrap}
+html:not(.navigation-ready) .site-header #navigation{display:block;position:relative;inset:auto;max-height:none;width:100%;border-radius:16px;background:#fff;color:#17191d}
+html:not(.navigation-ready) .nav-list{display:flex;flex-wrap:wrap}
+.privacy-page{background:#fafafa;color:#17191d}.privacy-page .site-header{position:relative;max-width:1440px;margin:auto;color:#17191d}.privacy-page .brand img{filter:brightness(0)}.privacy-page .menu-toggle{color:#17191d}
+.privacy-content{max-width:820px;margin:auto;padding:48px 24px 72px;line-height:1.7}.privacy-content h1{font-size:clamp(32px,5vw,48px);line-height:1.15;white-space:normal;letter-spacing:-1.3px;margin-bottom:22px}.privacy-content h2{font-size:24px;line-height:1.3;letter-spacing:-.5px;margin:32px 0 12px}.privacy-content p,.privacy-content ul{margin:12px 0;font-size:16px}.privacy-content a{text-decoration:underline;text-underline-offset:3px;color:#5622bc}.privacy-updated{font-size:14px!important;color:#535c69}
+@media(max-width:700px){.site-footer{font-size:13px}.site-footer>p{font-size:12px}.site-footer nav{font-size:13px;gap:4px 18px}.quote-ui .quote-progress{font-size:12px;gap:8px}.quote-ui .quote-plan-choice{min-height:124px}.quote-ui .quote-contact-summary{flex-wrap:wrap}.quote-ui .quote-service-tile strong{font-size:14px}.quote-ui .quote-alternatives button{flex:1 1 100%}.hero:not(.marketing-hero) .hero-title>p{font-size:13px}.hero-scroll-cue>span{font-size:13px}}
+@media(forced-colors:active){button,a,input,select,textarea{forced-color-adjust:auto}.work-controls [data-work-index]::before{background:ButtonText}.service-avatars a[data-active=true] img{outline-color:LinkText}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+/* Content remains legible throughout scroll transitions, including keyboard jumps. */
+.letters-pending .letter,.letters-in .letter{opacity:1;animation:none}
+@media(max-width:700px){
+ .hero:not(.marketing-hero) .hero-title{display:block;position:absolute;left:22px;right:22px;bottom:150px;max-width:none}
+ .hero:not(.marketing-hero) .hero-title h1{position:static;font-size:clamp(32px,8.5vw,46px);white-space:normal}
+ .hero:not(.marketing-hero) .hero-title>p{position:static;margin:0 0 12px;text-align:left;font-size:13px}
+ .hero:not(.marketing-hero) .hero-intro{left:22px;right:22px;bottom:82px;width:auto;max-width:none}
+ .hero:not(.marketing-hero) .hero-intro h2{font-size:23px;line-height:1.1}
+ .hero:not(.marketing-hero) .hero-intro>p{display:none}
+}
+html:not(.navigation-ready) img[data-src]{display:none}
+html:not(.navigation-ready) .site-header .brand img{filter:none}
+/* Explicit heading colors keep each service palette legible. */
+.hero:not(.marketing-hero) .hero-title h1,.hero:not(.marketing-hero) .hero-intro h2{color:#382000}
+body.marketing-page:not(.web-page):not(.remaining-service-page) .hero-title h1,body.social-page .hero-title h1{color:#382000}
+body.marketing-page .hero-intro>p{display:table;max-width:100%;padding:6px 10px;border-radius:8px;background:#26211d;color:#fff}
+body.marketing-page .marketing-direction .about-copy h2 em,body.marketing-page .marketing-heading h2 em,body.marketing-page .marketing-faq h2 em{color:#835800}
+body.web-page .marketing-direction .about-copy h2 em,body.web-page .marketing-heading h2 em,body.web-page .marketing-faq h2 em{color:#005fa8}
+body.branding-page .marketing-direction .about-copy h2 em,body.branding-page .marketing-heading h2 em,body.branding-page .marketing-faq h2 em{color:#b9131c}
+body.social-page .marketing-direction .about-copy h2 em,body.social-page .marketing-heading h2 em,body.social-page .marketing-faq h2 em{color:#00646a}
+body.custom-page .marketing-direction .about-copy h2 em,body.custom-page .marketing-heading h2 em,body.custom-page .marketing-faq h2 em{color:#5622bc}
+body.marketing-page:not(.web-page):not(.remaining-service-page) .process-number{color:#382000}
+body.social-page{--accent-panel:linear-gradient(135deg,#00646a,#00545a)}
+body.branding-page{--accent-panel:linear-gradient(135deg,#bd111d,#9e0710)}
+body.web-page .marketing-meta,body.web-page .marketing-plan.is-recommended,body.web-page .marketing-process{background:#005fa8}
+.service-film-stage picture{display:contents}
+.service-film-stage.has-motion .service-film-poster{opacity:0}
+html:not(.navigation-ready) .contact-page #contact-app .quote-wizard{display:none}
+body.marketing-page:not(.web-page):not(.remaining-service-page) .hero-intro h2,body.social-page .hero-intro h2{color:#382000}
+.quote-ui :is(button,input,select,textarea):focus-visible{outline:3px solid #48258a;outline-offset:3px}
+.studio-art picture{display:contents}
+html:not(.navigation-ready) .studio-topics{display:none}

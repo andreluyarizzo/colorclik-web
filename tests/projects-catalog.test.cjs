@@ -12,4 +12,5 @@ test('Future projects may be in multiple categories but not unknown categories o
   assert.throws(() => validateProjects([sample,sample]), /repeated/);
   assert.throws(() => validateProjects([{...sample,categories:['unknown']}]), /category/);
   assert.throws(() => validateProjects([{...sample,url:'javascript:alert(1)'}]), /URL/);
+  assert.throws(() => validateProjects([{...sample,url:'http://example.com'}]), /URL/);
 });

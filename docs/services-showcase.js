@@ -2,8 +2,8 @@
   'use strict';
   const showcase = document.querySelector('.showcase');
   if (!showcase) return;
-  const buttons = [...showcase.querySelectorAll('.service-avatars button')];
-  const scenes = buttons.map(button => document.getElementById(button.getAttribute('aria-controls')));
+  const buttons = [...showcase.querySelectorAll('.service-avatars a, .service-avatars button')];
+  const scenes = buttons.map(button => document.getElementById((button.dataset.scene || button.getAttribute('aria-controls'))));
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const avatars = showcase.querySelector('.service-avatars');
   let active = 0;
@@ -37,10 +37,13 @@
     scenes.forEach(scene => { if (scene !== next && scene !== previous) scene.hidden = true; });
     previous.style.zIndex = '0';
     next.style.zIndex = '1';
-    buttons.forEach((button, i) => button.setAttribute('aria-pressed', String(i === index)));
+    buttons.forEach((button, i) => {
+      button.dataset.active = String(i === index);
+      if(button.tagName === 'BUTTON')button.setAttribute('aria-pressed',String(i === index));
+    });
     active = index;
     placeAvatars();
-    showcase.querySelector('[role=status]').textContent = buttons[index].getAttribute('aria-label');
+    showcase.querySelector('[role=status]').textContent = (buttons[index].textContent.trim() || buttons[index].getAttribute('aria-label'));
     if (motion.matches || !next.animate) {
       if (motion.matches) showcase.getAnimations({subtree:true}).forEach(animation => animation.cancel());
       previous.hidden = true;
@@ -53,7 +56,9 @@
     fade.finished.then(() => { if (scenes[active] === next) previous.hidden = true; }).catch(() => {});
   }
   buttons.forEach((button, index) => {
-    button.addEventListener('click', () => select(index));
+    if(button.tagName==='BUTTON')button.addEventListener('click',()=>select(index));
+    button.addEventListener('pointerenter', event => { if(event.pointerType === 'mouse') select(index); });
+    button.addEventListener('focus', () => select(index));
     button.addEventListener('keydown', event => {
       let target;
       if (event.key === 'ArrowRight') target = (index + 1) % buttons.length;
@@ -73,6 +78,5 @@
   });
   placeAvatars();
   showcase.classList.add('is-ready');
-  animateCopy(scenes[active]);
 })();
 

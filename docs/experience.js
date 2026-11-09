@@ -1,21 +1,8 @@
 (()=>{
  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
- // One curtain entrance, bounded even if a media resource never finishes loading.
- const preloader=document.querySelector('#page-preloader');
- let loaderDone=false,loaderInterval,loaderExit,loaderSafety;
- const lockedElements=[document.querySelector('header'),document.querySelector('main')];
- const originalInert=lockedElements.map(el=>el.inert),previousOverflow=document.documentElement.style.overflow;
- function releaseLoader(){if(loaderDone)return;loaderDone=true;clearInterval(loaderInterval);clearTimeout(loaderSafety);preloader.remove();document.documentElement.style.overflow=previousOverflow;lockedElements.forEach((el,i)=>el.inert=originalInert[i]);window.dispatchEvent(new CustomEvent('colorclik:ready'))}
-  window.addEventListener('colorclik:ready',()=>{if(reduce.matches)return;const visibleHeadings=Array.from(document.querySelectorAll('[data-letters]')).filter(h=>{const r=h.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight});visibleHeadings.forEach(h=>h.classList.remove('letters-in'));requestAnimationFrame(()=>requestAnimationFrame(()=>visibleHeadings.forEach(h=>h.classList.add('letters-in'))))},{once:true});
- if(reduce.matches){releaseLoader()}else{
-  preloader.hidden=false;document.documentElement.style.overflow='hidden';lockedElements.forEach(el=>el.inert=true);
-  const words=['Ideas.','Color.','Hacemos clik.'];let wordIndex=0;const word=preloader.querySelector('.preloader-word');
-  loaderInterval=setInterval(()=>{word.classList.add('changing');setTimeout(()=>{if(loaderDone)return;wordIndex=(wordIndex+1)%words.length;word.textContent=words[wordIndex];word.classList.remove('changing')},130)},520);
-  loaderExit=setTimeout(()=>{clearInterval(loaderInterval);preloader.classList.add('is-exiting');setTimeout(releaseLoader,820)},1680);
-  loaderSafety=setTimeout(releaseLoader,3300);
- }
- reduce.addEventListener('change',()=>{if(reduce.matches){clearTimeout(loaderExit);releaseLoader()}});
- // Presentation-only services: the destination pages will be added later.
+ document.querySelector('#page-preloader')?.remove();
+ window.dispatchEvent(new CustomEvent('colorclik:ready'));
+ // Legacy service cards retain their visual treatment.
  const panels=Array.from(document.querySelectorAll('.service-grid .service'));
  const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
  panels.forEach(panel=>{
@@ -62,7 +49,7 @@
 (()=>{
  const section=document.querySelector('#resenas'),video=section.querySelector('video'),sound=section.querySelector('.reviews-sound'),play=section.querySelector('.reviews-video-play');
  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
- let visible=false,userPaused=false,userMuted=false,request=0;
+ let visible=false,userPaused=false,userMuted=true,request=0;
  video.loop=true;
  const icon=paths=>`<svg viewBox="0 0 24 24" aria-hidden="true">${paths}</svg>`;
  const speaker='<path d="M11 5 6 9H3v6h3l5 4Z"/>';
@@ -73,18 +60,21 @@
   play.innerHTML=icon(paused?'<path d="m9 5 11 7-11 7Z"/>':'<path d="M8 5v14M16 5v14"/>');
   const playLabel=paused?'Reproducir video':'Pausar video';play.setAttribute('aria-label',playLabel);play.title=playLabel;
  }
- async function start(audible=true){
+ function loadVideo(){
+  const source=video.querySelector('source[data-src]');
+  if(source){source.src=source.dataset.src;source.removeAttribute('data-src');video.load()}
+ }
+ async function start(audible=false){
+  loadVideo();
   const token=++request;video.muted=!audible||userMuted;video.volume=.65;
   try{await video.play()}catch{if(token!==request)return;video.muted=true;try{await video.play()}catch{}}
   if(token!==request){video.pause();video.muted=true}reflect();
  }
  function stop(){request++;video.pause();video.muted=true;reflect()}
- function sync(){if(visible&&!document.hidden&&!userPaused&&!reduced.matches)start();else stop()}
+ function sync(){if(visible&&!document.hidden&&!userPaused&&!reduced.matches)start(!userMuted);else stop()}
  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;sync()},{threshold:.4}).observe(video);
  sound.addEventListener('click',()=>{userMuted=!video.muted;if(!userMuted){userPaused=false;if(video.ended)video.currentTime=0;start(true)}else{video.muted=true;reflect()}});
  play.addEventListener('click',()=>{if(video.paused){userPaused=false;if(video.ended)video.currentTime=0;start(!userMuted)}else{userPaused=true;stop()}});
- // A preceding interaction allows an audible start in browsers that require it.
- document.addEventListener('pointerdown',event=>{if(visible&&!section.contains(event.target)&&!userMuted&&!userPaused&&!reduced.matches)start()});
  for(const event of ['play','pause','volumechange','ended'])video.addEventListener(event,reflect);
  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',sync);reflect();
 })();

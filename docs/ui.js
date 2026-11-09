@@ -34,8 +34,8 @@
    const index=siblings.indexOf(element);
    const card=element.matches('.service,.project');
    const animation=element.animate([
-    {opacity:.06,transform:`translateY(${card?90:60}px) scale(${card ? .93 : .98})`},
-    {opacity:1,transform:'translateY(0px) scale(1)'}
+    {transform:`translateY(${card?90:60}px) scale(${card ? .93 : .98})`},
+    {transform:'translateY(0px) scale(1)'}
    ],{duration:1000,easing:'cubic-bezier(.2,.65,.3,1)',fill:'both'});
    animation.pause();
    return {element,animation,top:layoutTop(element),stagger:Math.min(index,4)*24};
@@ -124,7 +124,6 @@ document.querySelectorAll('.service > video').forEach(video=>{
    catch{if(token===request){video.muted=true;video.play().catch(()=>{})}}
    reflect();
   }
-  card.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'&&finePointer.matches)sound()});
   card.addEventListener('pointerleave',silence);
   toggle.addEventListener('click',()=>{if(video.muted)sound();else silence()});
   toggle.addEventListener('keydown',event=>{if(event.key==='Escape')silence()});

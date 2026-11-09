@@ -10,7 +10,7 @@ function validateProjects(items) {
     if (!/^[a-z0-9-]+$/.test(item.id) || ids.has(item.id)) throw Error(`Invalid or repeated project ID: ${item.id}`);
     ids.add(item.id);
     if (!item.name || !item.categories.length || item.categories.some(key => !categories[key])) throw Error(`Invalid project category: ${item.id}`);
-    if (!/^https?:\/\//.test(item.url)) throw Error(`Invalid project URL: ${item.id}`);
+    if (!/^https:\/\//.test(item.url)) throw Error(`Invalid project URL: ${item.id}`);
     if (!fs.existsSync(path.join(root, 'docs', item.image))) throw Error(`Missing project artwork: ${item.id}`);
   }
 }

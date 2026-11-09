@@ -1,15 +1,8 @@
 // Page-only interactions reuse the shared header, letter effects, gaze and quote UI.
 (()=>{
  const reduced=matchMedia('(prefers-reduced-motion:reduce)');
- const loader=document.querySelector('#page-preloader');
- let loaderExit;
- function finish(){if(!loader?.isConnected)return;loader.remove();dispatchEvent(new CustomEvent('colorclik:ready'));}
- if(reduced.matches)finish();else{
-  loader.hidden=false;
-  loaderExit=setTimeout(()=>{loader.classList.add('is-exiting');setTimeout(finish,820)},900);
-  setTimeout(finish,2400);
- }
- reduced.addEventListener('change',()=>{if(reduced.matches){clearTimeout(loaderExit);finish()}});
+ document.querySelector('#page-preloader')?.remove();
+ dispatchEvent(new CustomEvent('colorclik:ready'));
 
  const marquee=document.querySelector('.marketing-marquee');let marqueeVisible=false;
  function syncMarquee(){marquee.classList.toggle('is-visible',marqueeVisible&&!document.hidden&&!reduced.matches)}
@@ -46,7 +39,7 @@
  const hero=document.querySelector('.marketing-hero'),video=hero.querySelector('.service-hero-video');
  if(video){
   const stage=hero.querySelector('.service-film-stage'),toggle=hero.querySelector('.service-hero-pause');
-  let visible=false,userPaused=false,optedIn=false,primed=false,failed=false,request=0;
+  let visible=false,userPaused=true,optedIn=false,primed=false,failed=false,request=0;
   const saveData=Boolean(navigator.connection?.saveData);
   const allowed=()=>visible&&!document.hidden&&!reduced.matches&&!userPaused&&!failed&&(!saveData||optedIn);
   function reflect(){

@@ -1,8 +1,9 @@
+@font-face{font-family:Montserrat;src:url(assets/fonts/montserrat-variable-latin.woff2) format('woff2');font-style:normal;font-weight:100 900;font-display:swap}
 /* Isolated review prototype: the production home and hero are unchanged. */
-@font-face{font-family:Montserrat;src:url(assets/fonts/montserrat-300.ttf) format('truetype');font-style:normal;font-weight:300;font-display:swap}
-@font-face{font-family:Montserrat;src:url(assets/fonts/montserrat-400.ttf) format('truetype');font-style:normal;font-weight:400;font-display:swap}
-@font-face{font-family:Montserrat;src:url(assets/fonts/montserrat-800.ttf) format('truetype');font-style:normal;font-weight:800;font-display:swap}
-@font-face{font-family:Montserrat;src:url(assets/fonts/montserrat-900.ttf) format('truetype');font-style:normal;font-weight:900;font-display:swap}
+
+
+
+
 .showcase,.showcase *{box-sizing:border-box}
 .showcase{font-family:Montserrat,Arial,sans-serif}
 .showcase{width:100%;max-width:none;margin-inline:0;position:relative;isolation:isolate;overflow:hidden;background:#ffce20}
@@ -43,12 +44,12 @@
 .scene-custom .scene-copy .scene-title{font-size:clamp(28px,3.2vw,56px)}
 .scene-custom .scene-copy .scene-title strong{font-size:1.2em}
 .service-avatars{position:absolute;z-index:3;left:19.5%;right:19.5%;bottom:5.2%;display:flex;justify-content:space-between;align-items:center}
-.service-avatars button{padding:0;border:6px solid #fff;border-radius:50%;width:clamp(54px,8.5vw,150px);aspect-ratio:1;background:#fff;cursor:pointer;box-shadow:0 15px 30px #0002;transition:transform .3s;flex-shrink:0}
+.service-avatars :is(a,button){padding:0;border:6px solid #fff;border-radius:50%;width:clamp(54px,8.5vw,150px);aspect-ratio:1;background:#fff;cursor:pointer;box-shadow:0 15px 30px #0002;transition:transform .3s;flex-shrink:0}
 .service-avatars img{display:block;width:100%;height:100%;object-fit:cover;border-radius:50%}
-.service-avatars button[aria-pressed=true]{transform:scale(1.28)}
-.service-avatars button:hover{transform:scale(1.12)}
-.service-avatars button[aria-pressed=true]:hover{transform:scale(1.28)}
-:is(.service-avatars button,.scene-cta):focus-visible{outline:3px solid #141422;outline-offset:6px;box-shadow:0 0 0 9px #fff}
+.service-avatars :is(a,button)[data-active=true]{transform:scale(1.28)}
+.service-avatars :is(a,button):hover{transform:scale(1.12)}
+.service-avatars :is(a,button)[data-active=true]:hover{transform:scale(1.28)}
+:is(.service-avatars :is(a,button),.scene-cta):focus-visible{outline:3px solid #141422;outline-offset:6px;box-shadow:0 0 0 9px #fff}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
 .showcase:not(.is-ready) .service-avatars{display:none}
 @media(min-width:1800px){.showcase-scenes{height:1100px}.scene-cta{min-height:94px}}
@@ -75,7 +76,7 @@
  .scene-description{max-width:34vw;margin-top:12px;min-height:3.3em}
  .scene-cta{width:43%;min-height:4.1vw;margin-top:8px;font-size:1.05vw;border-radius:2.05vw}
  .service-avatars{left:28%;right:28%;bottom:5.2%}
- .service-avatars button{width:6.2vw;border-width:4px}
+ .service-avatars :is(a,button){width:6.2vw;border-width:4px}
 }
 @media(max-width:760px){
  .showcase-scenes{height:auto;min-height:0}
@@ -96,9 +97,9 @@
  .scene-description{min-height:0;margin-top:12px;line-height:1.4}
  .scene-cta{width:75%;min-height:44px;margin-top:12px;border-radius:22px;font-size:clamp(11px,2.7vw,18px)}
  .service-avatars{position:absolute;left:9%;right:9%;bottom:10%;gap:8px;width:auto}
- .service-avatars button{width:clamp(44px,12vw,75px);border-width:3px}
+ .service-avatars :is(a,button){width:clamp(44px,12vw,75px);border-width:3px}
 }
-@media(prefers-reduced-motion:reduce){.service-avatars button,.scene-cta{transition:none}}
+@media(prefers-reduced-motion:reduce){.service-avatars :is(a,button),.scene-cta{transition:none}}
 
 
 

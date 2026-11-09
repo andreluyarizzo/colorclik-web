@@ -7,10 +7,12 @@ renderServicePages();
 require('./scripts/studio-page.cjs').renderStudioPage();
 require('./scripts/projects-page.cjs').renderProjectsPage();
 require('./scripts/contact-page.cjs').renderContactPage();
+fs.copyFileSync(path.join(__dirname, 'src/templates/privacy-page.html'), path.join(__dirname, 'docs/privacidad.html'));
+const publicPages = [...pages, 'privacidad.html'];
 
 // Render shared navigation and footer into static HTML, without client-side fetches.
 const footer = fs.readFileSync(path.join(__dirname, 'src/templates/footer.html'), 'utf8').trim();
-for (const page of pages) {
+for (const page of publicPages) {
   const file = path.join(__dirname, 'docs', page);
   const html = fs.readFileSync(file, 'utf8');
   const marker = /<!-- site-footer:start -->[\s\S]*?<!-- site-footer:end -->/;
@@ -29,7 +31,30 @@ const styles = spawnSync(process.execPath, [
 if (styles.error) throw styles.error;
 if (styles.status !== 0) process.exit(styles.status || 1);
 
+const chunksDirectory = path.join(__dirname, 'docs/chunks');
+if (fs.existsSync(chunksDirectory)) for (const file of fs.readdirSync(chunksDirectory)) {
+  if (/^quote-[A-Z0-9]+\.js$/.test(file)) fs.unlinkSync(path.join(chunksDirectory,file));
+}
 require('esbuild').buildSync({
   entryPoints: ['src/main.tsx'], bundle: true, minify: true, jsx: 'automatic',
-  target: 'es2020', outfile: 'docs/app.js', legalComments: 'eof'
+  target: 'es2020', format:'esm', splitting:true, outdir:'docs', entryNames:'app', chunkNames:'chunks/[name]-[hash]', legalComments: 'eof'
 });
+
+require('./scripts/site-quality.cjs').applySiteQuality(publicPages);
+for (const page of publicPages) fs.rmSync(path.join(__dirname,'docs',page.replace('.html','.bundle.css')), {force:true});
+
+// Share the exact initial contact UI with the browser: no empty form or layout jump.
+const ssrFile = path.join(__dirname, '.build/quote-ssr.cjs');
+fs.mkdirSync(path.dirname(ssrFile), {recursive:true});
+try {
+  require('esbuild').buildSync({entryPoints:['src/quote.tsx'],bundle:true,platform:'node',format:'cjs',jsx:'automatic',outfile:ssrFile,external:['react','react/jsx-runtime','react-dom','react-dom/client'],logLevel:'silent'});
+  delete require.cache[ssrFile];
+  const {Quote} = require(ssrFile);
+  const markup = require('react-dom/server').renderToString(require('react').createElement(Quote, {embedded:true}));
+  const contactFile = path.join(__dirname, 'docs/contacto.html');
+  const contactHtml = fs.readFileSync(contactFile, 'utf8');
+  fs.writeFileSync(contactFile, contactHtml.replace(/<div id="contact-app">[\s\S]*?<\/div>/, `<div id="contact-app">${markup}</div>`));
+} finally {
+  delete require.cache[ssrFile];
+  if (fs.existsSync(ssrFile)) fs.unlinkSync(ssrFile);
+}

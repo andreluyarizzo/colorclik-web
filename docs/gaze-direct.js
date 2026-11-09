@@ -3,22 +3,18 @@
   const host = document.getElementById('hero-gaze');
   const hero = document.querySelector('.hero');
   if (!host || !hero) return;
-  host.innerHTML = '<div class="gaze-stage"><img class="gaze-poster" src="assets/gaze/original.webp" alt="" width="1672" height="941"><canvas class="gaze-source" width="1280" height="720" aria-hidden="true"></canvas></div>';
   const stage = host.querySelector('.gaze-stage');
   const canvas = host.querySelector('canvas');
-  const ctx = canvas.getContext('2d', {alpha:false});
-  if (!ctx) return;
+  let ctx = null;
   const names=['arriba-izquierda','arriba','arriba-derecha','izquierda','frente','derecha','abajo-izquierda','abajo','abajo-derecha'];
-  const frames=names.map(name=>{
-    const image=new Image();
-    image.src='assets/gaze/frames/'+name+'.webp';
-    return image;
-  });
+  let frames=[],loading=false;
   let ready=false, visible=false, index=4, activeTouch=null, lastPosition=null;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const allowed = () => visible && !document.hidden && !reduced.matches;
   const draw = n => {
     if (!ready || !frames[n]) return;
+    if (!ctx) ctx = canvas.getContext('2d', {alpha:false});
+    if (!ctx) return;
     ctx.drawImage(frames[n],0,0,1280,720);
     index=n;
     stage.classList.add('has-frame');
@@ -26,7 +22,7 @@
   };
   const show = (x,y) => {
     lastPosition={x,y};
-    if (!ready) return;
+    if (!ready) {loadFrames();return;}
     const r=hero.getBoundingClientRect();
     const px=Math.max(-1,Math.min(1,2*(x-r.left)/r.width-1));
     const py=Math.max(-1,Math.min(1,2*(y-r.top)/r.height-1));
@@ -36,15 +32,13 @@
     if(next!==index)draw(next);
   };
   const center = () => {lastPosition=null;if(ready)draw(4);hero.dataset.gazeMoving='false';};
-  const resize=()=>{
-    const r=hero.getBoundingClientRect();
-    const scale=Math.min(r.height/720,(r.width-24)/650);
-    stage.style.width=(1280*scale)+'px';
-    stage.style.height=(720*scale)+'px';
-  };
   // The images are exactly those from the approved direct-transition demo.
   // No MP4 seeking or decoding during pointer movement.
-  Promise.all(frames.map(image=>image.decode())).then(()=>{
+  function loadFrames(){
+   if(loading||reduced.matches)return;
+   loading=true;
+   frames=names.map(name=>{const image=new Image();image.src='assets/gaze/frames/'+name+'.webp';return image});
+   Promise.all(frames.map(image=>image.decode())).then(()=>{
     ready=true;
     draw(4);
     if(lastPosition)show(lastPosition.x,lastPosition.y);
@@ -53,6 +47,8 @@
     console.warn('ColorClik gaze frames unavailable; retaining original poster',error);
     stage.classList.remove('has-frame');hero.dataset.gaze='static';
   });
+  }
+  hero.addEventListener('pointerenter',e=>{if(e.pointerType==='mouse')loadFrames()},{passive:true});
   // Desktop: pointer hover across the hero, without intercepting clicks.
   hero.addEventListener('pointermove',e=>{
     if(e.pointerType!=='mouse'||!allowed())return;
@@ -92,7 +88,7 @@
   hero.addEventListener('touchcancel',endTouch,{passive:true});
   const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(!visible){stage.classList.remove('has-frame');hero.dataset.gaze='static';}},{threshold:.01});
   observer.observe(hero);
-  new ResizeObserver(resize).observe(hero);resize();
+
   document.addEventListener('visibilitychange',()=>{if(document.hidden){stage.classList.remove('has-frame');hero.dataset.gaze='static';}});
   reduced.addEventListener('change',()=>{if(reduced.matches){stage.classList.remove('has-frame');hero.dataset.gaze='static';}});
   hero.dataset.gaze='static';hero.dataset.gazeMoving='false';
